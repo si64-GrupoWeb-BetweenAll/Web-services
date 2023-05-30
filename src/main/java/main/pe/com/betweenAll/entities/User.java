@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name="user")
 @Data
 @NoArgsConstructor
-public class user {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,15 +26,15 @@ public class user {
     private String city;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
-    List<groupUser> groupUserList;
+    List<GroupUser> groupUserList;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
-    List<userCategory> userCategoryList;
+    List<UserCategory> userCategoryList;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
-    List<socialEvent> socialEventList;
+    List<SocialEvent> socialEventList;
 
-    public user(String name, String lastname, String typeDocument, int numberDocument, String phone, String email, String password, String image, String city) {
+    public User(String name, String lastname, String typeDocument, int numberDocument, String phone, String email, String password, String image, String city) {
         this.name = name;
         this.lastname = lastname;
         this.typeDocument = typeDocument;

@@ -10,7 +10,7 @@ import java.time.LocalTime;
 @Data
 @NoArgsConstructor
 
-public class dateSocialEvent {
+public class DateSocialEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,10 +19,10 @@ public class dateSocialEvent {
     private LocalTime endTime;
     @ManyToOne
     @JoinColumn(name = "idSocialEvent")
-    private socialEvent socialEvent;
+    private SocialEvent socialEvent;
 
 
-    public dateSocialEvent(Date date, LocalTime starTime, LocalTime endTime) {
+    public DateSocialEvent(Date date, LocalTime starTime, LocalTime endTime) {
         this.date = date;
         this.starTime = starTime;
         this.endTime = endTime;

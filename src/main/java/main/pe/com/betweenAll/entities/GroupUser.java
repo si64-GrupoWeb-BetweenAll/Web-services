@@ -2,24 +2,29 @@ package main.pe.com.betweenAll.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name="userCategory")
+@Table(name="groupUser")
 @Data
 @NoArgsConstructor
+public class GroupUser {
 
-public class userCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "idUser")
-    private user user;
+    @JoinColumn(name="user_id")
+    private User user;
 
     @ManyToOne
-    @JoinColumn(name = "idCategory")
-    private Category category;
+    @JoinColumn(name="group_id")
+    private Group group;
 
+    public GroupUser(User user, Group group) {
+        this.user = user;
+        this.group = group;
+    }
 }
