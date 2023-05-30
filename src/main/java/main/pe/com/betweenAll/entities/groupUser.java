@@ -21,9 +21,9 @@ public class groupUser {
 
     @ManyToOne
     @JoinColumn(name="group_id")
-    private group group;
+    private Group group;
 
-    public groupUser(main.pe.com.betweenAll.entities.user user, main.pe.com.betweenAll.entities.group group) {
+    public groupUser(main.pe.com.betweenAll.entities.user user, Group group) {
         this.user = user;
         this.group = group;
     }

@@ -20,6 +20,6 @@ public class userCategory {
 
     @ManyToOne
     @JoinColumn(name = "idCategory")
-    private category category;
+    private Category category;
 
 }
