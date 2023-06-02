@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="social_events")
+@Table(name="socials_events")
 @Data
 @NoArgsConstructor
 
@@ -18,7 +18,6 @@ public class SocialEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private String image;
     private String location;
@@ -29,6 +28,8 @@ public class SocialEvent {
     @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;
+    @OneToMany(mappedBy = "social_event", cascade = {CascadeType.REMOVE})
+    List<DateSocialEvent> dateSocialEventList;
 
     public SocialEvent(String name, String image, String location, Long description, User user, Category category) {
         this.name = name;
