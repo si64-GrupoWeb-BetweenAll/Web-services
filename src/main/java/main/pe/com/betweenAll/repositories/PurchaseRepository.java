@@ -1,5 +1,6 @@
 package main.pe.com.betweenAll.repositories;
 
+import main.pe.com.betweenAll.entities.Card;
 import main.pe.com.betweenAll.entities.Purchase;
 import main.pe.com.betweenAll.entities.SocialEvent;
 import org.springframework.context.annotation.Bean;
@@ -11,5 +12,5 @@ import java.util.List;
 
 @Repository
 public interface PurchaseRepository extends JpaRepository <Purchase, Long> {
-
+    List<Purchase> findByUser_Id(Long id);
 }

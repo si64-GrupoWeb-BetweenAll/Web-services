@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="user")
+@Table(name="users")
 @Data
 @NoArgsConstructor
 public class User {
@@ -33,6 +33,11 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
     List<SocialEvent> socialEventList;
+
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
+    List<Card> cardList;
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
+    List<Purchase> purchaseList;
 
     public User(String name, String lastname, String typeDocument, int numberDocument, String phone, String email, String password, String image, String city) {
         this.name = name;
