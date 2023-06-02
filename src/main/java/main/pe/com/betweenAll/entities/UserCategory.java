@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name="userCategory")
+@Table(name="users_categories")
 @Data
 @NoArgsConstructor
 
@@ -15,11 +15,15 @@ public class UserCategory {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "idUser")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "idCategory")
+    @JoinColumn(name = "category_id")
     private Category category;
 
+    public UserCategory(User user, Category category) {
+        this.user = user;
+        this.category = category;
+    }
 }

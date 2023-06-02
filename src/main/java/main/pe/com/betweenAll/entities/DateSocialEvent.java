@@ -5,8 +5,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 import java.time.LocalTime;
+import java.util.List;
+
 @Entity
-@Table(name="dateSocialEvent")
+@Table(name="dates_socials_events")
 @Data
 @NoArgsConstructor
 
@@ -18,13 +20,16 @@ public class DateSocialEvent {
     private LocalTime  starTime;
     private LocalTime endTime;
     @ManyToOne
-    @JoinColumn(name = "idSocialEvent")
+    @JoinColumn(name = "social_event_id")
     private SocialEvent socialEvent;
 
+    @OneToMany(mappedBy = "date_social_event", cascade = {CascadeType.REMOVE})
+    private List<ZoneEvent> zoneEventList;
 
-    public DateSocialEvent(Date date, LocalTime starTime, LocalTime endTime) {
+    public DateSocialEvent(Date date, LocalTime starTime, LocalTime endTime, SocialEvent socialEvent) {
         this.date = date;
         this.starTime = starTime;
         this.endTime = endTime;
+        this.socialEvent = socialEvent;
     }
 }

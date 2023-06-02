@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "categorys")
+@Table(name = "categories")
 @Data
 @NoArgsConstructor
 public class Category {
