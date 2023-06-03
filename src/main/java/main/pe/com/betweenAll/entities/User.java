@@ -39,6 +39,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
     List<Purchase> purchaseList;
 
+
+
     public User(String name, String lastname, String typeDocument, int numberDocument, String phone, String email, String password, String image, String city) {
         this.name = name;
         this.lastname = lastname;

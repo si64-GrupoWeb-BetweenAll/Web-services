@@ -13,4 +13,6 @@ import java.util.List;
 @Repository
 public interface PurchaseRepository extends JpaRepository <Purchase, Long> {
     List<Purchase> findByUser_Id(Long id);
+
+    List<Purchase> findByCard_Id(Long id);
 }

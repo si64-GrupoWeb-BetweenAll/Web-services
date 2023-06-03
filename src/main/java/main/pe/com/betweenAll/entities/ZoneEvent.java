@@ -16,13 +16,25 @@ public class ZoneEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String name;
+    private Double price;
+    private Integer capacity;
+
     @ManyToOne
     @JoinColumn(name = "date_social_event_id")
     private DateSocialEvent dateSocialEvent;
     @OneToMany(mappedBy = "zone_event", cascade = {CascadeType.REMOVE})
     List<Ticket> ticketList;
 
-    public ZoneEvent(DateSocialEvent dateSocialEvent) {
+    //public ZoneEvent(DateSocialEvent dateSocialEvent) {
+      //  this.dateSocialEvent = dateSocialEvent;
+    //}
+
+    public ZoneEvent(String name, Double price, Integer capacity, DateSocialEvent dateSocialEvent) {
+        this.name = name;
+        this.price = price;
+        this.capacity = capacity;
         this.dateSocialEvent = dateSocialEvent;
     }
 }
