@@ -30,7 +30,6 @@ public class Card {
     @OneToMany(mappedBy = "card", cascade = {CascadeType.REMOVE})
     List<Purchase> purchaseList;
 
-
     public Card(String name, Long number, Integer cvv, Date dueDate, String state, User user) {
         this.name = name;
         this.number = number;

@@ -21,6 +21,12 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = {CascadeType.REMOVE})
     private List<Group> groupList;
 
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.REMOVE})
+    private List<SocialEvent> socialEventList;
+
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.REMOVE})
+    private List<UserCategory> userCategoryList;
+
     public Category(String name, String state) {
         this.name = name;
         this.state = state;

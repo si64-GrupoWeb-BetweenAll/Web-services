@@ -17,7 +17,7 @@ public class SocialEventServiceImpl implements SocialEventService {
     @Autowired
     SocialEventRepository socialEventRepository;
     DateSocialEventRepository dateSocialEventRepository;
-
+    @Transactional
     public List<SocialEvent> listAll() {
         List<SocialEvent> socialEvents;
         socialEvents= socialEventRepository.findAll();

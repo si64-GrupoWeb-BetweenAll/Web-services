@@ -16,13 +16,13 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     TicketRepository ticketRepository;
-
+    @Transactional
     public List<Ticket> listAll() {
         List<Ticket> tickets;
         tickets= ticketRepository.findAll();
         return tickets;
     }
-
+    @Transactional
     public Ticket listById(Long id) {
         Ticket ticket;
         ticket=ticketRepository.findById(id).get();
@@ -30,7 +30,6 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Transactional
-
     public Ticket save(Ticket ticket) {
         Ticket newTicket = ticketRepository.save(new Ticket(ticket.getPurchase(), ticket.getZoneEvent()));
         return newTicket;

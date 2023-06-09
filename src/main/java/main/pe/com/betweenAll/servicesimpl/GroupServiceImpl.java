@@ -14,6 +14,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Autowired
     GroupRepository groupRepository;
+    @Transactional
     public List<Group> listAll() {
         List<Group> groups;
         groups=groupRepository.findAll();
@@ -23,6 +24,7 @@ public class GroupServiceImpl implements GroupService {
         }
         return groups;
     }
+    @Transactional
     public List<Group> listByName(String name){
         List<Group> groups;
         groups=groupRepository.findBynameContaining(name);
@@ -31,7 +33,7 @@ public class GroupServiceImpl implements GroupService {
         }
         return groups;
     }
-
+    @Transactional
     public Group listById(Long id) {
         return null;
     }

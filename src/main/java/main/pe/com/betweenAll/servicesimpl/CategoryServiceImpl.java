@@ -17,7 +17,7 @@ public class CategoryServiceImpl implements CategoryService {
     CategoryRepository categoryRepository;
     @Autowired
     GroupRepository groupRepository;
-
+    @Transactional
     public List<Category> listAll() {
         List<Category> categories;
         categories=categoryRepository.findAll();
@@ -26,6 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
         return categories;
     }
+    @Transactional
     public List<Category> listByName(String name) {
         List<Category> categories;
         categories=categoryRepository.findByNameContaining(name);
@@ -34,12 +35,14 @@ public class CategoryServiceImpl implements CategoryService {
         }
         return categories;
     }
+    @Transactional
     public Category listById(Long id) {
         Category categories;
         categories=categoryRepository.findById(id).get();
         categories.setGroupList(null);
         return categories;
     }
+    @Transactional
     public List<Category> listAllWithGroup(){
         List<Category> categories;
         categories=categoryRepository.findAll();

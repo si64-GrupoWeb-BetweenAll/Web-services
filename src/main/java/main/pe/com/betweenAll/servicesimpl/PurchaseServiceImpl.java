@@ -17,7 +17,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Autowired
     PurchaseRepository purchaseRepository;
     TicketRepository ticketRepository;
-
+    @Transactional
     public List<Purchase> listAll() {
         List<Purchase> purchases;
         purchases= purchaseRepository.findAll();
@@ -28,7 +28,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
         return purchases;
     }
-
+    @Transactional
     public Purchase listById(Long id) {
         Purchase purchase;
         purchase=purchaseRepository.findById(id).get();

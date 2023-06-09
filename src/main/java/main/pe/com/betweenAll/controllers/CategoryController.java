@@ -1,6 +1,7 @@
 package main.pe.com.betweenAll.controllers;
 
 import main.pe.com.betweenAll.entities.Category;
+import main.pe.com.betweenAll.entities.Purchase;
 import main.pe.com.betweenAll.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,5 +25,10 @@ public class CategoryController {
     public ResponseEntity<Category>getCategoryById(@PathVariable("id")Long id){
         Category categories = categoryService.listById(id);
         return new ResponseEntity<Category>(categories, HttpStatus.OK);
+    }
+    @PostMapping("/categorys")
+    public ResponseEntity<Category> createCategory (@RequestBody Category category) {
+        Category newCategory = categoryService.save(category);
+        return new ResponseEntity<Category>(newCategory, HttpStatus.CREATED);
     }
 }
