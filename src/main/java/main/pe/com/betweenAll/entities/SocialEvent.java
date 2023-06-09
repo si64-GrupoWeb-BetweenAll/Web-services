@@ -28,7 +28,7 @@ public class SocialEvent {
     @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;
-    @OneToMany(mappedBy = "social_event", cascade = {CascadeType.REMOVE})
+    @OneToMany(mappedBy = "socialEvent", cascade = {CascadeType.REMOVE})
     List<DateSocialEvent> dateSocialEventList;
 
     public SocialEvent(String name, String image, String location, Long description, User user, Category category) {

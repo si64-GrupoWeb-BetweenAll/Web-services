@@ -8,7 +8,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Entity
-@Table(name="dates_socials_events")
+@Table(name="date_social_events")
 @Data
 @NoArgsConstructor
 
@@ -23,7 +23,7 @@ public class DateSocialEvent {
     @JoinColumn(name = "social_event_id")
     private SocialEvent socialEvent;
 
-    @OneToMany(mappedBy = "date_social_event", cascade = {CascadeType.REMOVE})
+    @OneToMany(mappedBy = "dateSocialEvent", cascade = {CascadeType.REMOVE})
     private List<ZoneEvent> zoneEventList;
 
     public DateSocialEvent(Date date, LocalTime starTime, LocalTime endTime, SocialEvent socialEvent) {
