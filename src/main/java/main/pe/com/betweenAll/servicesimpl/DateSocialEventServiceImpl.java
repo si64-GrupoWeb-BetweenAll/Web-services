@@ -32,7 +32,7 @@ public class DateSocialEventServiceImpl implements DateSocialEventService {
     @Transactional
     public DateSocialEvent listById(Long id){
         DateSocialEvent dateSocialEvent=dateSocialEventRepository.findById(id).get();
-        dateSocialEvent.setZoneEventList(null);
+        //dateSocialEvent.setZoneEventList(null);
         return dateSocialEvent;
     }
     @Transactional

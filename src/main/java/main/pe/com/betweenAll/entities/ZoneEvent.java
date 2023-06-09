@@ -1,11 +1,9 @@
 package main.pe.com.betweenAll.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -16,13 +14,27 @@ public class ZoneEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+<<<<<<< Updated upstream
+=======
+    private String name;
+    private Double price;
+    private Integer capacity;
+
+>>>>>>> Stashed changes
     @ManyToOne
     @JoinColumn(name = "date_social_event_id")
     private DateSocialEvent dateSocialEvent;
-    @OneToMany(mappedBy = "zone_event", cascade = {CascadeType.REMOVE})
+    @OneToMany(mappedBy = "zoneEvent", cascade = {CascadeType.REMOVE})
     List<Ticket> ticketList;
 
+<<<<<<< Updated upstream
     public ZoneEvent(DateSocialEvent dateSocialEvent) {
+=======
+    public ZoneEvent(String name, Double price, Integer capacity, DateSocialEvent dateSocialEvent) {
+        this.name = name;
+        this.price = price;
+        this.capacity = capacity;
+>>>>>>> Stashed changes
         this.dateSocialEvent = dateSocialEvent;
     }
 }

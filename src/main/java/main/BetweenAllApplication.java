@@ -14,12 +14,4 @@ public class BetweenAllApplication {
         SpringApplication.run(BetweenAllApplication.class, args);
     }
 
-    @Bean
-    public CommandLineRunner mappingDemo(
-    ) {
-        return args -> {
-
-        };
-    }
-
 }
