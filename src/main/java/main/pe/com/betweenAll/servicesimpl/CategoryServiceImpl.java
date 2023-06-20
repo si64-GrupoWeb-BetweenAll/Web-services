@@ -23,6 +23,8 @@ public class CategoryServiceImpl implements CategoryService {
         categories=categoryRepository.findAll();
         for(Category c: categories){
             c.setGroupList(null);
+            c.setSocialEventList(null);
+            c.setUserCategoryList(null);
         }
         return categories;
     }

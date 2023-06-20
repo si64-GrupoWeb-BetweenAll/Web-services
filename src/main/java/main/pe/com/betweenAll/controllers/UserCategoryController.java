@@ -1,5 +1,6 @@
 package main.pe.com.betweenAll.controllers;
 
+import main.pe.com.betweenAll.dtos.DTOUserCategorySummary;
 import main.pe.com.betweenAll.entities.UserCategory;
 import main.pe.com.betweenAll.services.UserCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,11 @@ public class UserCategoryController {
     public ResponseEntity<List<UserCategory>> getAllUserCategory(){
         List<UserCategory> userCategoryList = userCategoryService.listAll();
         return new ResponseEntity<List<UserCategory>>(userCategoryList,HttpStatus.OK);
+    }
+    @GetMapping("/userCategories/summary")
+    public ResponseEntity<List<DTOUserCategorySummary>> getAuthorsSummary() {
+        List<DTOUserCategorySummary> dtoUserCategorySummaryList = userCategoryService.listUserCategorySummary();
+        return new ResponseEntity<List<DTOUserCategorySummary>>(dtoUserCategorySummaryList, HttpStatus.OK);
     }
 
 

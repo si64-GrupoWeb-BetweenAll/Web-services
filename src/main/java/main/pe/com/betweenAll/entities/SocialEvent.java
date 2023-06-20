@@ -21,7 +21,7 @@ public class SocialEvent {
     private String name;
     private String image;
     private String location;
-    private Long description;
+    private String description;
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
@@ -31,7 +31,7 @@ public class SocialEvent {
     @OneToMany(mappedBy = "socialEvent", cascade = {CascadeType.REMOVE})
     List<DateSocialEvent> dateSocialEventList;
 
-    public SocialEvent(String name, String image, String location, Long description, User user, Category category) {
+    public SocialEvent(String name, String image, String location, String description, User user, Category category) {
         this.name = name;
         this.image = image;
         this.location = location;

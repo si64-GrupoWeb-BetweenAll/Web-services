@@ -1,9 +1,6 @@
 package main.pe.com.betweenAll.servicesimpl;
 
-import main.pe.com.betweenAll.entities.Card;
-import main.pe.com.betweenAll.entities.Purchase;
-import main.pe.com.betweenAll.entities.Ticket;
-import main.pe.com.betweenAll.entities.ZoneEvent;
+import main.pe.com.betweenAll.entities.*;
 import main.pe.com.betweenAll.repositories.CardRepository;
 import main.pe.com.betweenAll.repositories.PurchaseRepository;
 import main.pe.com.betweenAll.services.CardService;
@@ -20,13 +17,16 @@ public class CardServiceImpl implements CardService {
 
     @Autowired
     PurchaseRepository purchaseRepository;
-
+    @Transactional
     public List<Card> listAll() {
         List<Card> cards;
         cards= cardRepository.findAll();
+        for(Card c: cards){
+            c.setPurchaseList(null);
+        }
         return cards;
     }
-
+    @Transactional
     public Card listById(Long id) {
         Card card;
         card=cardRepository.findById(id).get();
