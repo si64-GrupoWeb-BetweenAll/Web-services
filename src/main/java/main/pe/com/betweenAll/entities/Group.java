@@ -21,14 +21,16 @@ public class Group {
     private String image;
 
     @ManyToOne
-    @JoinColumn(name="group_id")
+    @JoinColumn(name = "category_id")
     private Category category;
     @OneToMany(mappedBy = "group", cascade = {CascadeType.REMOVE})
     private List<GroupUser> groupUserList;
 
-    public Group(String name, String description, String image) {
+
+    public Group(String name, String description, String image, Category category) {
         this.name = name;
         this.description = description;
         this.image = image;
+        this.category = category;
     }
 }

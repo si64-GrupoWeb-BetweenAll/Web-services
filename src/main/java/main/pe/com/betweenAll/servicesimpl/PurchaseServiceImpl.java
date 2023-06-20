@@ -1,5 +1,6 @@
 package main.pe.com.betweenAll.servicesimpl;
 
+import main.pe.com.betweenAll.entities.GroupUser;
 import main.pe.com.betweenAll.entities.Purchase;
 import main.pe.com.betweenAll.entities.Ticket;
 import main.pe.com.betweenAll.repositories.PurchaseRepository;
@@ -23,9 +24,15 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchases= purchaseRepository.findAll();
 
         for(Purchase p: purchases){
+            p.getUser().setSocialEventList(null);
+            p.getUser().setUserCategoryList(null);
+            p.getUser().setGroupUserList(null);
+            p.getUser().setCardList(null);
+            p.getCard().setUser(null);
+            p.getCard().setPurchaseList(null);
+            p.getUser().setPurchaseList(null);
             p.setTicketList(null);
         }
-
         return purchases;
     }
     @Transactional

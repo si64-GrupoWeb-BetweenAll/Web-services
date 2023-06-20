@@ -1,5 +1,6 @@
 package main.pe.com.betweenAll.controllers;
 
+import main.pe.com.betweenAll.dtos.DTOGroupSummary;
 import main.pe.com.betweenAll.entities.Category;
 import main.pe.com.betweenAll.entities.Group;
 import main.pe.com.betweenAll.services.CategoryService;
@@ -55,5 +56,11 @@ public class GroupController {
 
         Group updateGroup=groupService.save(foundGroup);
         return new ResponseEntity<Group>(updateGroup,HttpStatus.OK);
+    }
+
+    @GetMapping("/groups/summary")
+    public ResponseEntity<List<DTOGroupSummary>> getGroupSummay(){
+        List<DTOGroupSummary> dtoGroupSummaries =groupService.listGroupSummary();
+        return new ResponseEntity<List<DTOGroupSummary>>(dtoGroupSummaries,HttpStatus.OK);
     }
 }

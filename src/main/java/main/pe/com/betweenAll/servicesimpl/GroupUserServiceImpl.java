@@ -1,6 +1,7 @@
 package main.pe.com.betweenAll.servicesimpl;
 
 import main.pe.com.betweenAll.entities.GroupUser;
+import main.pe.com.betweenAll.entities.SocialEvent;
 import main.pe.com.betweenAll.repositories.GroupRepository;
 import main.pe.com.betweenAll.repositories.GroupUserRepository;
 import main.pe.com.betweenAll.repositories.UserRepository;
@@ -38,6 +39,9 @@ public class GroupUserServiceImpl implements GroupUserService {
     @Transactional
     public List<GroupUser> listAll() {
         List<GroupUser> groupUserList = groupUserRepository.findAll();
+        for(GroupUser g: groupUserList){
+            g.getUser().setGroupUserList(null);
+        }
         return groupUserList;
     }
 

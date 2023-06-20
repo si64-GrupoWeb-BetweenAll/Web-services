@@ -1,5 +1,6 @@
 package main.pe.com.betweenAll.servicesimpl;
 
+import main.pe.com.betweenAll.entities.Card;
 import main.pe.com.betweenAll.entities.SocialEvent;
 import main.pe.com.betweenAll.entities.DateSocialEvent;
 import main.pe.com.betweenAll.repositories.SocialEventRepository;
@@ -21,6 +22,15 @@ public class SocialEventServiceImpl implements SocialEventService {
     public List<SocialEvent> listAll() {
         List<SocialEvent> socialEvents;
         socialEvents= socialEventRepository.findAll();
+        for(SocialEvent s: socialEvents){
+            s.getUser().setGroupUserList(null);
+            s.getUser().setUserCategoryList(null);
+            s.getUser().setSocialEventList(null);
+            s.getUser().setCardList(null);
+            s.getCategory().setSocialEventList(null);
+            s.getCategory().setGroupList(null);
+            s.setDateSocialEventList(null);
+        }
         return socialEvents;
     }
 

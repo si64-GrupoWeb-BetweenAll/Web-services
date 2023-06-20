@@ -23,6 +23,10 @@ public class CardServiceImpl implements CardService {
         cards= cardRepository.findAll();
         for(Card c: cards){
             c.setPurchaseList(null);
+            c.getUser().setGroupUserList(null);
+
+            c.getUser().setSocialEventList(null);
+            c.getUser().setCardList(null);
         }
         return cards;
     }
