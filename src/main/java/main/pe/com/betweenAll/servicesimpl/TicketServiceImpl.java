@@ -2,6 +2,7 @@ package main.pe.com.betweenAll.servicesimpl;
 
 import main.pe.com.betweenAll.entities.Purchase;
 import main.pe.com.betweenAll.entities.Ticket;
+import main.pe.com.betweenAll.exceptions.IncompleteDataException;
 import main.pe.com.betweenAll.repositories.PurchaseRepository;
 import main.pe.com.betweenAll.repositories.TicketRepository;
 import main.pe.com.betweenAll.services.TicketService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.lang.module.ResolutionException;
 import java.util.List;
 
 @Service
@@ -25,7 +27,8 @@ public class TicketServiceImpl implements TicketService {
     @Transactional
     public Ticket listById(Long id) {
         Ticket ticket;
-        ticket=ticketRepository.findById(id).get();
+        ticket=ticketRepository.findById(id).orElseThrow(()->new ResolutionException("Not found an Ticket with id="+id));
+
         return ticket;
     }
 

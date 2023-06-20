@@ -1,5 +1,7 @@
 package main.pe.com.betweenAll.controllers;
 
+import main.pe.com.betweenAll.dtos.DTOSocialEventSummary;
+import main.pe.com.betweenAll.dtos.DTOUserCategorySummary;
 import main.pe.com.betweenAll.entities.SocialEvent;
 import main.pe.com.betweenAll.services.SocialEventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,4 +72,9 @@ public class SocialEventController {
         return new ResponseEntity<SocialEvent>(updateSocialEvent, HttpStatus.OK);
     }
 
+    @GetMapping("/social_events/summary")
+    public ResponseEntity<List<DTOSocialEventSummary>> getSocialEventSummary() {
+        List<DTOSocialEventSummary> dtoSocialEventSummaryList = socialEventService.listSocialEventSummary();
+        return new ResponseEntity<List<DTOSocialEventSummary>>(dtoSocialEventSummaryList, HttpStatus.OK);
+    }
 }
