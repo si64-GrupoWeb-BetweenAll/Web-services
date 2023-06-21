@@ -39,6 +39,25 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
     List<Purchase> purchaseList;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name="users_authorities",
+            joinColumns = {
+                    @JoinColumn(
+                            name="user_id",
+                            referencedColumnName = "id",
+                            nullable = false
+                    )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn (
+                            name="authority_id",
+                            referencedColumnName = "id",
+                            nullable = false
+                    )
+            }
+    )
+    private List<Authority> authorityList;
 
 
     public User(String name, String lastname, String typeDocument, int numberDocument, String phone, String email, String password, String image, String city) {
