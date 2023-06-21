@@ -16,17 +16,17 @@ import java.util.List;
 public class CategoryController {
     @Autowired
     CategoryService categoryService;
-    @GetMapping("/categorys")
-    public ResponseEntity<List<Category>>getAllCategorys(){
+    @GetMapping("/categories")
+    public ResponseEntity<List<Category>>getAllCategories(){
         List<Category> categories = categoryService.listAll();
         return new ResponseEntity<List<Category>>(categories, HttpStatus.OK);
     }
-    @GetMapping("/categorys/{id}")
+    @GetMapping("/categories/{id}")
     public ResponseEntity<Category>getCategoryById(@PathVariable("id")Long id){
         Category categories = categoryService.listById(id);
         return new ResponseEntity<Category>(categories, HttpStatus.OK);
     }
-    @PostMapping("/categorys")
+    @PostMapping("/categories")
     public ResponseEntity<Category> createCategory (@RequestBody Category category) {
         Category newCategory = categoryService.save(category);
         return new ResponseEntity<Category>(newCategory, HttpStatus.CREATED);

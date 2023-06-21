@@ -47,7 +47,7 @@ public class BetweenAllApplication {
             DateSocialEvent dateSocialEvent = dateSocialEventRepository.save(new DateSocialEvent(dateFormat.parse("2023-03-23"),
                     LocalTime.of(10,10,10),LocalTime.of(18,10,10),socialEvent));
             ZoneEvent zoneEvent= zoneEventRepository.save(new ZoneEvent("Platino",123.5,50,dateSocialEvent));
-            Group group= groupRepository.save(new Group("Los inmortales","Solo gente seria",""));
+            Group group= groupRepository.save(new Group("Los inmortales","Solo gente seria","",category));
             GroupUser groupUser=groupUserRepository.save(new GroupUser(user,group));
             Purchase purchase=purchaseRepository.save(new Purchase(Long.valueOf("20"),dateFormat.parse("2023-03-23"),user,card));
             Ticket ticket=ticketRepository.save(new Ticket(purchase,zoneEvent));

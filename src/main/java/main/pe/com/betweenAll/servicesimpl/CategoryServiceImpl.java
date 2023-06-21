@@ -2,6 +2,7 @@ package main.pe.com.betweenAll.servicesimpl;
 
 import main.pe.com.betweenAll.entities.Category;
 import main.pe.com.betweenAll.entities.Group;
+import main.pe.com.betweenAll.exceptions.IncompleteDataException;
 import main.pe.com.betweenAll.repositories.CategoryRepository;
 import main.pe.com.betweenAll.repositories.GroupRepository;
 import main.pe.com.betweenAll.services.CategoryService;
@@ -52,6 +53,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
     @Transactional
     public Category save(Category category){
+        //EXCEPTIONS
+        if(category.getName()==null || category.getName().isEmpty()){
+            throw new IncompleteDataException("Category Name can not be null or empty");
+        }
+        if(category.getState()==null || category.getState().isEmpty()){
+            throw new IncompleteDataException("Category State can not be null or empty");
+        }
         Category newCategory = categoryRepository.save(new Category(category.getName(), category.getState()));
         return newCategory;
     }
