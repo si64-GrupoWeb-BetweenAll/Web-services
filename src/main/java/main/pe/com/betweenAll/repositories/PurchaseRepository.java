@@ -15,4 +15,7 @@ public interface PurchaseRepository extends JpaRepository <Purchase, Long> {
     List<Purchase> findByUser_Id(Long id);
 
     List<Purchase> findByCard_Id(Long id);
+
+    /*@Query(value="SELECT * FROM employees WHERE email=?1 AND age<?2", nativeQuery = true)
+    List<Employee> findByCityAndLowerAge (String city, Integer age);*/
 }

@@ -1,5 +1,7 @@
 package main.pe.com.betweenAll.controllers;
 
+import main.pe.com.betweenAll.dtos.DTOAssistedTicketsSummary;
+import main.pe.com.betweenAll.dtos.DTOSocialEventSummary;
 import main.pe.com.betweenAll.entities.Purchase;
 import main.pe.com.betweenAll.entities.SocialEvent;
 import main.pe.com.betweenAll.services.PurchaseService;
@@ -66,4 +68,11 @@ public class PurchaseController {
         Purchase updatePurchase = purchaseService.save(foundPurchase);
         return new ResponseEntity<Purchase>(updatePurchase, HttpStatus.OK);
     }
+
+    @GetMapping("/purchases/summary")
+    public ResponseEntity<List<DTOAssistedTicketsSummary>> getAssistedTicketsSummary() {
+        List<DTOAssistedTicketsSummary> dtoAssistedTicketsSummaryList = purchaseService.listAssistedTicketsSummary();
+        return new ResponseEntity<List<DTOAssistedTicketsSummary>>(dtoAssistedTicketsSummaryList, HttpStatus.OK);
+    }
+
 }
