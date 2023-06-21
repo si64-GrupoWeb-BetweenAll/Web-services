@@ -20,7 +20,7 @@ public class Authority {
     @Enumerated(EnumType.STRING)
     private AuthorityName name;
 
-    @ManyToMany(mappedBy = "authorities")
+    @ManyToMany(mappedBy = "authorityList")
     private List<User> users;
 
     public Authority(AuthorityName name) {
