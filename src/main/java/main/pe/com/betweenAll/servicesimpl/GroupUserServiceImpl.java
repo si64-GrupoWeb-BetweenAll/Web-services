@@ -1,5 +1,6 @@
 package main.pe.com.betweenAll.servicesimpl;
 
+import main.pe.com.betweenAll.dtos.DTOGroupUserSummary;
 import main.pe.com.betweenAll.entities.GroupUser;
 import main.pe.com.betweenAll.repositories.GroupRepository;
 import main.pe.com.betweenAll.repositories.GroupUserRepository;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,6 +41,19 @@ public class GroupUserServiceImpl implements GroupUserService {
     public List<GroupUser> listAll() {
         List<GroupUser> groupUserList = groupUserRepository.findAll();
         return groupUserList;
+    }
+
+    @Transactional
+    public List<DTOGroupUserSummary> listGroupUserSummary(){
+        List<GroupUser>groupUserList=groupUserRepository.findAll();
+        List<DTOGroupUserSummary> dtoGroupUserSummaryList = new ArrayList<>();
+
+        for(GroupUser gU: groupUserList) {
+            DTOGroupUserSummary dtoGroupUserSummary= new DTOGroupUserSummary(gU.getGroup().getName(),
+                    gU.getUser().getName(), gU.getGroup().getId(), gU.getGroup().getId());
+            dtoGroupUserSummaryList.add(dtoGroupUserSummary);
+        }
+        return dtoGroupUserSummaryList;
     }
 
 }

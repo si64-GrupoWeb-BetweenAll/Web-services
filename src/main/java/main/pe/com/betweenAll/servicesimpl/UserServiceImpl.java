@@ -1,6 +1,9 @@
 package main.pe.com.betweenAll.servicesimpl;
 
 import main.pe.com.betweenAll.entities.*;
+import main.pe.com.betweenAll.exceptions.IncompleteDataException;
+import main.pe.com.betweenAll.exceptions.KeyRepeatedDataException;
+import main.pe.com.betweenAll.exceptions.ResourceNotFoundException;
 import main.pe.com.betweenAll.repositories.*;
 import main.pe.com.betweenAll.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +60,7 @@ public class UserServiceImpl implements UserService {
 
     public User listById(Long id) {
         User user;
-        user = userRepository.findById(id).get();
+        user = userRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Not found an User with id="+id));
         user.setGroupUserList(null);
         user.setUserCategoryList(null);
         user.setSocialEventList(null);
@@ -68,8 +71,50 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public User save(User user) {
-        User newUser = new User(user.getName(), user.getLastname(), user.getTypeDocument(), user.getNumberDocument(), user.getPhone(), user.getEmail(), user.getPassword(), user.getImage(), user.getCity());
-        User savedUser = userRepository.save(newUser);
+
+        if (user.getName() == null || user.getName().isEmpty()) {
+            throw new IncompleteDataException("User Name can not be null or empty");
+        }
+
+        if (user.getLastname() == null || user.getLastname().isEmpty()) {
+            throw new IncompleteDataException("User Last Name can not be null or empty");
+        }
+
+        if (user.getTypeDocument() == null || user.getTypeDocument().isEmpty()) {
+            throw new IncompleteDataException("User TypeDocument can not be null or empty");
+        }
+
+        if (user.getNumberDocument() == null || user.getNumberDocument() == 0) {
+            throw new IncompleteDataException("User NumberDocument can not be null or empty");
+        }
+
+        if (user.getPhone() == null || user.getPhone().isEmpty()) {
+            throw new IncompleteDataException("User Phone can not be null or empty");
+        }
+
+        if (user.getEmail() == null || user.getEmail().isEmpty()) {
+            throw new IncompleteDataException("User Email can not be null or empty");
+        }
+
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            throw new IncompleteDataException("User Password can not be null or empty");
+        }
+
+        if (user.getCity() == null || user.getCity().isEmpty()) {
+            throw new IncompleteDataException("User City can not be null or empty");
+        }
+
+        if (user.getId()==null || user.getId()==0) {
+            if (userRepository.findByNumberDocument(user.getNumberDocument()) != null) {
+                throw new KeyRepeatedDataException("Value for NumberDocument is duplicated");
+            }
+        }
+
+
+
+        //User newUser = new User(user.getName(), user.getLastname(), user.getTypeDocument(), user.getNumberDocument(), user.getPhone(), user.getEmail(), user.getPassword(), user.getImage(), user.getCity());
+
+        User savedUser = userRepository.save(user);
         return savedUser;
     }
 

@@ -18,7 +18,7 @@ public class User {
     private String name;
     private String lastname;
     private String typeDocument;
-    private int numberDocument;
+    private Integer numberDocument;
     private String phone;
     private String email;
     private String password;
