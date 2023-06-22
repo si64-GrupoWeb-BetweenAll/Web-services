@@ -62,7 +62,8 @@ public class User {
     private List<Authority> authorityList;
 
 
-    public User(String name, String lastname, String typeDocument, int numberDocument, String phone, String email, String password, String image, String city) {
+    public User(String name, String lastname, String typeDocument, int numberDocument, String phone, String email,
+                String password, String image, String city, List<Authority> authorityList) {
         this.name = name;
         this.lastname = lastname;
         this.typeDocument = typeDocument;
@@ -72,5 +73,6 @@ public class User {
         this.password = password;
         this.image = image;
         this.city = city;
+        this.authorityList = authorityList;
     }
 }

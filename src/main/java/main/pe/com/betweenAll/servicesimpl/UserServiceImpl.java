@@ -7,6 +7,7 @@ import main.pe.com.betweenAll.exceptions.ResourceNotFoundException;
 import main.pe.com.betweenAll.repositories.*;
 import main.pe.com.betweenAll.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     PurchaseRepository purchaseRepository;
+    @Autowired
+    AuthorityRepository authorityRepository;
 
     public List<User> listAll(){
         List<User> users;
@@ -41,6 +44,9 @@ public class UserServiceImpl implements UserService {
             u.setSocialEventList(null);
             u.setCardList(null);
             u.setPurchaseList(null);
+            for(Authority a: u.getAuthorityList()){
+                a.setUsers(null);
+            }
         }
         return users;
     }
@@ -72,7 +78,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User save(User user) {
 
-        if (user.getName() == null || user.getName().isEmpty()) {
+        /*if (user.getName() == null || user.getName().isEmpty()) {
             throw new IncompleteDataException("User Name can not be null or empty");
         }
 
@@ -114,7 +120,17 @@ public class UserServiceImpl implements UserService {
 
         //User newUser = new User(user.getName(), user.getLastname(), user.getTypeDocument(), user.getNumberDocument(), user.getPhone(), user.getEmail(), user.getPassword(), user.getImage(), user.getCity());
 
-        User savedUser = userRepository.save(user);
+        User savedUser = userRepository.save(user);*/
+
+        User newUser = new User(user.getName(), user.getLastname(), user.getTypeDocument(),
+                user.getNumberDocument(), user.getPhone(), user.getEmail(),
+                new BCryptPasswordEncoder().encode(user.getPassword()),
+                user.getImage(), user.getCity(),List.of(
+                authorityRepository.findByName(AuthorityName.ROLE_ADMIN),
+                authorityRepository.findByName(AuthorityName.WRITE),
+                authorityRepository.findByName(AuthorityName.READ)
+        ));
+        User savedUser = userRepository.save(newUser);
         return savedUser;
     }
 
@@ -142,11 +158,7 @@ public class UserServiceImpl implements UserService {
             for(Purchase p : purchaseList) {
                 purchaseRepository.delete(p);
             }
-
-
         }
         userRepository.delete(user);
     }
-
-
 }
