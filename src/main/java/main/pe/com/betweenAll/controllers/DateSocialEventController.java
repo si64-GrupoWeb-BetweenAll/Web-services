@@ -1,5 +1,7 @@
 package main.pe.com.betweenAll.controllers;
 
+import main.pe.com.betweenAll.dtos.DTOAssistedTicketsSummary;
+import main.pe.com.betweenAll.dtos.DTOZoneAvailableSummary;
 import main.pe.com.betweenAll.entities.DateSocialEvent;
 import main.pe.com.betweenAll.services.DateSocialEventService;
 import org.springframework.http.HttpStatus;
@@ -30,4 +32,11 @@ public class DateSocialEventController {
         List<DateSocialEvent> dateSocialEventList = dateSocialEventService.listAll();
         return new ResponseEntity<List<DateSocialEvent>>(dateSocialEventList, HttpStatus.OK);
     }
+
+    @GetMapping("/dateSocialEvents/summary")
+    public ResponseEntity<List<DTOZoneAvailableSummary>> getAssistedTicketsSummary() {
+        List<DTOZoneAvailableSummary> dtoZoneAvailableSummaryList = dateSocialEventService.listZoneAvailableSummary();
+        return new ResponseEntity<List<DTOZoneAvailableSummary>>(dtoZoneAvailableSummaryList, HttpStatus.OK);
+    }
+
 }

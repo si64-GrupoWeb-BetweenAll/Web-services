@@ -1,7 +1,6 @@
 package main.pe.com.betweenAll.servicesimpl;
 
 import main.pe.com.betweenAll.dtos.DTOUserCategorySummary;
-import main.pe.com.betweenAll.entities.User;
 import main.pe.com.betweenAll.entities.UserCategory;
 import main.pe.com.betweenAll.repositories.CategoryRepository;
 import main.pe.com.betweenAll.repositories.UserCategoryRepository;
