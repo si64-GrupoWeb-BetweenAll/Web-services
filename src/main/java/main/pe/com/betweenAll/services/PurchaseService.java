@@ -9,6 +9,7 @@ public interface PurchaseService {
     public Purchase listById(Long id);
     public Purchase save(Purchase purchase);
     public void delete(Long id, boolean forced);
+
     public List<DTOAssistedTicketsSummary> listAssistedTicketsSummary();
 
 }
