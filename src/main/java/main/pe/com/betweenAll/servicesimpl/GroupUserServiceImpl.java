@@ -41,8 +41,15 @@ public class GroupUserServiceImpl implements GroupUserService {
     @Transactional
     public List<GroupUser> listAll() {
         List<GroupUser> groupUserList = groupUserRepository.findAll();
-        for(GroupUser g: groupUserList){
-            g.getUser().setGroupUserList(null);
+        for(GroupUser s: groupUserList){
+            s.getUser().setSocialEventList(null);
+            s.getUser().setGroupUserList(null);
+            s.getUser().setPurchaseList(null);
+            s.getUser().setUserCategoryList(null);
+            s.getUser().setAuthorityList(null);
+            s.getUser().setCardList(null);
+            s.getGroup().setCategory(null);
+            s.getGroup().setGroupUserList(null);
         }
         return groupUserList;
     }

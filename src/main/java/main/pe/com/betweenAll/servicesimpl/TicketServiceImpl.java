@@ -30,6 +30,13 @@ public class TicketServiceImpl implements TicketService {
     public List<Ticket> listAll() {
         List<Ticket> tickets;
         tickets= ticketRepository.findAll();
+        for(Ticket s: tickets){
+            s.getPurchase().setUser(null);
+            s.getPurchase().setTicketList(null);
+            s.getPurchase().setCard(null);
+            s.getZoneEvent().setTicketList(null);
+            s.getZoneEvent().setDateSocialEvent(null);
+        }
         return tickets;
     }
     @Transactional

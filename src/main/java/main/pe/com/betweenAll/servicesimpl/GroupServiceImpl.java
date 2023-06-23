@@ -23,7 +23,10 @@ public class GroupServiceImpl implements GroupService {
         List<Group> groups;
         groups=groupRepository.findAll();
         for(Group g: groups){
+            g.setGroupUserList(null);
             g.getCategory().setGroupList(null);
+            g.getCategory().setSocialEventList(null);
+            g.getCategory().setUserCategoryList(null);
         }
         return groups;
     }

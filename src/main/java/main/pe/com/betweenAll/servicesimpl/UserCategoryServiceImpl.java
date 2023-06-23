@@ -1,6 +1,7 @@
 package main.pe.com.betweenAll.servicesimpl;
 
 import main.pe.com.betweenAll.dtos.DTOUserCategorySummary;
+import main.pe.com.betweenAll.entities.Ticket;
 import main.pe.com.betweenAll.entities.UserCategory;
 import main.pe.com.betweenAll.repositories.CategoryRepository;
 import main.pe.com.betweenAll.repositories.UserCategoryRepository;
@@ -35,6 +36,17 @@ public class UserCategoryServiceImpl implements UserCategoryService {
     @Transactional
     public List<UserCategory> listAll() {
         List<UserCategory> userCategoryList = userCategoryRepository.findAll();
+        for(UserCategory s: userCategoryList){
+            s.getUser().setSocialEventList(null);
+            s.getUser().setGroupUserList(null);
+            s.getUser().setPurchaseList(null);
+            s.getUser().setUserCategoryList(null);
+            s.getUser().setAuthorityList(null);
+            s.getUser().setCardList(null);
+            s.getCategory().setGroupList(null);
+            s.getCategory().setSocialEventList(null);
+            s.getCategory().setUserCategoryList(null);
+        }
         return userCategoryList;
     }
     @Transactional

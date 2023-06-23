@@ -1,6 +1,7 @@
 package main.pe.com.betweenAll.servicesimpl;
 
 
+import main.pe.com.betweenAll.entities.DateSocialEvent;
 import main.pe.com.betweenAll.entities.Ticket;
 import main.pe.com.betweenAll.entities.ZoneEvent;
 import main.pe.com.betweenAll.repositories.TicketRepository;
@@ -23,6 +24,11 @@ public class ZoneEventServiceImpl implements ZoneEventService {
     public List<ZoneEvent> listAll() {
         List<ZoneEvent> zoneEvents;
         zoneEvents= zoneEventRepository.findAll();
+        for(ZoneEvent s: zoneEvents){
+            s.getDateSocialEvent().setSocialEvent(null);
+            s.getDateSocialEvent().setZoneEventList(null);
+            s.setTicketList(null);
+        }
         return zoneEvents;
     }
 

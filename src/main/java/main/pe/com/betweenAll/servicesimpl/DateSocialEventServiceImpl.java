@@ -50,6 +50,12 @@ public class DateSocialEventServiceImpl implements DateSocialEventService {
     @Transactional
     public List<DateSocialEvent> listAll() {
         List<DateSocialEvent> dateSocialEventList = dateSocialEventRepository.findAll();
+        for(DateSocialEvent s: dateSocialEventList){
+            s.getSocialEvent().setUser(null);
+            s.getSocialEvent().setCategory(null);
+            s.getSocialEvent().setDateSocialEventList(null);
+            s.setZoneEventList(null);
+        }
         return dateSocialEventList;
     }
 

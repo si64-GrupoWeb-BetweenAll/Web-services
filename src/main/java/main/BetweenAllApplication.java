@@ -60,7 +60,7 @@ public class BetweenAllApplication {
                     "Activo",user));
             Category category= categoryRepository.save(new Category("POP","Activo"));
             UserCategory userCategory=userCategoryRepository.save(new UserCategory(user,category));
-            SocialEvent socialEvent=socialEventRepository.save(new SocialEvent("Morat","","Lima","no lleven nada",user,category));
+            SocialEvent socialEvent=socialEventRepository.save(new SocialEvent("Morat","https://akamai.sscdn.co/uploadfile/letras/fotos/a/1/1/7/a11750e4abcbf07109b386364cc190f7.jpg","Lima","no lleven nada",user,category));
             DateSocialEvent dateSocialEvent = dateSocialEventRepository.save(new DateSocialEvent(dateFormat.parse("2023-03-23"),
                     LocalTime.of(10,10,10),LocalTime.of(18,10,10),socialEvent));
             ZoneEvent zoneEvent= zoneEventRepository.save(new ZoneEvent("Platino",123.5,50,dateSocialEvent));
