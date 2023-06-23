@@ -81,12 +81,11 @@ public class GroupUserServiceImpl implements GroupUserService {
             String category = gU.getGroup().getCategory().getName();
 
             //Podria pasar esta lista de usuarios en vez de la lista de GroupUser
-            //List<User> userList = new ArrayList<>();
-            //userList.add(gU.getUser());
-
+            List<User> userList = new ArrayList<>();
+            userList.add(gU.getUser());
 
             DTOGroupParticipantsSummary dtoGroupParticipantsSummary = new DTOGroupParticipantsSummary(gU.getGroup().getName(),
-                    amountParticipants, gU.getGroup().getDescription(), category, gU.getGroup().getGroupUserList().stream().toList());
+                    amountParticipants, gU.getGroup().getDescription(), category, userList);
             dtoGroupParticipantsSummaryList.add(dtoGroupParticipantsSummary);
         }
         return dtoGroupParticipantsSummaryList;
