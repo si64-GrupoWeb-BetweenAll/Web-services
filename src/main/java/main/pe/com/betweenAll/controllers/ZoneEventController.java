@@ -17,26 +17,26 @@ public class ZoneEventController {
     @Autowired
     ZoneEventService zoneEventService;
 
-    @GetMapping("/zone_events")
+    @GetMapping("/zoneEvents")
     public ResponseEntity<List<ZoneEvent>> getAllZoneEvents() {
         List<ZoneEvent> zoneEvents = zoneEventService.listAll();
         return new ResponseEntity<List<ZoneEvent>>(zoneEvents, HttpStatus.OK);
     }
 
-    @GetMapping("/zone_events/{id}")
+    @GetMapping("/zoneEvents/{id}")
     public ResponseEntity<ZoneEvent> getAllZoneEventById(@PathVariable("id") Long id) {
         ZoneEvent zoneEvent = zoneEventService.listById(id);
         return new ResponseEntity<ZoneEvent>(zoneEvent, HttpStatus.OK);
 
     }
 
-    @PostMapping("/zone_events")
+    @PostMapping("/zoneEvents")
     public ResponseEntity<ZoneEvent> createZoneEvent (@RequestBody ZoneEvent zoneEvent) {
         ZoneEvent newZoneEvent = zoneEventService.save(zoneEvent);
         return new ResponseEntity<ZoneEvent>(newZoneEvent, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/zone_events/{id}")
+    @DeleteMapping("/zoneEvents/{id}")
     public ResponseEntity<HttpStatus> deleteZoneEvent (@PathVariable("id") Long id) {
         zoneEventService.delete(id, true);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

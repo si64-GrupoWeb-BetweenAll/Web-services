@@ -19,33 +19,33 @@ public class SocialEventController {
     @Autowired
     SocialEventService socialEventService;
 
-    @GetMapping("/social_events")
+    @GetMapping("/socialEvents")
     public ResponseEntity<List<SocialEvent>> getAllSocialEvent() {
         List<SocialEvent> social_events = socialEventService.listAll();
         return new ResponseEntity<List<SocialEvent>>(social_events, HttpStatus.OK);
 
     }
 
-    @GetMapping("/social_events/{id}")
+    @GetMapping("/socialEvents/{id}")
     public ResponseEntity<SocialEvent> getAllSocialEventsById(@PathVariable("id") Long id) {
         SocialEvent social_event = socialEventService.listById(id);
         return new ResponseEntity<SocialEvent>(social_event, HttpStatus.OK);
 
     }
 
-    @PostMapping("/social_events")
+    @PostMapping("/socialEvents")
     public ResponseEntity<SocialEvent> createSocialEvent(@RequestBody SocialEvent social_event) {
         SocialEvent newSocialEvent = socialEventService.save(social_event);
         return new ResponseEntity<SocialEvent>(newSocialEvent, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/social_events/{id}")
+    @DeleteMapping("/socialEvents/{id}")
     public ResponseEntity<HttpStatus> deleteSocialEvent(@PathVariable("id") Long id) {
         socialEventService.delete(id, true);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/social_events/{id}")
+    @PutMapping("/socialEvents/{id}")
     public ResponseEntity<SocialEvent> updateSocialEvent(@RequestBody SocialEvent social_event, @PathVariable("id") Long id) {
         SocialEvent foundSocialEvent=socialEventService.listById(id);
 
@@ -72,7 +72,7 @@ public class SocialEventController {
         return new ResponseEntity<SocialEvent>(updateSocialEvent, HttpStatus.OK);
     }
 
-    @GetMapping("/social_events/summary")
+    @GetMapping("/socialEvents/summary")
     public ResponseEntity<List<DTOSocialEventSummary>> getSocialEventSummary() {
         List<DTOSocialEventSummary> dtoSocialEventSummaryList = socialEventService.listSocialEventSummary();
         return new ResponseEntity<List<DTOSocialEventSummary>>(dtoSocialEventSummaryList, HttpStatus.OK);
