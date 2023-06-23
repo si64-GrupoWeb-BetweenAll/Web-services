@@ -1,5 +1,6 @@
 package main.pe.com.betweenAll.services;
 
+import main.pe.com.betweenAll.dtos.DTOGroupParticipantsSummary;
 import main.pe.com.betweenAll.dtos.DTOGroupUserSummary;
 import main.pe.com.betweenAll.entities.GroupUser;
 
@@ -11,4 +12,5 @@ public interface GroupUserService {
     public List<GroupUser> listAll();
 
     public List<DTOGroupUserSummary> listGroupUserSummary();
+    public  List<DTOGroupParticipantsSummary> listGroupParticipantsSummary();
 }

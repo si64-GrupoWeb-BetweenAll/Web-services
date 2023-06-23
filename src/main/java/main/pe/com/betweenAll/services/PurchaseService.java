@@ -10,4 +10,6 @@ public interface PurchaseService {
     public Purchase save(Purchase purchase);
     public void delete(Long id, boolean forced);
 
+    public List<DTOAssistedTicketsSummary> listAssistedTicketsSummary();
+
 }

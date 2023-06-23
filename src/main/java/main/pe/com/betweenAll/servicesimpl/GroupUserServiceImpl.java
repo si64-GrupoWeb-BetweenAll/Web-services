@@ -1,7 +1,9 @@
 package main.pe.com.betweenAll.servicesimpl;
 
+import main.pe.com.betweenAll.dtos.DTOGroupParticipantsSummary;
 import main.pe.com.betweenAll.dtos.DTOGroupUserSummary;
 import main.pe.com.betweenAll.entities.GroupUser;
+import main.pe.com.betweenAll.entities.User;
 import main.pe.com.betweenAll.repositories.GroupRepository;
 import main.pe.com.betweenAll.repositories.GroupUserRepository;
 import main.pe.com.betweenAll.repositories.UserRepository;
@@ -55,5 +57,29 @@ public class GroupUserServiceImpl implements GroupUserService {
         }
         return dtoGroupUserSummaryList;
     }
+
+    @Transactional
+    public List<DTOGroupParticipantsSummary> listGroupParticipantsSummary(){
+
+        List<GroupUser>groupUserList=groupUserRepository.findAll();
+
+        List<DTOGroupParticipantsSummary> dtoGroupParticipantsSummaryList = new ArrayList<>();
+
+        for(GroupUser gU: groupUserList){
+            Integer amountParticipants = (int) gU.getGroup().getGroupUserList().stream().count();
+            String category = gU.getGroup().getCategory().getName();
+
+            //Podria pasar esta lista de usuarios en vez de la lista de GroupUser
+            //List<User> userList = new ArrayList<>();
+            //userList.add(gU.getUser());
+
+
+            DTOGroupParticipantsSummary dtoGroupParticipantsSummary = new DTOGroupParticipantsSummary(gU.getGroup().getName(),
+                    amountParticipants, gU.getGroup().getDescription(), category, gU.getGroup().getGroupUserList().stream().toList());
+            dtoGroupParticipantsSummaryList.add(dtoGroupParticipantsSummary);
+        }
+        return dtoGroupParticipantsSummaryList;
+    }
+
 
 }
