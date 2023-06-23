@@ -87,6 +87,13 @@ public class GroupUserServiceImpl implements GroupUserService {
             DTOGroupParticipantsSummary dtoGroupParticipantsSummary = new DTOGroupParticipantsSummary(gU.getGroup().getName(),
                     amountParticipants, gU.getGroup().getDescription(), category, userList);
             dtoGroupParticipantsSummaryList.add(dtoGroupParticipantsSummary);
+
+            gU.getUser().setGroupUserList(null);
+            gU.getUser().setUserCategoryList(null);
+            gU.getUser().setSocialEventList(null);
+            gU.getUser().setCardList(null);
+            gU.getUser().setPurchaseList(null);
+            gU.getUser().setAuthorityList(null);
         }
         return dtoGroupParticipantsSummaryList;
     }

@@ -17,6 +17,6 @@ public class DTOGroupParticipantsSummary {
     private String descriptionGroup;
     private String categoryGroup;
 
-    //@OneToMany(mappedBy = "dtoGroupParticipantsSummary",  cascade = {CascadeType.REMOVE})
+    @OneToMany(mappedBy = "dtoGroupParticipantsSummary",  cascade = {CascadeType.REMOVE})
     List<User> UserList;
 }
