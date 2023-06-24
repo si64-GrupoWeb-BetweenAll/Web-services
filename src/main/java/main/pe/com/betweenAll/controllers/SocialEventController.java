@@ -32,6 +32,13 @@ public class SocialEventController {
 
     }
 
+    @GetMapping("/socialEvents/created/{id}")
+    public ResponseEntity<List<SocialEvent>> getAllSocialEventCreatedByUser(@PathVariable("id") Long id) {
+        List<SocialEvent> social_events = socialEventService.listByCreated(id);
+        return new ResponseEntity<List<SocialEvent>>(social_events, HttpStatus.OK);
+
+    }
+
     @GetMapping("/socialEvents/{id}")
     public ResponseEntity<SocialEvent> getAllSocialEventsById(@PathVariable("id") Long id) {
         SocialEvent social_event = socialEventService.listById(id);

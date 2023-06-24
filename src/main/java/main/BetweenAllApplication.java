@@ -40,34 +40,73 @@ public class BetweenAllApplication {
         return args -> {
 
             authorityRepository.saveAll(List.of(
-                            new Authority(AuthorityName.ROLE_ADMIN),
-                            new Authority(AuthorityName.READ),
-                            new Authority(AuthorityName.WRITE)
+                            new Authority(AuthorityName.ROLE_ADMIN)
                     )
             );
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-            User user=userRepository.save(new User("Carlos","Alipio","DNI",12345678,
+            User user1=userRepository.save(new User("Carlos","Alipio","DNI",12345678,
                     "999252444","carl@gmail.com","123456","","lima",
                     List.of(
-                            authorityRepository.findByName(AuthorityName.ROLE_ADMIN),
-                            authorityRepository.findByName(AuthorityName.WRITE),
-                            authorityRepository.findByName(AuthorityName.READ)
+                            authorityRepository.findByName(AuthorityName.ROLE_ADMIN)
                     )
             ));
+
+            User user2=userRepository.save(new User("Camila","Alessandra","DNI",74775218,
+                    "942764237","cam@gmail.com","123456","","lima",
+                    List.of(
+                            authorityRepository.findByName(AuthorityName.ROLE_ADMIN)
+                    )
+            ));
+
+            User user3=userRepository.save(new User("Neil","Angel","DNI",74125896,
+                    "942764237","neil@gmail.com","123456","","abancay",
+                    List.of(
+                            authorityRepository.findByName(AuthorityName.ROLE_ADMIN)
+                    )
+            ));
+
+
             Card card=cardRepository.save(new Card("Alipio",Long.valueOf("123456781234"),123,dateFormat.parse("2020-03-23"),
-                    "Activo",user));
+                    "Activo",user1));
+            Card card2=cardRepository.save(new Card("Alipio",Long.valueOf("123456781234"),123,dateFormat.parse("2020-03-23"),
+                    "Activo",user2));
+            Card card3=cardRepository.save(new Card("Alipio",Long.valueOf("123456781234"),123,dateFormat.parse("2020-03-23"),
+                    "Activo",user3));
+
             Category category= categoryRepository.save(new Category("POP","Activo"));
-            UserCategory userCategory=userCategoryRepository.save(new UserCategory(user,category));
-            SocialEvent socialEvent=socialEventRepository.save(new SocialEvent("Morat","https://akamai.sscdn.co/uploadfile/letras/fotos/a/1/1/7/a11750e4abcbf07109b386364cc190f7.jpg","Lima","no lleven nada",user,category));
-            DateSocialEvent dateSocialEvent = dateSocialEventRepository.save(new DateSocialEvent(dateFormat.parse("2023-03-23"),
-                    LocalTime.of(10,10,10),LocalTime.of(18,10,10),socialEvent));
-            ZoneEvent zoneEvent= zoneEventRepository.save(new ZoneEvent("Platino",123.5,50,dateSocialEvent));
+            UserCategory userCategory=userCategoryRepository.save(new UserCategory(user1,category));
+
             Group group= groupRepository.save(new Group("Los inmortales","Solo gente seria","",category));
-            GroupUser groupUser=groupUserRepository.save(new GroupUser(user,group));
-            Purchase purchase=purchaseRepository.save(new Purchase(Long.valueOf("20"),dateFormat.parse("2023-03-23"),user,card));
-            Ticket ticket=ticketRepository.save(new Ticket(purchase,zoneEvent));
+            GroupUser groupUser=groupUserRepository.save(new GroupUser(user1,group));
+
+            SocialEvent socialEvent1=socialEventRepository.save(new SocialEvent("Morat","https://akamai.sscdn.co/uploadfile/letras/fotos/a/1/1/7/a11750e4abcbf07109b386364cc190f7.jpg","Lima","no lleven nada",user1,category));
+            SocialEvent socialEvent2=socialEventRepository.save(new SocialEvent("Grupo 5","https://akamai.sscdn.co/uploadfile/letras/fotos/a/1/1/7/a11750e4abcbf07109b386364cc190f7.jpg","Lima","no lleven nada",user1,category));
+
+            DateSocialEvent dateSocialEvent1 = dateSocialEventRepository.save(new DateSocialEvent(dateFormat.parse("2023-02-13"),
+                    LocalTime.of(10,10,10),LocalTime.of(18,10,10),socialEvent1));
+            DateSocialEvent dateSocialEvent2 = dateSocialEventRepository.save(new DateSocialEvent(dateFormat.parse("2023-04-18"),
+                    LocalTime.of(10,10,10),LocalTime.of(18,10,10),socialEvent2));
+            DateSocialEvent dateSocialEvent3 = dateSocialEventRepository.save(new DateSocialEvent(dateFormat.parse("2023-01-21"),
+                    LocalTime.of(10,10,10),LocalTime.of(18,10,10),socialEvent1));
+
+            ZoneEvent zoneEvent1= zoneEventRepository.save(new ZoneEvent("Platino",123.5,50,dateSocialEvent1));
+            ZoneEvent zoneEvent2= zoneEventRepository.save(new ZoneEvent("VIP",235.5,540,dateSocialEvent2));
+            ZoneEvent zoneEvent3= zoneEventRepository.save(new ZoneEvent("General",135.5,540,dateSocialEvent3));
+            ZoneEvent zoneEvent4= zoneEventRepository.save(new ZoneEvent("Meet and Greet",210.0,540,dateSocialEvent3));
+
+            Purchase purchase1=purchaseRepository.save(new Purchase(Long.valueOf("20"),dateFormat.parse("2023-03-23"),user1,card));
+            Purchase purchase2=purchaseRepository.save(new Purchase(Long.valueOf("20"),dateFormat.parse("2023-03-23"),user1,card));
+            Purchase purchase3=purchaseRepository.save(new Purchase(Long.valueOf("20"),dateFormat.parse("2023-03-23"),user2,card));
+            Purchase purchase4=purchaseRepository.save(new Purchase(Long.valueOf("20"),dateFormat.parse("2023-03-23"),user3,card3));
+
+            Ticket ticket1=ticketRepository.save(new Ticket(purchase1,zoneEvent1));
+            Ticket ticket2=ticketRepository.save(new Ticket(purchase2,zoneEvent2));
+            Ticket ticket3=ticketRepository.save(new Ticket(purchase3,zoneEvent2));
+            Ticket ticket4=ticketRepository.save(new Ticket(purchase4,zoneEvent4));
+
+
         };
     }
 }

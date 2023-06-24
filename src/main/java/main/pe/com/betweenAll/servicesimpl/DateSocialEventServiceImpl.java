@@ -1,6 +1,5 @@
 package main.pe.com.betweenAll.servicesimpl;
 
-import main.pe.com.betweenAll.dtos.DTOAssistedTicketsSummary;
 import main.pe.com.betweenAll.dtos.DTOZoneAvailableSummary;
 import main.pe.com.betweenAll.entities.*;
 import main.pe.com.betweenAll.repositories.*;

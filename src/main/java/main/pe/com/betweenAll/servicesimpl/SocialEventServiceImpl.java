@@ -7,10 +7,7 @@ import main.pe.com.betweenAll.dtos.DTOSocialEventSummary;
 import main.pe.com.betweenAll.dtos.DTOUserCategorySummary;
 
 import main.pe.com.betweenAll.exceptions.IncompleteDataException;
-import main.pe.com.betweenAll.repositories.SocialEventRepository;
-import main.pe.com.betweenAll.repositories.DateSocialEventRepository;
-import main.pe.com.betweenAll.repositories.TicketRepository;
-import main.pe.com.betweenAll.repositories.ZoneEventRepository;
+import main.pe.com.betweenAll.repositories.*;
 import main.pe.com.betweenAll.services.SocialEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +29,8 @@ public class SocialEventServiceImpl implements SocialEventService {
     ZoneEventRepository zoneEventRepository;
     @Autowired
     TicketRepository ticketRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @Transactional
     public List<SocialEvent> listAll() {
@@ -50,6 +49,8 @@ public class SocialEventServiceImpl implements SocialEventService {
             s.getCategory().setUserCategoryList(null);
             s.setDateSocialEventList(null);
         }
+         return socialEvents;
+
     }
 
     public SocialEvent listById(Long id) {
@@ -159,4 +160,22 @@ public class SocialEventServiceImpl implements SocialEventService {
         }
         return dtoSocialEventsAvailableSummaryList;
     }*/
+
+    public List<SocialEvent> listByCreated(Long id){
+        List<SocialEvent> socialEventList = socialEventRepository.findSocialEventByUser(id);
+        for(SocialEvent s: socialEventList){
+            s.getUser().setSocialEventList(null);
+            s.getUser().setGroupUserList(null);
+            s.getUser().setPurchaseList(null);
+            s.getUser().setUserCategoryList(null);
+            s.getUser().setAuthorityList(null);
+            s.getUser().setCardList(null);
+            s.getCategory().setGroupList(null);
+            s.getCategory().setSocialEventList(null);
+            s.getCategory().setUserCategoryList(null);
+            s.setDateSocialEventList(null);
+        }
+        return socialEventList;
+
+    }
 }
