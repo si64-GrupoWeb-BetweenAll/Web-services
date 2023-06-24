@@ -1,5 +1,6 @@
 package main.pe.com.betweenAll.controllers;
 
+import main.pe.com.betweenAll.dtos.DTOGroupParticipantsSummary;
 import main.pe.com.betweenAll.dtos.DTOGroupSummary;
 import main.pe.com.betweenAll.entities.Category;
 import main.pe.com.betweenAll.entities.Group;
@@ -62,5 +63,17 @@ public class GroupController {
     public ResponseEntity<List<DTOGroupSummary>> getGroupSummay(){
         List<DTOGroupSummary> dtoGroupSummaries =groupService.listGroupSummary();
         return new ResponseEntity<List<DTOGroupSummary>>(dtoGroupSummaries,HttpStatus.OK);
+    }
+
+    @GetMapping("/groups/groupParticipantsSummary")
+    public ResponseEntity<List<DTOGroupParticipantsSummary>> getListGroupParticipantsSummary() {
+        List<DTOGroupParticipantsSummary> dtoGroupParticipantsSummaryList = groupService.listGroupParticipantsSummary();
+        return new ResponseEntity<List<DTOGroupParticipantsSummary>>(dtoGroupParticipantsSummaryList, HttpStatus.OK);
+    }
+
+    @GetMapping("/groups/groupParticipantsSummary/{id}")
+    public ResponseEntity<DTOGroupParticipantsSummary> getGroupParticipantsSummary(@PathVariable("id") Long id) {
+        DTOGroupParticipantsSummary dtoGroupParticipantsSummary = groupService.groupParticipantsSummary(id);
+        return new ResponseEntity<DTOGroupParticipantsSummary>(dtoGroupParticipantsSummary, HttpStatus.OK);
     }
 }

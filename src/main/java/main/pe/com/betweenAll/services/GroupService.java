@@ -1,5 +1,6 @@
 package main.pe.com.betweenAll.services;
 
+import main.pe.com.betweenAll.dtos.DTOGroupParticipantsSummary;
 import main.pe.com.betweenAll.dtos.DTOGroupSummary;
 import main.pe.com.betweenAll.entities.Group;
 
@@ -12,4 +13,6 @@ public interface GroupService {
     public Group save(Group group);
     public void delete(Long id,boolean forced);
     public List<DTOGroupSummary> listGroupSummary();
+    public  List<DTOGroupParticipantsSummary> listGroupParticipantsSummary();
+    public  DTOGroupParticipantsSummary groupParticipantsSummary(Long id);
 }

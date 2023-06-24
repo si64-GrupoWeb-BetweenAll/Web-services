@@ -41,11 +41,4 @@ public class GroupUserController {
     //    return new ResponseEntity<List<DTOGroupUserSummary>>(dtoGroupUserSummaryList, HttpStatus.OK);
     //}
 
-    @GetMapping("/groupUsers/summary")
-    public ResponseEntity<List<DTOGroupParticipantsSummary>> getGroupParticipantsSummary() {
-        List<DTOGroupParticipantsSummary> dtoGroupParticipantsSummaryList = groupUserService.listGroupParticipantsSummary();
-        return new ResponseEntity<List<DTOGroupParticipantsSummary>>(dtoGroupParticipantsSummaryList, HttpStatus.OK);
-    }
-
-
 }
