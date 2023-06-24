@@ -1,6 +1,7 @@
 package main.pe.com.betweenAll.servicesimpl;
 
 import main.pe.com.betweenAll.dtos.DTOGroupSummary;
+import main.pe.com.betweenAll.dtos.DTOGroupsJoinnedSummary;
 import main.pe.com.betweenAll.entities.Group;
 import main.pe.com.betweenAll.exceptions.IncompleteDataException;
 import main.pe.com.betweenAll.repositories.GroupRepository;
@@ -27,6 +28,9 @@ public class GroupServiceImpl implements GroupService {
             g.getCategory().setGroupList(null);
             g.getCategory().setSocialEventList(null);
             g.getCategory().setUserCategoryList(null);
+            g.getUser().setAuthorityList(null);
+            g.getUser().setCardList(null);
+            g.getUser().setAuthorityList(null);
         }
         return groups;
     }
@@ -59,7 +63,7 @@ public class GroupServiceImpl implements GroupService {
         if(group.getImage()==null || group.getImage().isEmpty()){
             throw new IncompleteDataException("Group Image can not be null or empty");
         }
-        Group newGroup = groupRepository.save(new Group(group.getName(),group.getDescription(),group.getImage(),group.getCategory()));
+        Group newGroup = groupRepository.save(new Group(group.getName(),group.getDescription(),group.getImage(),group.getCategory(),group.getUser()));
         return newGroup;
     }
     @Transactional
@@ -81,5 +85,20 @@ public class GroupServiceImpl implements GroupService {
         }
         return dtoGroupSummaryList;
     }
-    
+    @Transactional
+    public List<DTOGroupsJoinnedSummary> listGroupByUserSummary(Long id){
+        List<Group>groupList=groupRepository.findAll();
+        List<DTOGroupsJoinnedSummary>dtoGroupsJoinnedSummaryList=new ArrayList<>();
+        for (Group g: groupList){
+            if(g.getUser().getId()==id){
+                Long idGroup=g.getId();
+                String nameGroup=g.getName();
+                String nameCategory=g.getCategory().getName();
+                DTOGroupsJoinnedSummary dtoGroupsJoinnedSummary=new DTOGroupsJoinnedSummary(idGroup,nameGroup,nameCategory);
+                dtoGroupsJoinnedSummaryList.add(dtoGroupsJoinnedSummary);
+            }
+
+        }
+        return dtoGroupsJoinnedSummaryList;
+    }
 }

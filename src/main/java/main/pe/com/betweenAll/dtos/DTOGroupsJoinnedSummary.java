@@ -14,7 +14,7 @@ public class DTOGroupsJoinnedSummary {
     private Long idGroup;
     private String nameGroup;
     private String nameCategory;
-    private String nameSocialEvent;
-    private String dateSocialEvent;
+    //private String nameSocialEvent;
+    //private String dateSocialEvent;
 
 }
