@@ -32,6 +32,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         List<Purchase> purchases;
         purchases= purchaseRepository.findAll();
 
+
         for(Purchase p: purchases){
             p.setTicketList(null);
         }

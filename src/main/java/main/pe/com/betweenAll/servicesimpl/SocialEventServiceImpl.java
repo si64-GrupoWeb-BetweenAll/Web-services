@@ -30,7 +30,6 @@ public class SocialEventServiceImpl implements SocialEventService {
     public List<SocialEvent> listAll() {
         List<SocialEvent> socialEvents;
         socialEvents= socialEventRepository.findAll();
-        for()
         return socialEvents;
     }
 

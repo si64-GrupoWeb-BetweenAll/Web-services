@@ -15,7 +15,6 @@ import java.util.List;
 
 public class DTOAssistedTicketsSummary {
 
-
     private String completeName;
     private Integer countAssistedTickets;
     @OneToMany(mappedBy = "dtoAssistedTicketsSummary", cascade = {CascadeType.REMOVE})

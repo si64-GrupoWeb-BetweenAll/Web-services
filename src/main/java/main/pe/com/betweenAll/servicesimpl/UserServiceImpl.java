@@ -126,9 +126,7 @@ public class UserServiceImpl implements UserService {
                 user.getNumberDocument(), user.getPhone(), user.getEmail(),
                 new BCryptPasswordEncoder().encode(user.getPassword()),
                 user.getImage(), user.getCity(),List.of(
-                authorityRepository.findByName(AuthorityName.ROLE_ADMIN),
-                authorityRepository.findByName(AuthorityName.WRITE),
-                authorityRepository.findByName(AuthorityName.READ)
+                authorityRepository.findByName(AuthorityName.ROLE_ADMIN)
         ));
         User savedUser = userRepository.save(newUser);
         return savedUser;
