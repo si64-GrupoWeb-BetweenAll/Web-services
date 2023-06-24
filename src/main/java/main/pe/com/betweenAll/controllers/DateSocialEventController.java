@@ -1,6 +1,5 @@
 package main.pe.com.betweenAll.controllers;
 
-import main.pe.com.betweenAll.dtos.DTOAssistedTicketsSummary;
 import main.pe.com.betweenAll.dtos.DTOZoneAvailableSummary;
 import main.pe.com.betweenAll.entities.DateSocialEvent;
 import main.pe.com.betweenAll.services.DateSocialEventService;

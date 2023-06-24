@@ -1,11 +1,7 @@
 package main.pe.com.betweenAll.servicesimpl;
 
-import main.pe.com.betweenAll.entities.GroupUser;
-import main.pe.com.betweenAll.dtos.DTOAssistedTicketsSummary;
-import main.pe.com.betweenAll.dtos.DTOSocialEventSummary;
-import main.pe.com.betweenAll.entities.Purchase;
-import main.pe.com.betweenAll.entities.Ticket;
-import main.pe.com.betweenAll.entities.User;
+import main.pe.com.betweenAll.dtos.DTOEventsAssistedSummary;
+import main.pe.com.betweenAll.entities.*;
 import main.pe.com.betweenAll.exceptions.IncompleteDataException;
 import main.pe.com.betweenAll.repositories.PurchaseRepository;
 import main.pe.com.betweenAll.repositories.TicketRepository;
@@ -17,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.lang.module.ResolutionException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -32,6 +29,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     public List<Purchase> listAll() {
         List<Purchase> purchases;
         purchases= purchaseRepository.findAll();
+
 
         for(Purchase p: purchases){
             p.setCard(null);
@@ -82,20 +80,37 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Transactional
-    public List<DTOAssistedTicketsSummary> listAssistedTicketsSummary(){
-
-        List<Purchase>purchaseList=purchaseRepository.findAll();
-        List<User>userList=userRepository.findAll();
-
-        List<DTOAssistedTicketsSummary> dtoAssistedTicketsSummaryList = new ArrayList<>();
-
-        for(Purchase p:  purchaseList) {
-            String completeName = p.getUser().getName() + " - " + p.getUser().getLastname();
-            Integer countAssistedTickets = (int) p.getTicketList().stream().count();
-
-            DTOAssistedTicketsSummary dtoAssistedTicketsSummary= new DTOAssistedTicketsSummary(completeName, countAssistedTickets, p.getTicketList().stream().toList());
-            dtoAssistedTicketsSummaryList.add(dtoAssistedTicketsSummary);
+    public List<DTOEventsAssistedSummary> listAssistedTicketsSummary(Long id) {
+        List<User> userList = userRepository.findUser(id);
+        if (userList.isEmpty()) {
+            // Manejo de error si el usuario no existe
+            return new ArrayList<>();
         }
-        return dtoAssistedTicketsSummaryList;
+
+        User user = userList.get(0);
+
+        List<Purchase> purchaseList = user.getPurchaseList();
+
+        List<DTOEventsAssistedSummary> dtoEventsAssistedSummaryList = new ArrayList<>();
+
+        for (Purchase purchase : purchaseList) {
+            List<Ticket> ticketList = purchase.getTicketList();
+
+            for (Ticket ticket : ticketList) {
+                ZoneEvent zoneEvent = ticket.getZoneEvent();
+                DateSocialEvent dateSocialEvent = zoneEvent.getDateSocialEvent();
+                SocialEvent socialEvent = dateSocialEvent.getSocialEvent();
+
+                String eventName = socialEvent.getName();
+                Date eventDate = dateSocialEvent.getDate();
+                String eventZone = zoneEvent.getName();
+                String userName = user.getName() + " " + user.getLastname();
+
+                DTOEventsAssistedSummary dtoEventsAssistedSummary = new DTOEventsAssistedSummary(eventName, eventDate, eventZone, userName);
+                dtoEventsAssistedSummaryList.add(dtoEventsAssistedSummary);
+            }
+        }
+
+        return dtoEventsAssistedSummaryList;
     }
 }
