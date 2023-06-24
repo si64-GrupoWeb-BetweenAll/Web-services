@@ -1,16 +1,16 @@
 package main.pe.com.betweenAll.servicesimpl;
 
-import main.pe.com.betweenAll.entities.Card;
+import main.pe.com.betweenAll.dtos.DTOSocialEventsAvailableSummary;
+import main.pe.com.betweenAll.entities.*;
 
 import main.pe.com.betweenAll.dtos.DTOSocialEventSummary;
 import main.pe.com.betweenAll.dtos.DTOUserCategorySummary;
 
-import main.pe.com.betweenAll.entities.SocialEvent;
-import main.pe.com.betweenAll.entities.DateSocialEvent;
-import main.pe.com.betweenAll.entities.UserCategory;
 import main.pe.com.betweenAll.exceptions.IncompleteDataException;
 import main.pe.com.betweenAll.repositories.SocialEventRepository;
 import main.pe.com.betweenAll.repositories.DateSocialEventRepository;
+import main.pe.com.betweenAll.repositories.TicketRepository;
+import main.pe.com.betweenAll.repositories.ZoneEventRepository;
 import main.pe.com.betweenAll.services.SocialEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.lang.module.ResolutionException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -27,7 +28,10 @@ public class SocialEventServiceImpl implements SocialEventService {
     SocialEventRepository socialEventRepository;
     @Autowired
     DateSocialEventRepository dateSocialEventRepository;
-
+    @Autowired
+    ZoneEventRepository zoneEventRepository;
+    @Autowired
+    TicketRepository ticketRepository;
 
     @Transactional
     public List<SocialEvent> listAll() {
@@ -109,4 +113,51 @@ public class SocialEventServiceImpl implements SocialEventService {
         }
         return dtoSocialEventSummaryList;
     }
+
+    /*@Transactional
+    public List<DTOSocialEventsAvailableSummary> listSocialEventsAvailableSummary(){
+        return socialEventRepository.listSocialEventAvailableSummary();
+    }*/
+
+    @Transactional
+    public List<DTOSocialEventsAvailableSummary> listSocialEventsAvailableSummary () {
+        List<String[]> socialEventList =socialEventRepository.listSocialEventAvailableSummary();
+        List<DTOSocialEventsAvailableSummary> dtoSocialEventsAvailableSummaryList = new ArrayList<>();
+
+        for(String[] s: socialEventList){
+            DTOSocialEventsAvailableSummary dto = new DTOSocialEventsAvailableSummary();
+            dto.setNameSocialEvent(s[0]);
+            dto.setAmountTotalTickets(Integer.parseInt(s[1]));
+            dto.setAmountBuyTickets(Integer.parseInt(s[2]));
+            dto.setAmountAvailableTickets(Integer.parseInt(s[3]));
+            dtoSocialEventsAvailableSummaryList.add(dto);
+        }
+        return dtoSocialEventsAvailableSummaryList;
+    }
+
+    /*
+    @Transactional
+    public List<DTOSocialEventsAvailableSummary> listSocialEventsAvailableSummary(){
+        List<SocialEvent> socialEventList = socialEventRepository.findAll();
+        List<DateSocialEvent> dateSocialEventList = dateSocialEventRepository.findAll();
+        List<ZoneEvent> zoneEventList = zoneEventRepository.findAll();
+
+        List<DTOSocialEventsAvailableSummary> dtoSocialEventsAvailableSummaryList = new ArrayList<>();
+        Integer amountTickets=0;
+        for(SocialEvent s: socialEventList){
+            if(amountTickets==0){
+                for (DateSocialEvent d:dateSocialEventList){
+                    for (ZoneEvent z: zoneEventList){
+                        amountTickets+=(int)z.getCapacity();
+                    }
+                }
+                DTOSocialEventsAvailableSummary dtoSocialEventsAvailableSummary = new DTOSocialEventsAvailableSummary(
+                        s.getName(),amountTickets,1,1);
+                amountTickets=0;
+                dtoSocialEventsAvailableSummaryList.add(dtoSocialEventsAvailableSummary);
+            }
+
+        }
+        return dtoSocialEventsAvailableSummaryList;
+    }*/
 }

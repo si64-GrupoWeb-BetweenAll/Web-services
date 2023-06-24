@@ -1,15 +1,19 @@
 package main.pe.com.betweenAll.controllers;
 
 import main.pe.com.betweenAll.dtos.DTOSocialEventSummary;
+import main.pe.com.betweenAll.dtos.DTOSocialEventsAvailableSummary;
 import main.pe.com.betweenAll.dtos.DTOUserCategorySummary;
 import main.pe.com.betweenAll.entities.SocialEvent;
+import main.pe.com.betweenAll.repositories.SocialEventRepository;
 import main.pe.com.betweenAll.services.SocialEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -18,6 +22,8 @@ public class SocialEventController {
 
     @Autowired
     SocialEventService socialEventService;
+    @Autowired
+    SocialEventRepository socialEventRepository;
 
     @GetMapping("/socialEvents")
     public ResponseEntity<List<SocialEvent>> getAllSocialEvent() {
@@ -77,4 +83,11 @@ public class SocialEventController {
         List<DTOSocialEventSummary> dtoSocialEventSummaryList = socialEventService.listSocialEventSummary();
         return new ResponseEntity<List<DTOSocialEventSummary>>(dtoSocialEventSummaryList, HttpStatus.OK);
     }
+
+    @GetMapping("/socialEventsAvailable/summary")
+    public List<DTOSocialEventsAvailableSummary> listSocialEventsAvailableSummary() {
+        List<DTOSocialEventsAvailableSummary> socialEventsAvailableSummaries = socialEventService.listSocialEventsAvailableSummary();
+        return socialEventsAvailableSummaries;
+    }
+
 }
