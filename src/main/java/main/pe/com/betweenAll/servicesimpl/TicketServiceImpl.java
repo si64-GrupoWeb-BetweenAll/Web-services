@@ -1,7 +1,9 @@
 package main.pe.com.betweenAll.servicesimpl;
 
 import main.pe.com.betweenAll.dtos.DTOAssistedTicketsSummary;
+import main.pe.com.betweenAll.dtos.DTOGroupParticipantsSummary;
 import main.pe.com.betweenAll.dtos.DTOSocialEventSummary;
+import main.pe.com.betweenAll.dtos.DTOTicketSummary;
 import main.pe.com.betweenAll.entities.Purchase;
 import main.pe.com.betweenAll.entities.SocialEvent;
 import main.pe.com.betweenAll.entities.Ticket;
@@ -59,4 +61,27 @@ public class TicketServiceImpl implements TicketService {
         ticketRepository.delete(ticket);
     }
 
+    //Implementacion de Resumen de Ticket
+    @Transactional
+    public List<DTOTicketSummary> listTicketByUserSummary(Long id){
+        List<Ticket>ticketList=ticketRepository.findAll();
+
+        List<DTOTicketSummary>dtoTicketSummaryList=new ArrayList<>();
+        for (Ticket sE:ticketList){
+            if (sE.getPurchase().getUser().getId()==id){
+                Long infIdTicket=sE.getId();
+                String infNameTicket=sE.getPurchase().getUser().getName()+" "+sE.getPurchase().getUser().getLastname();
+                String infNameSocialEvent=sE.getZoneEvent().getDateSocialEvent().getSocialEvent().getName();
+                String infNameZoneEvent=sE.getZoneEvent().getName();
+                String infDateSocialEvent=sE.getZoneEvent().getDateSocialEvent().getDate().toString();
+                String infLocationSocialEvent=sE.getZoneEvent().getDateSocialEvent().getSocialEvent().getLocation();
+                String infEmailUser=sE.getPurchase().getUser().getEmail();
+                Double infAmountPurchase=sE.getZoneEvent().getPrice();
+                DTOTicketSummary dtoTicketSummary=new DTOTicketSummary(infIdTicket,infNameTicket,infNameSocialEvent,
+                        infNameZoneEvent,infDateSocialEvent,infLocationSocialEvent,infEmailUser,infAmountPurchase);
+                dtoTicketSummaryList.add(dtoTicketSummary);
+            }
+        }
+        return dtoTicketSummaryList;
+    }
 }

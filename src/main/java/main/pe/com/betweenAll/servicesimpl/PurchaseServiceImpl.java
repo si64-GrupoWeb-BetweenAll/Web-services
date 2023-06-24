@@ -42,6 +42,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             p.getUser().setUserCategoryList(null);
             p.getUser().setAuthorityList(null);
             p.getUser().setCardList(null);
+            p.setTotal(null);
         }
         return purchases;
     }

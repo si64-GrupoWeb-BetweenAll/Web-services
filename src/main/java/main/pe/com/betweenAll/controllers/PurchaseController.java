@@ -64,7 +64,9 @@ public class PurchaseController {
         if(purchase.getCard()!=null){
             foundPurchase.setCard(purchase.getCard());
         }
-
+        if(purchase.getTotal()!=null){
+            foundPurchase.setTotal(purchase.getTotal());
+        }
         Purchase updatePurchase = purchaseService.save(foundPurchase);
         return new ResponseEntity<Purchase>(updatePurchase, HttpStatus.OK);
     }

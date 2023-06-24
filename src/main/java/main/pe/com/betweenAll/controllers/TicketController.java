@@ -1,5 +1,7 @@
 package main.pe.com.betweenAll.controllers;
 
+import main.pe.com.betweenAll.dtos.DTOGroupParticipantsSummary;
+import main.pe.com.betweenAll.dtos.DTOTicketSummary;
 import main.pe.com.betweenAll.entities.Ticket;
 import main.pe.com.betweenAll.services.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +58,11 @@ public class TicketController {
 
         Ticket updateTicket = ticketService.save(foundTicket);
         return new ResponseEntity<Ticket>(updateTicket, HttpStatus.OK);
+    }
+
+    @GetMapping("/tickets/summary/{id}")
+    public ResponseEntity<List<DTOTicketSummary>>getTicketByUserSummary(@PathVariable("id") Long id){
+        List<DTOTicketSummary>dtoTicketSummaryList=ticketService.listTicketByUserSummary(id);
+        return new ResponseEntity<List<DTOTicketSummary>>(dtoTicketSummaryList, HttpStatus.OK);
     }
 }
