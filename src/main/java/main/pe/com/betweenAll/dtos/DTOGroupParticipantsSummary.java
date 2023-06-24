@@ -3,6 +3,7 @@ package main.pe.com.betweenAll.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import main.pe.com.betweenAll.entities.GroupUser;
+import main.pe.com.betweenAll.entities.User;
 
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
@@ -17,5 +18,5 @@ public class DTOGroupParticipantsSummary {
     private String categoryGroup;
 
     @OneToMany(mappedBy = "dtoGroupParticipantsSummary",  cascade = {CascadeType.REMOVE})
-    List<GroupUser> GroupUserList;
+    List<User> UserList;
 }

@@ -24,7 +24,6 @@ public class Purchase {
     @ManyToOne
     @JoinColumn(name="card_id")
     private Card card;
-
     @OneToMany(mappedBy = "purchase", cascade = {CascadeType.REMOVE})
     List<Ticket> ticketList;
 
