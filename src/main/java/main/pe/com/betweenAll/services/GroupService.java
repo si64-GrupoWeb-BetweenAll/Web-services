@@ -12,5 +12,5 @@ public interface GroupService {
     public Group save(Group group);
     public void delete(Long id,boolean forced);
     public List<DTOGroupSummary> listGroupSummary();
-    public List<DTOGroupSummary> listGroupByUserSummary(Long id);
+    //public List<DTOGroupSummary> listGroupByUserSummary(Long id);
 }

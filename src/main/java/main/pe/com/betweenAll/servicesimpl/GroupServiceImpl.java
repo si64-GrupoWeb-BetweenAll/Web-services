@@ -81,12 +81,5 @@ public class GroupServiceImpl implements GroupService {
         }
         return dtoGroupSummaryList;
     }
-    @Transactional
-    public List<DTOGroupSummary> listGroupByUserSummary(Long id){
-        List<Group>groupList=groupRepository.findAll();
-        List<DTOGroupSummary>dtoGroupSummaryList=new ArrayList<>();
-        for (Group g: groupList){
-            if(g.get)
-        }
-    }
+    
 }
