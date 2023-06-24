@@ -40,9 +40,7 @@ public class BetweenAllApplication {
         return args -> {
 
             authorityRepository.saveAll(List.of(
-                            new Authority(AuthorityName.ROLE_ADMIN),
-                            new Authority(AuthorityName.READ),
-                            new Authority(AuthorityName.WRITE)
+                            new Authority(AuthorityName.ROLE_ADMIN)
                     )
             );
 
@@ -51,27 +49,21 @@ public class BetweenAllApplication {
             User user1=userRepository.save(new User("Carlos","Alipio","DNI",12345678,
                     "999252444","carl@gmail.com","123456","","lima",
                     List.of(
-                            authorityRepository.findByName(AuthorityName.ROLE_ADMIN),
-                            authorityRepository.findByName(AuthorityName.WRITE),
-                            authorityRepository.findByName(AuthorityName.READ)
+                            authorityRepository.findByName(AuthorityName.ROLE_ADMIN)
                     )
             ));
 
             User user2=userRepository.save(new User("Camila","Alessandra","DNI",74775218,
                     "942764237","cam@gmail.com","123456","","lima",
                     List.of(
-                            authorityRepository.findByName(AuthorityName.ROLE_ADMIN),
-                            authorityRepository.findByName(AuthorityName.WRITE),
-                            authorityRepository.findByName(AuthorityName.READ)
+                            authorityRepository.findByName(AuthorityName.ROLE_ADMIN)
                     )
             ));
 
             User user3=userRepository.save(new User("Neil","Angel","DNI",74125896,
                     "942764237","neil@gmail.com","123456","","abancay",
                     List.of(
-                            authorityRepository.findByName(AuthorityName.ROLE_ADMIN),
-                            authorityRepository.findByName(AuthorityName.WRITE),
-                            authorityRepository.findByName(AuthorityName.READ)
+                            authorityRepository.findByName(AuthorityName.ROLE_ADMIN)
                     )
             ));
 

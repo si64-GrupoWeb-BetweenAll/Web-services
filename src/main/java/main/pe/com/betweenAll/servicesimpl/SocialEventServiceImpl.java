@@ -50,6 +50,7 @@ public class SocialEventServiceImpl implements SocialEventService {
             s.getCategory().setUserCategoryList(null);
             s.setDateSocialEventList(null);
         }
+        return socialEvents;
     }
 
     public SocialEvent listById(Long id) {
