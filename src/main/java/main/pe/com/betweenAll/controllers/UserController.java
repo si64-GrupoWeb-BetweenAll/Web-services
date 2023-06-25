@@ -35,7 +35,7 @@ public class UserController {
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
-    @PostMapping("/users")
+    @PostMapping("/users/{idCategory}")
     public ResponseEntity<User> createUser(@RequestBody User user){
         User newUser=userService.save(user);
         return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable("id") Long id) {
+    public ResponseEntity<User> updateUser(@RequestBody User user,@PathVariable("idCategory") Long idCategory, @PathVariable("id") Long id) {
         User foundUser=userService.listById(id);
         if (user.getName()!=null) {
             foundUser.setName(user.getName());

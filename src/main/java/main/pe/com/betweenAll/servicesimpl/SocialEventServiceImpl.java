@@ -135,32 +135,6 @@ public class SocialEventServiceImpl implements SocialEventService {
         return dtoSocialEventsAvailableSummaryList;
     }
 
-    /*
-    @Transactional
-    public List<DTOSocialEventsAvailableSummary> listSocialEventsAvailableSummary(){
-        List<SocialEvent> socialEventList = socialEventRepository.findAll();
-        List<DateSocialEvent> dateSocialEventList = dateSocialEventRepository.findAll();
-        List<ZoneEvent> zoneEventList = zoneEventRepository.findAll();
-
-        List<DTOSocialEventsAvailableSummary> dtoSocialEventsAvailableSummaryList = new ArrayList<>();
-        Integer amountTickets=0;
-        for(SocialEvent s: socialEventList){
-            if(amountTickets==0){
-                for (DateSocialEvent d:dateSocialEventList){
-                    for (ZoneEvent z: zoneEventList){
-                        amountTickets+=(int)z.getCapacity();
-                    }
-                }
-                DTOSocialEventsAvailableSummary dtoSocialEventsAvailableSummary = new DTOSocialEventsAvailableSummary(
-                        s.getName(),amountTickets,1,1);
-                amountTickets=0;
-                dtoSocialEventsAvailableSummaryList.add(dtoSocialEventsAvailableSummary);
-            }
-
-        }
-        return dtoSocialEventsAvailableSummaryList;
-    }*/
-
     public List<SocialEvent> listByCreated(Long id){
         List<SocialEvent> socialEventList = socialEventRepository.findSocialEventByUser(id);
         for(SocialEvent s: socialEventList){

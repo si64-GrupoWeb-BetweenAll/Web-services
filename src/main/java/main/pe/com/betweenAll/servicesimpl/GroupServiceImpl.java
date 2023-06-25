@@ -2,10 +2,12 @@ package main.pe.com.betweenAll.servicesimpl;
 
 import main.pe.com.betweenAll.dtos.DTOGroupParticipantsSummary;
 import main.pe.com.betweenAll.dtos.DTOGroupSummary;
+import main.pe.com.betweenAll.entities.Category;
 import main.pe.com.betweenAll.entities.Group;
 import main.pe.com.betweenAll.entities.GroupUser;
 import main.pe.com.betweenAll.entities.User;
 import main.pe.com.betweenAll.exceptions.IncompleteDataException;
+import main.pe.com.betweenAll.repositories.CategoryRepository;
 import main.pe.com.betweenAll.repositories.GroupRepository;
 import main.pe.com.betweenAll.services.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class GroupServiceImpl implements GroupService {
 
     @Autowired
     GroupRepository groupRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
     @Transactional
     public List<Group> listAll() {
         List<Group> groups;
@@ -51,7 +55,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Transactional
-    public Group save(Group group){
+    public Group save(Group group, Long idCategory){
         //EXCEPTIONS
         if(group.getName()==null || group.getName().isEmpty()){
             throw new IncompleteDataException("Group Name can not be null or empty");
@@ -62,7 +66,9 @@ public class GroupServiceImpl implements GroupService {
         if(group.getImage()==null || group.getImage().isEmpty()){
             throw new IncompleteDataException("Group Image can not be null or empty");
         }
-        Group newGroup = groupRepository.save(new Group(group.getName(),group.getDescription(),group.getImage(),group.getCategory()));
+        Category category = categoryRepository.findById(idCategory).get();
+        group.setCategory(category);
+        Group newGroup = groupRepository.save(group);
         return newGroup;
     }
     @Transactional

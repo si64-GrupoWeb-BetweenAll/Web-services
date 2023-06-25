@@ -32,9 +32,9 @@ public class GroupController {
         List<Group> groups = groupService.listByName(name);
         return new ResponseEntity<List<Group>>(groups,HttpStatus.OK);
     }
-    @PostMapping("/groups")
-    public ResponseEntity<Group> createGroup(@RequestBody Group group){
-        Group newgroup = groupService.save(group);
+    @PostMapping("/groups/{idCategory}")
+    public ResponseEntity<Group> createGroup(@RequestBody Group group,@PathVariable("idCategory") Long idCategory){
+        Group newgroup = groupService.save(group,idCategory);
         return new ResponseEntity<Group>(newgroup,HttpStatus.OK);
     }
     @DeleteMapping("/groups/{id}")
@@ -42,8 +42,8 @@ public class GroupController {
         groupService.delete(id,true);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @PutMapping("/groups/{id}")
-    public ResponseEntity<Group> updateGroup(@RequestBody Group group, @PathVariable("id") Long id){
+    @PutMapping("/groups/{idCategory}/{id}")
+    public ResponseEntity<Group> updateGroup(@RequestBody Group group,@PathVariable("idCategory") Long idCategory, @PathVariable("id") Long id){
         Group foundGroup= groupService.listById(id);
         if(group.getName()!=null){
             foundGroup.setName(group.getName());
@@ -55,7 +55,7 @@ public class GroupController {
             foundGroup.setImage(group.getImage());
         };
 
-        Group updateGroup=groupService.save(foundGroup);
+        Group updateGroup=groupService.save(foundGroup,idCategory);
         return new ResponseEntity<Group>(updateGroup,HttpStatus.OK);
     }
 
