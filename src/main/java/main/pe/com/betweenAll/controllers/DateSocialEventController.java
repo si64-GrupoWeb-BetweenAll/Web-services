@@ -16,13 +16,14 @@ public class DateSocialEventController {
     @Autowired
     DateSocialEventService dateSocialEventService;
 
-    @PostMapping("/dateSocialEvents")
-    public ResponseEntity<DateSocialEvent> createUserCategory(@RequestBody DateSocialEvent dateSocialEvent){
-        DateSocialEvent saveDateSocialEvent =dateSocialEventService.save(dateSocialEvent);
+    @PostMapping("/dateSocialEvents/{idSocialEvent}")
+    public ResponseEntity<DateSocialEvent> createDateSocialEvent(@RequestBody DateSocialEvent dateSocialEvent,
+                                                              @PathVariable("idSocialEvent") Long idSocialEvent){
+        DateSocialEvent saveDateSocialEvent =dateSocialEventService.save(dateSocialEvent,idSocialEvent);
         return new ResponseEntity<DateSocialEvent>(saveDateSocialEvent, HttpStatus.CREATED);
     }
     @DeleteMapping("/dateSocialEvents/{id}")
-    public ResponseEntity<HttpStatus> deleteUserCategory(@PathVariable("id") Long id){
+    public ResponseEntity<HttpStatus> deleteDateSocialEvent(@PathVariable("id") Long id){
         dateSocialEventService.delete(id,true);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

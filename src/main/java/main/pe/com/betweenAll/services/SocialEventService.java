@@ -11,7 +11,7 @@ public interface SocialEventService {
     public List<SocialEvent> listAll();
     public List<SocialEvent> listByCreated(Long id);
     public SocialEvent listById(Long id);
-    public SocialEvent save(SocialEvent socialEvent);
+    public SocialEvent save(SocialEvent socialEvent,Long idCategory,Long idUser);
     public void delete(Long id, boolean forced);
     public List<DTOSocialEventSummary> listSocialEventSummary();
     public List<DTOSocialEventsAvailableSummary> listSocialEventsAvailableSummary();

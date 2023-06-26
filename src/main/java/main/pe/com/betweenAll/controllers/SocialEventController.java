@@ -29,7 +29,6 @@ public class SocialEventController {
     public ResponseEntity<List<SocialEvent>> getAllSocialEvent() {
         List<SocialEvent> social_events = socialEventService.listAll();
         return new ResponseEntity<List<SocialEvent>>(social_events, HttpStatus.OK);
-
     }
 
     @GetMapping("/socialEvents/created/{id}")
@@ -46,9 +45,11 @@ public class SocialEventController {
 
     }
 
-    @PostMapping("/socialEvents")
-    public ResponseEntity<SocialEvent> createSocialEvent(@RequestBody SocialEvent social_event) {
-        SocialEvent newSocialEvent = socialEventService.save(social_event);
+    @PostMapping("/socialEvents/{idCategory}/{idUser}")
+    public ResponseEntity<SocialEvent> createSocialEvent(@RequestBody SocialEvent social_event,
+                                                         @PathVariable("idCategory") Long idCategory,
+                                                         @PathVariable("idUser") Long idUser){
+        SocialEvent newSocialEvent = socialEventService.save(social_event,idCategory,idUser);
         return new ResponseEntity<SocialEvent>(newSocialEvent, HttpStatus.CREATED);
     }
 
@@ -58,8 +59,11 @@ public class SocialEventController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/socialEvents/{id}")
-    public ResponseEntity<SocialEvent> updateSocialEvent(@RequestBody SocialEvent social_event, @PathVariable("id") Long id) {
+    @PutMapping("/socialEvents/{idCategory}/{idUser}/{id}")
+    public ResponseEntity<SocialEvent> updateSocialEvent(@RequestBody SocialEvent social_event,
+                                                         @PathVariable("idCategory") Long idCategory,
+                                                         @PathVariable("idUser") Long idUser,
+                                                         @PathVariable("id") Long id) {
         SocialEvent foundSocialEvent=socialEventService.listById(id);
 
         if(social_event.getName()!=null){
@@ -81,7 +85,7 @@ public class SocialEventController {
             foundSocialEvent.setCategory(social_event.getCategory());
         }
 
-        SocialEvent updateSocialEvent = socialEventService.save(foundSocialEvent);
+        SocialEvent updateSocialEvent = socialEventService.save(foundSocialEvent,idCategory,idUser);
         return new ResponseEntity<SocialEvent>(updateSocialEvent, HttpStatus.OK);
     }
 
