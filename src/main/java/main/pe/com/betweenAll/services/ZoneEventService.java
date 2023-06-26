@@ -10,7 +10,7 @@ public interface ZoneEventService {
     public List<ZoneEvent> listByName(String name);
     public ZoneEvent listById(Long id);
 
-    public ZoneEvent save(ZoneEvent zoneEvent);
+    public ZoneEvent save(ZoneEvent zoneEvent, Long idDateSocialEvent);
 
     public void delete(Long id, boolean forced);
 }

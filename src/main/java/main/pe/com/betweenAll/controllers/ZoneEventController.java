@@ -30,9 +30,10 @@ public class ZoneEventController {
 
     }
 
-    @PostMapping("/zoneEvents")
-    public ResponseEntity<ZoneEvent> createZoneEvent (@RequestBody ZoneEvent zoneEvent) {
-        ZoneEvent newZoneEvent = zoneEventService.save(zoneEvent);
+    @PostMapping("/zoneEvents/{idDateSocialEvent}")
+    public ResponseEntity<ZoneEvent> createZoneEvent (@RequestBody ZoneEvent zoneEvent,
+                                                      @PathVariable("idDateSocialEvent") Long idDateSocialEvent) {
+        ZoneEvent newZoneEvent = zoneEventService.save(zoneEvent,idDateSocialEvent);
         return new ResponseEntity<ZoneEvent>(newZoneEvent, HttpStatus.CREATED);
     }
 
