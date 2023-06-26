@@ -7,7 +7,7 @@ import java.util.List;
 public interface PurchaseService {
     public List<Purchase> listAll();
     public Purchase listById(Long id);
-    public Purchase save(Purchase purchase);
+    public Purchase save(Purchase purchase, Long idUser, Long idCard);
     public void delete(Long id, boolean forced);
 
     public List<DTOEventsAssistedSummary> listAssistedTicketsSummary(Long id);
