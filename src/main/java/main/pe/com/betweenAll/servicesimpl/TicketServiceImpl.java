@@ -50,6 +50,12 @@ public class TicketServiceImpl implements TicketService {
     @Transactional
     public Ticket save(Ticket ticket) {
         Ticket newTicket = ticketRepository.save(new Ticket(ticket.getPurchase(), ticket.getZoneEvent()));
+
+        /*
+        Category category = categoryRepository.findById(idCategory).get();
+        group.setCategory(category);
+        Group newGroup = groupRepository.save(group);
+        * */
         return newTicket;
     }
 
