@@ -1,9 +1,17 @@
 package main.pe.com.betweenAll.servicesimpl;
 
+import main.pe.com.betweenAll.dtos.DTOGroupParticipantsSummary;
 import main.pe.com.betweenAll.dtos.DTOGroupSummary;
+
 import main.pe.com.betweenAll.dtos.DTOGroupsJoinnedSummary;
+
+import main.pe.com.betweenAll.entities.Category;
+
 import main.pe.com.betweenAll.entities.Group;
+import main.pe.com.betweenAll.entities.GroupUser;
+import main.pe.com.betweenAll.entities.User;
 import main.pe.com.betweenAll.exceptions.IncompleteDataException;
+import main.pe.com.betweenAll.repositories.CategoryRepository;
 import main.pe.com.betweenAll.repositories.GroupRepository;
 import main.pe.com.betweenAll.services.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +27,8 @@ public class GroupServiceImpl implements GroupService {
 
     @Autowired
     GroupRepository groupRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
     @Transactional
     public List<Group> listAll() {
         List<Group> groups;
@@ -52,7 +62,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Transactional
-    public Group save(Group group){
+    public Group save(Group group, Long idCategory){
         //EXCEPTIONS
         if(group.getName()==null || group.getName().isEmpty()){
             throw new IncompleteDataException("Group Name can not be null or empty");
@@ -63,7 +73,13 @@ public class GroupServiceImpl implements GroupService {
         if(group.getImage()==null || group.getImage().isEmpty()){
             throw new IncompleteDataException("Group Image can not be null or empty");
         }
-        Group newGroup = groupRepository.save(new Group(group.getName(),group.getDescription(),group.getImage(),group.getCategory(),group.getUser()));
+
+        //Group newGroup = groupRepository.save(new Group(group.getName(),group.getDescription(),group.getImage(),group.getCategory(),group.getUser()));
+
+        Category category = categoryRepository.findById(idCategory).get();
+        group.setCategory(category);
+        Group newGroup = groupRepository.save(group);
+
         return newGroup;
     }
     @Transactional
@@ -98,7 +114,65 @@ public class GroupServiceImpl implements GroupService {
                 dtoGroupsJoinnedSummaryList.add(dtoGroupsJoinnedSummary);
             }
 
+
         }
         return dtoGroupsJoinnedSummaryList;
     }
+
+    @Transactional
+    public List<DTOGroupParticipantsSummary> listGroupParticipantsSummary(){
+        List<Group>groupList=groupRepository.findAll();
+        List<DTOGroupParticipantsSummary> dtoGroupParticipantsSummaryList = new ArrayList<>();
+        for(Group g: groupList){
+            Integer amountParticipants = (int) g.getGroupUserList().stream().count();
+            String category = g.getCategory().getName();
+            //Podria pasar esta lista de usuarios en vez de la lista de GroupUser
+            List<User> userList = new ArrayList<>();
+
+            for(GroupUser groupUser: g.getGroupUserList()){
+                groupUser.getUser().setSocialEventList(null);
+                groupUser.getUser().setGroupUserList(null);
+                groupUser.getUser().setPurchaseList(null);
+                groupUser.getUser().setUserCategoryList(null);
+                groupUser.getUser().setAuthorityList(null);
+                groupUser.getUser().setCardList(null);
+                userList.add(groupUser.getUser());
+            }
+
+            DTOGroupParticipantsSummary dtoGroupParticipantsSummary = new DTOGroupParticipantsSummary(g.getName(),
+                    amountParticipants, g.getDescription(), category, userList);
+            dtoGroupParticipantsSummaryList.add(dtoGroupParticipantsSummary);
+
+
+        }
+        return dtoGroupParticipantsSummaryList;
+    }
+
+    @Transactional
+    public DTOGroupParticipantsSummary groupParticipantsSummary(Long id){
+
+        Group group = groupRepository.findById(id).orElse(null);
+
+        Integer amountParticipants = (int) group.getGroupUserList().stream().count();
+        String category = group.getCategory().getName();
+
+        List<User> userList = new ArrayList<>();
+
+        for(GroupUser groupUser: group.getGroupUserList()){
+            groupUser.getUser().setSocialEventList(null);
+            groupUser.getUser().setGroupUserList(null);
+            groupUser.getUser().setPurchaseList(null);
+            groupUser.getUser().setUserCategoryList(null);
+            groupUser.getUser().setAuthorityList(null);
+            groupUser.getUser().setCardList(null);
+            userList.add(groupUser.getUser());
+        }
+
+        DTOGroupParticipantsSummary dtoGroupParticipantsSummary = new DTOGroupParticipantsSummary(group.getName(),
+                amountParticipants, group.getDescription(), category, userList);
+
+        return dtoGroupParticipantsSummary;
+    }
+
+
 }

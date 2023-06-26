@@ -1,6 +1,5 @@
 package main.pe.com.betweenAll.servicesimpl;
 
-import main.pe.com.betweenAll.dtos.DTOAssistedTicketsSummary;
 import main.pe.com.betweenAll.dtos.DTOZoneAvailableSummary;
 import main.pe.com.betweenAll.entities.*;
 import main.pe.com.betweenAll.repositories.*;
@@ -24,11 +23,12 @@ public class DateSocialEventServiceImpl implements DateSocialEventService {
 
     @Transactional
     public DateSocialEvent save(DateSocialEvent dateSocialEvent){
-        SocialEvent socialEventFound = socialEventRepository.findById(dateSocialEvent.getSocialEvent().getId()).get();
+        /*SocialEvent socialEventFound = socialEventRepository.findById(dateSocialEvent.getSocialEvent().getId()).get();
         DateSocialEvent newDataSocialEvent= new DateSocialEvent(dateSocialEvent.getDate(),dateSocialEvent.getStarTime(),
                 dateSocialEvent.getEndTime(),socialEventFound);
         dateSocialEventRepository.save(newDataSocialEvent);
-        return newDataSocialEvent;
+        return newDataSocialEvent;*/
+        return dateSocialEventRepository.save(dateSocialEvent);
     }
     @Transactional
     public DateSocialEvent listById(Long id){

@@ -1,5 +1,6 @@
 package main.pe.com.betweenAll.controllers;
 
+import main.pe.com.betweenAll.dtos.DTOGroupParticipantsSummary;
 import main.pe.com.betweenAll.dtos.DTOGroupSummary;
 import main.pe.com.betweenAll.dtos.DTOGroupsJoinnedSummary;
 import main.pe.com.betweenAll.entities.Category;
@@ -32,9 +33,9 @@ public class GroupController {
         List<Group> groups = groupService.listByName(name);
         return new ResponseEntity<List<Group>>(groups,HttpStatus.OK);
     }
-    @PostMapping("/groups")
-    public ResponseEntity<Group> createGroup(@RequestBody Group group){
-        Group newgroup = groupService.save(group);
+    @PostMapping("/groups/{idCategory}")
+    public ResponseEntity<Group> createGroup(@RequestBody Group group,@PathVariable("idCategory") Long idCategory){
+        Group newgroup = groupService.save(group,idCategory);
         return new ResponseEntity<Group>(newgroup,HttpStatus.OK);
     }
     @DeleteMapping("/groups/{id}")
@@ -42,8 +43,8 @@ public class GroupController {
         groupService.delete(id,true);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @PutMapping("/groups/{id}")
-    public ResponseEntity<Group> updateGroup(@RequestBody Group group, @PathVariable("id") Long id){
+    @PutMapping("/groups/{idCategory}/{id}")
+    public ResponseEntity<Group> updateGroup(@RequestBody Group group,@PathVariable("idCategory") Long idCategory, @PathVariable("id") Long id){
         Group foundGroup= groupService.listById(id);
         if(group.getName()!=null){
             foundGroup.setName(group.getName());
@@ -55,7 +56,7 @@ public class GroupController {
             foundGroup.setImage(group.getImage());
         };
 
-        Group updateGroup=groupService.save(foundGroup);
+        Group updateGroup=groupService.save(foundGroup,idCategory);
         return new ResponseEntity<Group>(updateGroup,HttpStatus.OK);
     }
 
@@ -65,9 +66,22 @@ public class GroupController {
         return new ResponseEntity<List<DTOGroupSummary>>(dtoGroupSummaries,HttpStatus.OK);
     }
 
+
     @GetMapping("/groups/summary/{id}")
-    public ResponseEntity<List<DTOGroupsJoinnedSummary>> getGroupByUserSummary(@PathVariable("id") Long id){
-        List<DTOGroupsJoinnedSummary> dtoGroupsJoinnedSummaryList =groupService.listGroupByUserSummary(id);
-        return new ResponseEntity<List<DTOGroupsJoinnedSummary>>(dtoGroupsJoinnedSummaryList,HttpStatus.OK);
+    public ResponseEntity<List<DTOGroupsJoinnedSummary>> getGroupByUserSummary(@PathVariable("id") Long id) {
+        List<DTOGroupsJoinnedSummary> dtoGroupsJoinnedSummaryList = groupService.listGroupByUserSummary(id);
+        return new ResponseEntity<List<DTOGroupsJoinnedSummary>>(dtoGroupsJoinnedSummaryList, HttpStatus.OK);
+    }
+    @GetMapping("/groups/groupParticipantsSummary")
+    public ResponseEntity<List<DTOGroupParticipantsSummary>> getListGroupParticipantsSummary() {
+        List<DTOGroupParticipantsSummary> dtoGroupParticipantsSummaryList = groupService.listGroupParticipantsSummary();
+        return new ResponseEntity<List<DTOGroupParticipantsSummary>>(dtoGroupParticipantsSummaryList, HttpStatus.OK);
+    }
+
+    @GetMapping("/groups/groupParticipantsSummary/{id}")
+    public ResponseEntity<DTOGroupParticipantsSummary> getGroupParticipantsSummary(@PathVariable("id") Long id) {
+        DTOGroupParticipantsSummary dtoGroupParticipantsSummary = groupService.groupParticipantsSummary(id);
+        return new ResponseEntity<DTOGroupParticipantsSummary>(dtoGroupParticipantsSummary, HttpStatus.OK);
+
     }
 }

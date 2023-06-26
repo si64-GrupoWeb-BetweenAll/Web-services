@@ -1,11 +1,8 @@
 package main.pe.com.betweenAll.controllers;
 
-import main.pe.com.betweenAll.dtos.DTOAssistedTicketsSummary;
-import main.pe.com.betweenAll.dtos.DTOSocialEventSummary;
+import main.pe.com.betweenAll.dtos.DTOEventsAssistedSummary;
 import main.pe.com.betweenAll.entities.Purchase;
-import main.pe.com.betweenAll.entities.SocialEvent;
 import main.pe.com.betweenAll.services.PurchaseService;
-import main.pe.com.betweenAll.services.SocialEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,10 +68,11 @@ public class PurchaseController {
         return new ResponseEntity<Purchase>(updatePurchase, HttpStatus.OK);
     }
 
-    @GetMapping("/purchases/summary")
-    public ResponseEntity<List<DTOAssistedTicketsSummary>> getAssistedTicketsSummary() {
-        List<DTOAssistedTicketsSummary> dtoAssistedTicketsSummaryList = purchaseService.listAssistedTicketsSummary();
-        return new ResponseEntity<List<DTOAssistedTicketsSummary>>(dtoAssistedTicketsSummaryList, HttpStatus.OK);
+    @GetMapping("/purchases/summary/{id}")
+
+    public ResponseEntity<List<DTOEventsAssistedSummary>> getAssistedTicketsSummary(@PathVariable("id") Long id) {
+        List<DTOEventsAssistedSummary> dtoEventsAssistedSummaryList = purchaseService.listAssistedTicketsSummary(id);
+        return new ResponseEntity<List<DTOEventsAssistedSummary>>(dtoEventsAssistedSummaryList, HttpStatus.OK);
     }
 
 }

@@ -4,9 +4,11 @@ import main.pe.com.betweenAll.dtos.DTOSocialEventsAvailableSummary;
 import main.pe.com.betweenAll.entities.GroupUser;
 import main.pe.com.betweenAll.entities.SocialEvent;
 import main.pe.com.betweenAll.entities.Ticket;
+import main.pe.com.betweenAll.entities.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,5 +26,8 @@ public interface SocialEventRepository extends JpaRepository <SocialEvent, Long>
             "JOIN tickets i ON z.id = i.zone_event_id\n" +
             "GROUP BY s.name", nativeQuery = true)
     List<String[]> listSocialEventAvailableSummary();
+
+    @Query(value = "SELECT * FROM socials_events u WHERE u.user_id = :id", nativeQuery = true)
+    List<SocialEvent> findSocialEventByUser(@Param("id") Long id);
 
 }

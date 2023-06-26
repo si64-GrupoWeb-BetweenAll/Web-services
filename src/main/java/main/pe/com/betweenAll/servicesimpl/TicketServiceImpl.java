@@ -1,17 +1,15 @@
 package main.pe.com.betweenAll.servicesimpl;
 
-import main.pe.com.betweenAll.dtos.DTOAssistedTicketsSummary;
+
+//import main.pe.com.betweenAll.dtos.DTOAssistedTicketsSummary;
 import main.pe.com.betweenAll.dtos.DTOGroupParticipantsSummary;
 import main.pe.com.betweenAll.dtos.DTOSocialEventSummary;
 import main.pe.com.betweenAll.dtos.DTOTicketSummary;
 import main.pe.com.betweenAll.entities.Purchase;
 import main.pe.com.betweenAll.entities.SocialEvent;
+
 import main.pe.com.betweenAll.entities.Ticket;
-import main.pe.com.betweenAll.entities.User;
-import main.pe.com.betweenAll.exceptions.IncompleteDataException;
-import main.pe.com.betweenAll.repositories.PurchaseRepository;
 import main.pe.com.betweenAll.repositories.TicketRepository;
-import main.pe.com.betweenAll.repositories.UserRepository;
 import main.pe.com.betweenAll.services.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

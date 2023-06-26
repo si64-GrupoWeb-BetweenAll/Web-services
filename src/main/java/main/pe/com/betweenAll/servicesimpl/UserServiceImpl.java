@@ -26,7 +26,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     SocialEventRepository socialEventRepository;
-
+    @Autowired
+    CategoryRepository categoryRepository;
     @Autowired
     CardRepository cardRepository;
 
