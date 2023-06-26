@@ -19,11 +19,26 @@ public class GroupUserController {
     @Autowired
     GroupUserService groupUserService;
 
-    @PostMapping("/groupUsers")
-    public ResponseEntity<GroupUser> createGroupUser(@RequestBody GroupUser groupUser){
-        GroupUser saveGroupUser = groupUserService.save(groupUser);
+    @PostMapping("/groupUsers/{idGroup}/{idUser}")
+    public ResponseEntity<GroupUser> createGroupUser(@RequestBody GroupUser groupUser, @PathVariable("idGroup") Long idGroup, @PathVariable("idUser") Long idUser){
+        GroupUser saveGroupUser = groupUserService.save(groupUser, idGroup, idUser);
         return new ResponseEntity<GroupUser>(saveGroupUser, HttpStatus.CREATED);
     }
+
+    @PutMapping("/groupUsers/{idGroup}/{idUser}/{id}")
+    public ResponseEntity<GroupUser> updateGroupUser(@RequestBody GroupUser groupUser, @PathVariable("idGroup") Long idGroup, @PathVariable("idUser") Long idUser, @PathVariable("id") Long id){
+
+        GroupUser foundGroupUser = groupUserService.listById(id);
+        if(groupUser.getGroup()!=null){
+            foundGroupUser.setGroup(groupUser.getGroup());
+        }
+        if(groupUser.getUser()!=null){
+            foundGroupUser.setUser(groupUser.getUser());
+        }
+        GroupUser updateGroupUser = groupUserService.save(groupUser, idGroup, idUser);
+        return new ResponseEntity<GroupUser>(updateGroupUser, HttpStatus.OK);
+    }
+
     @DeleteMapping("/groupUsers/{id}")
     public ResponseEntity<HttpStatus> deleteGroupUser(@PathVariable("id") Long id){
         groupUserService.delete(id,true);
