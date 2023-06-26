@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User save(User user) {
 
-        /*if (user.getName() == null || user.getName().isEmpty()) {
+        if (user.getName() == null || user.getName().isEmpty()) {
             throw new IncompleteDataException("User Name can not be null or empty");
         }
 
@@ -87,15 +87,15 @@ public class UserServiceImpl implements UserService {
             throw new IncompleteDataException("User Last Name can not be null or empty");
         }
 
-        if (user.getTypeDocument() == null || user.getTypeDocument().isEmpty()) {
+        if (user.getTypeDocument() == null) {
             throw new IncompleteDataException("User TypeDocument can not be null or empty");
         }
 
-        if (user.getNumberDocument() == null || user.getNumberDocument() == 0) {
+        if (user.getNumberDocument() == null) {
             throw new IncompleteDataException("User NumberDocument can not be null or empty");
         }
 
-        if (user.getPhone() == null || user.getPhone().isEmpty()) {
+        if (user.getPhone() == null) {
             throw new IncompleteDataException("User Phone can not be null or empty");
         }
 
@@ -106,30 +106,18 @@ public class UserServiceImpl implements UserService {
         if (user.getPassword() == null || user.getPassword().isEmpty()) {
             throw new IncompleteDataException("User Password can not be null or empty");
         }
+        else{
+            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        }
 
-        if (user.getCity() == null || user.getCity().isEmpty()) {
+        if (user.getCity() == null) {
             throw new IncompleteDataException("User City can not be null or empty");
         }
 
-        if (user.getId()==null || user.getId()==0) {
-            if (userRepository.findByNumberDocument(user.getNumberDocument()) != null) {
-                throw new KeyRepeatedDataException("Value for NumberDocument is duplicated");
-            }
-        }
+        user.setAuthorityList(List.of(
+                authorityRepository.findByName(AuthorityName.ROLE_ADMIN)));
 
-
-
-        //User newUser = new User(user.getName(), user.getLastname(), user.getTypeDocument(), user.getNumberDocument(), user.getPhone(), user.getEmail(), user.getPassword(), user.getImage(), user.getCity());
-
-        User savedUser = userRepository.save(user);*/
-
-        User newUser = new User(user.getName(), user.getLastname(), user.getTypeDocument(),
-                user.getNumberDocument(), user.getPhone(), user.getEmail(),
-                new BCryptPasswordEncoder().encode(user.getPassword()),
-                user.getImage(), user.getCity(),List.of(
-                authorityRepository.findByName(AuthorityName.ROLE_ADMIN)
-        ));
-        User savedUser = userRepository.save(newUser);
+        User savedUser = userRepository.save(user);
         return savedUser;
     }
 
@@ -159,5 +147,35 @@ public class UserServiceImpl implements UserService {
             }
         }
         userRepository.delete(user);
+    }
+    @Transactional
+    public User listByPasword(String password) {
+
+        List<User> userList;
+        userList = userRepository.findAll();
+        User user=null;
+
+        for(User u :userList){
+            if(new BCryptPasswordEncoder().matches(password,u.getPassword())){
+                user=u;
+            }
+        }
+
+        user.setGroupUserList(null);
+        user.setUserCategoryList(null);
+        user.setSocialEventList(null);
+        user.setCardList(null);
+        user.setPurchaseList(null);
+        return user;
+    }
+    public User lastUser(){
+        List<User> userList = userRepository.findAll();
+        User newUser=userList.get(userList.size()-1);
+        newUser.setGroupUserList(null);
+        newUser.setUserCategoryList(null);
+        newUser.setSocialEventList(null);
+        newUser.setCardList(null);
+        newUser.setPurchaseList(null);
+        return newUser;
     }
 }

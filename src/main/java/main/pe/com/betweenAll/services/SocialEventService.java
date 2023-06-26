@@ -1,7 +1,6 @@
 package main.pe.com.betweenAll.services;
 
 
-import main.pe.com.betweenAll.dtos.DTOSocialEventSummary;
 import main.pe.com.betweenAll.dtos.DTOSocialEventsAvailableSummary;
 import main.pe.com.betweenAll.entities.SocialEvent;
 
@@ -13,7 +12,6 @@ public interface SocialEventService {
     public SocialEvent listById(Long id);
     public SocialEvent save(SocialEvent socialEvent);
     public void delete(Long id, boolean forced);
-    public List<DTOSocialEventSummary> listSocialEventSummary();
     public List<DTOSocialEventsAvailableSummary> listSocialEventsAvailableSummary();
 
 }

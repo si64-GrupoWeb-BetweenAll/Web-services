@@ -18,9 +18,11 @@ public class UserCategoryController {
     @Autowired
     UserCategoryService userCategoryService;
 
-    @PostMapping("/userCategories")
-    public ResponseEntity<UserCategory> createUserCategory(@RequestBody UserCategory userCategory){
-        UserCategory saveUserCategory=userCategoryService.save(userCategory);
+    @PostMapping("/userCategories/{idUser}/{idCategory}")
+    public ResponseEntity<UserCategory> createUserCategory(@RequestBody UserCategory userCategory,
+                                                           @PathVariable("idUser") Long idUser,
+                                                           @PathVariable("idCategory") Long idCategory){
+        UserCategory saveUserCategory=userCategoryService.save(userCategory,idUser,idCategory);
         return new ResponseEntity<UserCategory>(saveUserCategory, HttpStatus.CREATED);
     }
     @DeleteMapping("/userCategories/{id}")

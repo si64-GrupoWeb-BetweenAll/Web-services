@@ -23,19 +23,19 @@ public class UserController {
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/users/name/{name}")
-    public ResponseEntity<List<User>> getUsersByName(@PathVariable("name") String name) {
-        List<User> users = userService.listByName(name);
-        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
-    }
-
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
         User user = userService.listById(id);
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
-    @PostMapping("/users/{idCategory}")
+    @GetMapping("/users/pass/{password}")
+    public ResponseEntity<User> getUserByPassword(@PathVariable("password") String password) {
+        User user = userService.listByPasword(password);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+
+    @PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestBody User user){
         User newUser=userService.save(user);
         return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
@@ -81,7 +81,9 @@ public class UserController {
         User updateUser=userService.save(foundUser);
         return new ResponseEntity<User>(updateUser, HttpStatus.OK);
     }
-
-
-
+    @GetMapping("/users/last")
+    public ResponseEntity<User> getUserLast() {
+        User user = userService.lastUser();
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
 }
