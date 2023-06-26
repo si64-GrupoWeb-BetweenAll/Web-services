@@ -22,12 +22,9 @@ public class DateSocialEventServiceImpl implements DateSocialEventService {
     ZoneEventRepository zoneEventRepository;
 
     @Transactional
-    public DateSocialEvent save(DateSocialEvent dateSocialEvent){
-        /*SocialEvent socialEventFound = socialEventRepository.findById(dateSocialEvent.getSocialEvent().getId()).get();
-        DateSocialEvent newDataSocialEvent= new DateSocialEvent(dateSocialEvent.getDate(),dateSocialEvent.getStarTime(),
-                dateSocialEvent.getEndTime(),socialEventFound);
-        dateSocialEventRepository.save(newDataSocialEvent);
-        return newDataSocialEvent;*/
+    public DateSocialEvent save(DateSocialEvent dateSocialEvent,Long idSocialEvent){
+        SocialEvent socialEvent = socialEventRepository.findById(idSocialEvent).get();
+        dateSocialEvent.setSocialEvent(socialEvent);
         return dateSocialEventRepository.save(dateSocialEvent);
     }
     @Transactional

@@ -3,6 +3,7 @@ package main.pe.com.betweenAll.servicesimpl;
 import main.pe.com.betweenAll.dtos.DTOEventsAssistedSummary;
 import main.pe.com.betweenAll.entities.*;
 import main.pe.com.betweenAll.exceptions.IncompleteDataException;
+import main.pe.com.betweenAll.repositories.CardRepository;
 import main.pe.com.betweenAll.repositories.PurchaseRepository;
 import main.pe.com.betweenAll.repositories.TicketRepository;
 import main.pe.com.betweenAll.repositories.UserRepository;
@@ -25,6 +26,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     TicketRepository ticketRepository;
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    CardRepository cardRepository;
     @Transactional
     public List<Purchase> listAll() {
         List<Purchase> purchases;
@@ -40,6 +44,10 @@ public class PurchaseServiceImpl implements PurchaseService {
             p.getUser().setUserCategoryList(null);
             p.getUser().setAuthorityList(null);
             p.getUser().setCardList(null);
+            p.setTotal(null);
+            p.getUser().setGroupUserList(null);
+            p.getUser().setGroupList(null);
+            p.setUser(null);
         }
         return purchases;
     }
@@ -53,7 +61,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Transactional
-    public Purchase save(Purchase purchase) {
+    public Purchase save(Purchase purchase, Long idUser, Long idCard) {
 
         if (purchase.getDate() == null || purchase.getDate().equals("")) {
             throw new IncompleteDataException("Purchase Date cannot be null or empty");
@@ -62,7 +70,11 @@ public class PurchaseServiceImpl implements PurchaseService {
         if (purchase.getQuantity() == null || purchase.getQuantity() == 0) {
             throw new IncompleteDataException("Purchase Quantity cannot be null or zero");
         }
+        User user = userRepository.findById(idUser).get();
+        Card card = cardRepository.findById(idCard).get();
 
+        purchase.setUser(user);
+        purchase.setCard(card);
         Purchase newPurchase = purchaseRepository.save(purchase);
         return newPurchase;
     }

@@ -4,6 +4,7 @@ package main.pe.com.betweenAll.servicesimpl;
 import main.pe.com.betweenAll.entities.DateSocialEvent;
 import main.pe.com.betweenAll.entities.Ticket;
 import main.pe.com.betweenAll.entities.ZoneEvent;
+import main.pe.com.betweenAll.repositories.DateSocialEventRepository;
 import main.pe.com.betweenAll.repositories.TicketRepository;
 import main.pe.com.betweenAll.repositories.ZoneEventRepository;
 import main.pe.com.betweenAll.services.ZoneEventService;
@@ -17,9 +18,10 @@ import java.util.List;
 public class ZoneEventServiceImpl implements ZoneEventService {
     @Autowired
     ZoneEventRepository zoneEventRepository;
-
     @Autowired
     TicketRepository ticketRepository;
+    @Autowired
+    DateSocialEventRepository dateSocialEventRepository;
 
     public List<ZoneEvent> listAll() {
         List<ZoneEvent> zoneEvents;
@@ -47,10 +49,10 @@ public class ZoneEventServiceImpl implements ZoneEventService {
         return zoneEvents;
     }
     @Transactional
-    public ZoneEvent save(ZoneEvent zoneEvent) {
-        ZoneEvent newSocialEvent =
-                zoneEventRepository.save(
-                        new ZoneEvent(zoneEvent.getName(), zoneEvent.getPrice(), zoneEvent.getCapacity(), zoneEvent.getDateSocialEvent()));
+    public ZoneEvent save(ZoneEvent zoneEvent, Long idDateSocialEvent) {
+        DateSocialEvent dateSocialEvent=dateSocialEventRepository.findById(idDateSocialEvent).get();
+        zoneEvent.setDateSocialEvent(dateSocialEvent);
+        ZoneEvent newSocialEvent = zoneEventRepository.save(zoneEvent);
         return newSocialEvent;
     }
 

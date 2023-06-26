@@ -31,6 +31,9 @@ public class User {
     List<GroupUser> groupUserList;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
+    private List<Group> groupList;
+
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
     List<UserCategory> userCategoryList;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})

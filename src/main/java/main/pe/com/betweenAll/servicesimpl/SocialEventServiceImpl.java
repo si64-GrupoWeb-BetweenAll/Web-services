@@ -31,6 +31,8 @@ public class SocialEventServiceImpl implements SocialEventService {
     TicketRepository ticketRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @Transactional
     public List<SocialEvent> listAll() {
@@ -42,13 +44,13 @@ public class SocialEventServiceImpl implements SocialEventService {
             s.getUser().setGroupUserList(null);
             s.getUser().setPurchaseList(null);
             s.getUser().setUserCategoryList(null);
-            s.getUser().setAuthorityList(null);
             s.getUser().setCardList(null);
             s.getCategory().setGroupList(null);
             s.getCategory().setSocialEventList(null);
             s.getCategory().setUserCategoryList(null);
             s.setDateSocialEventList(null);
         }
+
          return socialEvents;
 
     }
@@ -61,30 +63,18 @@ public class SocialEventServiceImpl implements SocialEventService {
     }
 
     @Transactional
-    public SocialEvent save(SocialEvent socialEvent) {
+    public SocialEvent save(SocialEvent socialEvent,Long idCategory,Long idUser) {
 
-        if (socialEvent.getDescription() == null || socialEvent.getDescription().isEmpty()) {
-            throw new IncompleteDataException("Social Event Description cannot be null or empty");
-        }
+        if (socialEvent.getDescription() == null || socialEvent.getDescription().isEmpty()) {throw new IncompleteDataException("Social Event Description cannot be null or empty");}
+        if (socialEvent.getImage() == null || socialEvent.getImage().isEmpty()) {throw new IncompleteDataException("Social Event Image cannot be null or empty");}
+        if (socialEvent.getName() == null || socialEvent.getName().isEmpty()) {throw new IncompleteDataException("Social Event Name cannot be null or empty");}
+        if (socialEvent.getLocation() == null || socialEvent.getLocation().isEmpty()) {throw new IncompleteDataException("Social Event Location cannot be null or empty");}
 
-        if (socialEvent.getImage() == null || socialEvent.getImage().isEmpty()) {
-            throw new IncompleteDataException("Social Event Image cannot be null or empty");
-        }
-
-        if (socialEvent.getName() == null || socialEvent.getName().isEmpty()) {
-            throw new IncompleteDataException("Social Event Name cannot be null or empty");
-        }
-
-        if (socialEvent.getLocation() == null || socialEvent.getLocation().isEmpty()) {
-            throw new IncompleteDataException("Social Event Location cannot be null or empty");
-        }
-
-        //REVISAR
-        /*if (socialEvent.getDateSocialEventList() == null || socialEvent.getDateSocialEventList().isEmpty()) {
-            throw new IncompleteDataException("Social Event Date cannot be null or empty");
-        }*/
-
-        SocialEvent newSocialEvent = socialEventRepository.save(new SocialEvent(socialEvent.getName(), socialEvent.getImage(), socialEvent.getLocation(), socialEvent.getDescription(), socialEvent.getUser(), socialEvent.getCategory()));
+        Category category=categoryRepository.findById(idCategory).get();
+        User user=userRepository.findById(idUser).get();
+        socialEvent.setCategory(category);
+        socialEvent.setUser(user);
+        SocialEvent newSocialEvent = socialEventRepository.save(socialEvent);
         return newSocialEvent;
     }
 

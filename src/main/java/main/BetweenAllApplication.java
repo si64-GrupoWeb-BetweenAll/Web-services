@@ -78,7 +78,9 @@ public class BetweenAllApplication {
             Category category= categoryRepository.save(new Category("POP","Activo"));
             UserCategory userCategory=userCategoryRepository.save(new UserCategory(user1,category));
 
-            Group group= groupRepository.save(new Group("Los inmortales","Solo gente seria","",category));
+            Group group= groupRepository.save(new Group("Los inmortales","Solo gente seria","",category,user1));
+
+
             GroupUser groupUser=groupUserRepository.save(new GroupUser(user1,group));
 
             SocialEvent socialEvent1=socialEventRepository.save(new SocialEvent("Morat","https://akamai.sscdn.co/uploadfile/letras/fotos/a/1/1/7/a11750e4abcbf07109b386364cc190f7.jpg","Lima","no lleven nada",user1,category));
@@ -96,17 +98,21 @@ public class BetweenAllApplication {
             ZoneEvent zoneEvent3= zoneEventRepository.save(new ZoneEvent("General",135.5,540,dateSocialEvent3));
             ZoneEvent zoneEvent4= zoneEventRepository.save(new ZoneEvent("Meet and Greet",210.0,540,dateSocialEvent3));
 
-            Purchase purchase1=purchaseRepository.save(new Purchase(Long.valueOf("20"),dateFormat.parse("2023-03-23"),user1,card));
-            Purchase purchase2=purchaseRepository.save(new Purchase(Long.valueOf("20"),dateFormat.parse("2023-03-23"),user1,card));
-            Purchase purchase3=purchaseRepository.save(new Purchase(Long.valueOf("20"),dateFormat.parse("2023-03-23"),user2,card));
-            Purchase purchase4=purchaseRepository.save(new Purchase(Long.valueOf("20"),dateFormat.parse("2023-03-23"),user3,card3));
+
+            Purchase purchase1=purchaseRepository.save(new Purchase(Long.valueOf("20"),dateFormat.parse("2023-03-23"),user1,card,200.0));
+            Purchase purchase2=purchaseRepository.save(new Purchase(Long.valueOf("20"),dateFormat.parse("2023-03-23"),user1,card,300.0));
+            Purchase purchase3=purchaseRepository.save(new Purchase(Long.valueOf("20"),dateFormat.parse("2023-03-23"),user2,card,530.0));
+            Purchase purchase4=purchaseRepository.save(new Purchase(Long.valueOf("20"),dateFormat.parse("2023-03-23"),user3,card3,564.0));
+
 
             Ticket ticket1=ticketRepository.save(new Ticket(purchase1,zoneEvent1));
             Ticket ticket2=ticketRepository.save(new Ticket(purchase2,zoneEvent2));
             Ticket ticket3=ticketRepository.save(new Ticket(purchase3,zoneEvent2));
             Ticket ticket4=ticketRepository.save(new Ticket(purchase4,zoneEvent4));
 
+    };
+}}
 
-        };
-    }
-}
+
+
+

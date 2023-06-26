@@ -23,15 +23,19 @@ public class Group {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     @OneToMany(mappedBy = "group", cascade = {CascadeType.REMOVE})
     private List<GroupUser> groupUserList;
 
 
-    public Group(String name, String description, String image, Category category) {
+    public Group(String name, String description, String image, Category category, User user) {
         this.name = name;
         this.description = description;
         this.image = image;
         this.category = category;
+        this.user=user;
     }
 }
 

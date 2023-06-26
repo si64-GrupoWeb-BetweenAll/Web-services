@@ -2,6 +2,7 @@ package main.pe.com.betweenAll.services;
 
 import main.pe.com.betweenAll.dtos.DTOGroupParticipantsSummary;
 import main.pe.com.betweenAll.dtos.DTOGroupSummary;
+import main.pe.com.betweenAll.dtos.DTOGroupsJoinnedSummary;
 import main.pe.com.betweenAll.entities.Group;
 
 import java.util.List;
@@ -13,6 +14,10 @@ public interface GroupService {
     public Group save(Group group, Long idCategory);
     public void delete(Long id,boolean forced);
     public List<DTOGroupSummary> listGroupSummary();
+
+    public List<DTOGroupsJoinnedSummary> listGroupByUserSummary(Long id);
+
     public  List<DTOGroupParticipantsSummary> listGroupParticipantsSummary();
     public  DTOGroupParticipantsSummary groupParticipantsSummary(Long id);
+
 }

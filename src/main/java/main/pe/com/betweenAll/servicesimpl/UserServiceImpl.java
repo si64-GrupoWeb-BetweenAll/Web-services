@@ -46,8 +46,9 @@ public class UserServiceImpl implements UserService {
             u.setCardList(null);
             u.setPurchaseList(null);
             for(Authority a: u.getAuthorityList()){
-                a.setUsers(null);
+                
             }
+            u.setGroupUserList(null);
         }
         return users;
     }

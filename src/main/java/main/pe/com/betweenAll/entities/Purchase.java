@@ -17,6 +17,7 @@ public class Purchase {
     private Long id;
     private Date date;
     private Long quantity;
+    private Double total;
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
@@ -26,10 +27,11 @@ public class Purchase {
     @OneToMany(mappedBy = "purchase", cascade = {CascadeType.REMOVE})
     List<Ticket> ticketList;
 
-    public Purchase(Long quantity, Date date, User user, Card card) {
+    public Purchase(Long quantity, Date date, User user, Card card, Double total) {
         this.date = date;
         this.quantity = quantity;
         this.user = user;
         this.card = card;
+        this.total=total;
     }
 }
