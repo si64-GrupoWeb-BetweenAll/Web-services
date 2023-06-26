@@ -3,9 +3,6 @@ package main.pe.com.betweenAll.servicesimpl;
 import main.pe.com.betweenAll.dtos.DTOSocialEventsAvailableSummary;
 import main.pe.com.betweenAll.entities.*;
 
-import main.pe.com.betweenAll.dtos.DTOSocialEventSummary;
-import main.pe.com.betweenAll.dtos.DTOUserCategorySummary;
-
 import main.pe.com.betweenAll.exceptions.IncompleteDataException;
 import main.pe.com.betweenAll.repositories.*;
 import main.pe.com.betweenAll.services.SocialEventService;
@@ -15,7 +12,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.lang.module.ResolutionException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -89,25 +85,6 @@ public class SocialEventServiceImpl implements SocialEventService {
         }
         socialEventRepository.delete(SocialEvent);
     }
-    @Transactional
-    public List<DTOSocialEventSummary> listSocialEventSummary () {
-
-        List<SocialEvent>socialEventList=socialEventRepository.findAll();
-        List<DTOSocialEventSummary> dtoSocialEventSummaryList = new ArrayList<>();
-
-        for(SocialEvent sE: socialEventList) {
-            String informationSocialEvent = sE.getName() + " - " + sE.getCategory();
-            Integer countDateSocialEvent = (int) sE.getDateSocialEventList().stream().count();
-            DTOSocialEventSummary dtoSocialEventSummary= new DTOSocialEventSummary(informationSocialEvent, countDateSocialEvent);
-            dtoSocialEventSummaryList.add(dtoSocialEventSummary);
-        }
-        return dtoSocialEventSummaryList;
-    }
-
-    /*@Transactional
-    public List<DTOSocialEventsAvailableSummary> listSocialEventsAvailableSummary(){
-        return socialEventRepository.listSocialEventAvailableSummary();
-    }*/
 
     @Transactional
     public List<DTOSocialEventsAvailableSummary> listSocialEventsAvailableSummary () {

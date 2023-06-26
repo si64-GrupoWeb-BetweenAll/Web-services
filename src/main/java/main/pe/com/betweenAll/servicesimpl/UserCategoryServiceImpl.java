@@ -1,7 +1,9 @@
 package main.pe.com.betweenAll.servicesimpl;
 
 import main.pe.com.betweenAll.dtos.DTOUserCategorySummary;
+import main.pe.com.betweenAll.entities.Category;
 import main.pe.com.betweenAll.entities.Ticket;
+import main.pe.com.betweenAll.entities.User;
 import main.pe.com.betweenAll.entities.UserCategory;
 import main.pe.com.betweenAll.repositories.CategoryRepository;
 import main.pe.com.betweenAll.repositories.UserCategoryRepository;
@@ -24,8 +26,13 @@ public class UserCategoryServiceImpl implements UserCategoryService {
     UserRepository userRepository;
 
     @Transactional
-    public UserCategory save(UserCategory userCategory){
-        UserCategory newUserCategory=userCategoryRepository.save(new UserCategory(userCategory.getUser(),userCategory.getCategory()));
+    public UserCategory save(UserCategory userCategory,Long idUser, Long idCategory){
+
+        User user = userRepository.findById(idUser).get();
+        Category category= categoryRepository.findById(idCategory).get();
+        userCategory.setUser(user);
+        userCategory.setCategory(category);
+        UserCategory newUserCategory=userCategoryRepository.save(userCategory);
         return newUserCategory;
     }
     @Transactional
