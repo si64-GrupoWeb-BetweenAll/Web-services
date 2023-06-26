@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
             for(Authority a: u.getAuthorityList()){
                 
             }
+            u.setGroupUserList(null);
         }
         return users;
     }

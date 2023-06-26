@@ -33,9 +33,9 @@ public class PurchaseController {
 
     }
 
-    @PostMapping("/purchases")
-    public ResponseEntity<Purchase> createPurchase (@RequestBody Purchase purchase) {
-        Purchase newPurchase = purchaseService.save(purchase);
+    @PostMapping("/purchases/{idUser}/{idCard}")
+    public ResponseEntity<Purchase> createPurchase (@RequestBody Purchase purchase,@PathVariable("idUser") Long idUser,@PathVariable("idCard") Long idCard) {
+        Purchase newPurchase = purchaseService.save(purchase, idUser, idCard);
         return new ResponseEntity<Purchase>(newPurchase, HttpStatus.CREATED);
     }
 
@@ -45,8 +45,8 @@ public class PurchaseController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/purchases/{id}")
-    public ResponseEntity<Purchase> updatePurchase (@RequestBody Purchase purchase, @PathVariable("id") Long id) {
+    @PutMapping("/purchases/{idUser}/{idCard}/{id}")
+    public ResponseEntity<Purchase> updatePurchase (@RequestBody Purchase purchase,@PathVariable("idUser") Long idUser,@PathVariable("idCard") Long idCard, @PathVariable("id") Long id) {
         Purchase foundPurchase=purchaseService.listById(id);
 
         if(purchase.getDate()!=null){
@@ -64,7 +64,7 @@ public class PurchaseController {
         if(purchase.getTotal()!=null){
             foundPurchase.setTotal(purchase.getTotal());
         }
-        Purchase updatePurchase = purchaseService.save(foundPurchase);
+        Purchase updatePurchase = purchaseService.save(foundPurchase, idUser, idCard);
         return new ResponseEntity<Purchase>(updatePurchase, HttpStatus.OK);
     }
 

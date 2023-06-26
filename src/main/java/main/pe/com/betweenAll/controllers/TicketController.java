@@ -33,9 +33,9 @@ public class TicketController {
 
     }
 
-    @PostMapping("/tickets")
-    public ResponseEntity<Ticket> createTicket(@RequestBody Ticket ticket) {
-        Ticket newTicket = ticketService.save(ticket);
+    @PostMapping("/tickets/{idPurchase}/{idZoneEvent}")
+    public ResponseEntity<Ticket> createTicket(@RequestBody Ticket ticket, @PathVariable("idPurchase") Long idPurchase, @PathVariable("idZoneEvent") Long idZoneEvent) {
+        Ticket newTicket = ticketService.save(ticket, idPurchase, idZoneEvent);
         return new ResponseEntity<Ticket>(newTicket, HttpStatus.CREATED);
     }
 
@@ -45,8 +45,8 @@ public class TicketController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/tickets/{id}")
-    public ResponseEntity<Ticket> updateTicket(@RequestBody Ticket ticket, @PathVariable("id") Long id) {
+    @PutMapping("/tickets/{idPurchase}/{idZoneEvent}/{id}")
+    public ResponseEntity<Ticket> updateTicket(@RequestBody Ticket ticket, @PathVariable("idPurchase") Long idPurchase, @PathVariable("idZoneEvent") Long idZoneEvent, @PathVariable("id") Long id) {
         Ticket foundTicket=ticketService.listById(id);
 
         if(ticket.getPurchase()!=null){
@@ -56,7 +56,7 @@ public class TicketController {
             foundTicket.setZoneEvent(ticket.getZoneEvent());
         }
 
-        Ticket updateTicket = ticketService.save(foundTicket);
+        Ticket updateTicket = ticketService.save(foundTicket, idPurchase, idZoneEvent );
         return new ResponseEntity<Ticket>(updateTicket, HttpStatus.OK);
     }
 
