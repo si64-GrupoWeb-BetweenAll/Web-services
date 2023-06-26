@@ -9,7 +9,7 @@ public interface CardService {
 
     public Card listById(Long id);
 
-    public Card save(Card zoneEvent);
+    public Card save(Card zoneEvent, Long idUser);
 
     public void delete(Long id, boolean forced);
 }
