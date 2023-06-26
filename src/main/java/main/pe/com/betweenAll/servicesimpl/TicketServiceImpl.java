@@ -5,11 +5,12 @@ package main.pe.com.betweenAll.servicesimpl;
 import main.pe.com.betweenAll.dtos.DTOGroupParticipantsSummary;
 import main.pe.com.betweenAll.dtos.DTOSocialEventSummary;
 import main.pe.com.betweenAll.dtos.DTOTicketSummary;
-import main.pe.com.betweenAll.entities.Purchase;
-import main.pe.com.betweenAll.entities.SocialEvent;
+import main.pe.com.betweenAll.entities.*;
 
-import main.pe.com.betweenAll.entities.Ticket;
+import main.pe.com.betweenAll.repositories.CategoryRepository;
+import main.pe.com.betweenAll.repositories.PurchaseRepository;
 import main.pe.com.betweenAll.repositories.TicketRepository;
+import main.pe.com.betweenAll.repositories.ZoneEventRepository;
 import main.pe.com.betweenAll.services.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,11 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     TicketRepository ticketRepository;
+
+@Autowired
+PurchaseRepository purchaseRepository;
+    @Autowired
+    ZoneEventRepository zoneEventRepository;
 
 
     @Transactional
@@ -48,8 +54,15 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Transactional
-    public Ticket save(Ticket ticket) {
-        Ticket newTicket = ticketRepository.save(new Ticket(ticket.getPurchase(), ticket.getZoneEvent()));
+    public Ticket save(Ticket ticket, Long idPurchase, Long idZoneEvent){
+        Purchase purchase = purchaseRepository.findById(idPurchase).get();
+        ZoneEvent zoneEvent = zoneEventRepository.findById(idZoneEvent).get();
+
+        ticket.setPurchase(purchase);
+        ticket.setZoneEvent(zoneEvent);
+        Ticket newTicket = ticketRepository.save(ticket);
+
+        //Ticket newTicket = ticketRepository.save(new Ticket(ticket.getPurchase(), ticket.getZoneEvent()));
 
         /*
         Category category = categoryRepository.findById(idCategory).get();
