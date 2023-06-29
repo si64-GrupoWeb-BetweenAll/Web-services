@@ -16,7 +16,8 @@ public interface UserService {
 
     public void delete(Long id, boolean forced);
 
-    public User listByPasword(String password);
+    public User listByPasword(String password, String email);
 
     public User lastUser();
+    public User update(User user);
 }

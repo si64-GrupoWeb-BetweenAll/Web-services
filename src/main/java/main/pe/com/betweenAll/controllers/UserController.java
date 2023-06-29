@@ -1,6 +1,9 @@
 package main.pe.com.betweenAll.controllers;
 
+import main.pe.com.betweenAll.entities.Authority;
+import main.pe.com.betweenAll.entities.AuthorityName;
 import main.pe.com.betweenAll.entities.User;
+import main.pe.com.betweenAll.repositories.AuthorityRepository;
 import main.pe.com.betweenAll.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +20,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    AuthorityRepository authorityRepository;
+
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.listAll();
@@ -29,9 +35,9 @@ public class UserController {
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/users/pass/{password}")
-    public ResponseEntity<User> getUserByPassword(@PathVariable("password") String password) {
-        User user = userService.listByPasword(password);
+    @GetMapping("/users/pass/{password}/{email}")
+    public ResponseEntity<User> getUserByPassword(@PathVariable("password") String password,@PathVariable("email") String email) {
+        User user = userService.listByPasword(password,email);
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
@@ -48,8 +54,10 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody User user,@PathVariable("idCategory") Long idCategory, @PathVariable("id") Long id) {
+    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable("id") Long id) {
+
         User foundUser=userService.listById(id);
+
         if (user.getName()!=null) {
             foundUser.setName(user.getName());
         }
@@ -78,8 +86,9 @@ public class UserController {
             foundUser.setCity(user.getCity());
         }
 
-        User updateUser=userService.save(foundUser);
+        User updateUser=userService.update(foundUser);
         return new ResponseEntity<User>(updateUser, HttpStatus.OK);
+
     }
     @GetMapping("/users/last")
     public ResponseEntity<User> getUserLast() {

@@ -1,5 +1,4 @@
 package main.pe.com.betweenAll.servicesimpl;
-
 import main.pe.com.betweenAll.entities.Ticket;
 import main.pe.com.betweenAll.repositories.TicketRepository;
 import main.pe.com.betweenAll.services.TicketService;

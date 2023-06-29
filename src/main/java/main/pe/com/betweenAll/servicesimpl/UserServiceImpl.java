@@ -75,6 +75,52 @@ public class UserServiceImpl implements UserService {
         user.setPurchaseList(null);
         return user;
     }
+    @Transactional
+    public User update(User user) {
+
+        if (user.getName() == null || user.getName().isEmpty()) {
+            throw new IncompleteDataException("User Name can not be null or empty");
+        }
+
+        if (user.getLastname() == null || user.getLastname().isEmpty()) {
+            throw new IncompleteDataException("User Last Name can not be null or empty");
+        }
+
+        if (user.getTypeDocument() == null) {
+            throw new IncompleteDataException("User TypeDocument can not be null or empty");
+        }
+
+        if (user.getNumberDocument() == null) {
+            throw new IncompleteDataException("User NumberDocument can not be null or empty");
+        }
+
+        if (user.getPhone() == null) {
+            throw new IncompleteDataException("User Phone can not be null or empty");
+        }
+
+        if (user.getEmail() == null || user.getEmail().isEmpty()) {
+            throw new IncompleteDataException("User Email can not be null or empty");
+        }
+
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            throw new IncompleteDataException("User Password can not be null or empty");
+        }
+        else{
+            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        }
+
+        if (user.getCity() == null) {
+            throw new IncompleteDataException("User City can not be null or empty");
+        }
+
+        if (user.getAuthorityList() == null) {
+            user.setAuthorityList(List.of(
+                    authorityRepository.findByName(AuthorityName.ROLE_ADMIN)));
+        }
+        System.out.println(user.getName());
+        User savedUser = userRepository.save(user);
+        return savedUser;
+    }
 
     @Transactional
     public User save(User user) {
@@ -114,8 +160,7 @@ public class UserServiceImpl implements UserService {
             throw new IncompleteDataException("User City can not be null or empty");
         }
 
-        user.setAuthorityList(List.of(
-                authorityRepository.findByName(AuthorityName.ROLE_ADMIN)));
+        user.setAuthorityList(List.of(authorityRepository.findByName(AuthorityName.ROLE_ADMIN)));
 
         User savedUser = userRepository.save(user);
         return savedUser;
@@ -149,15 +194,19 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(user);
     }
     @Transactional
-    public User listByPasword(String password) {
+    public User listByPasword(String password, String email) {
 
         List<User> userList;
         userList = userRepository.findAll();
         User user=null;
 
         for(User u :userList){
-            if(new BCryptPasswordEncoder().matches(password,u.getPassword())){
-                user=u;
+            if(u.getEmail().equals(email)){
+                System.out.println("dentro 1");
+                if(new BCryptPasswordEncoder().matches(password,u.getPassword())){
+                    System.out.println("dentro 2");
+                    user=u;
+                }
             }
         }
 
@@ -169,7 +218,8 @@ public class UserServiceImpl implements UserService {
         return user;
     }
     public User lastUser(){
-        List<User> userList = userRepository.findAll();
+        List<User> userList = listAll();
+        System.out.println(userList.size());
         User newUser=userList.get(userList.size()-1);
         newUser.setGroupUserList(null);
         newUser.setUserCategoryList(null);
