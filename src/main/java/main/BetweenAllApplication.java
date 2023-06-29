@@ -76,13 +76,13 @@ public class BetweenAllApplication {
                     "Activo",user3));
 
             Category category= categoryRepository.save(new Category("POP","Activo"));
-            //UserCategory userCategory=userCategoryRepository.save(new UserCategory(user1,category));
+            UserCategory userCategory=userCategoryRepository.save(new UserCategory(user1,category));
             Category category1= categoryRepository.save(new Category("Hip-Hop","Activo"));
-            //UserCategory userCategory=userCategoryRepository.save(new UserCategory(user1,category));
+            UserCategory userCategory1=userCategoryRepository.save(new UserCategory(user3,category1));
             Category category2= categoryRepository.save(new Category("Cumbia","Activo"));
-            //UserCategory userCategory=userCategoryRepository.save(new UserCategory(user1,category));
+            UserCategory userCategory2=userCategoryRepository.save(new UserCategory(user1,category2));
             Category category3= categoryRepository.save(new Category("Salsa","Activo"));
-            //UserCategory userCategory=userCategoryRepository.save(new UserCategory(user1,category));
+            UserCategory userCategory3=userCategoryRepository.save(new UserCategory(user1,category3));
 
 
             Group group= groupRepository.save(new Group("Los inmortales","Solo gente seria","",category));
