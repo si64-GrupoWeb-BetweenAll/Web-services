@@ -25,27 +25,23 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     TicketRepository ticketRepository;
-    @Autowired
-    PurchaseRepository purchaseRepository;
 
+@Autowired
+PurchaseRepository purchaseRepository;
     @Autowired
     ZoneEventRepository zoneEventRepository;
+
 
     @Transactional
     public List<Ticket> listAll() {
         List<Ticket> tickets;
         tickets= ticketRepository.findAll();
         for(Ticket s: tickets){
+            s.getPurchase().setUser(null);
             s.getPurchase().setTicketList(null);
             s.getPurchase().setCard(null);
             s.getZoneEvent().setTicketList(null);
             s.getZoneEvent().setDateSocialEvent(null);
-            s.getPurchase().getUser().setGroupUserList(null);
-            s.getPurchase().getUser().setGroupList(null);
-            s.getPurchase().setUser(null);
-            for(Authority a: s.getPurchase().getUser().getAuthorityList()){
-                a.setUsers(null);
-            }
         }
         return tickets;
     }
@@ -54,12 +50,11 @@ public class TicketServiceImpl implements TicketService {
         Ticket ticket;
         ticket=ticketRepository.findById(id).orElseThrow(()->new ResolutionException("Not found an Ticket with id="+id));
 
-
         return ticket;
     }
 
     @Transactional
-    public Ticket save(Ticket ticket, Long idPurchase, Long idZoneEvent) {
+    public Ticket save(Ticket ticket, Long idPurchase, Long idZoneEvent){
         Purchase purchase = purchaseRepository.findById(idPurchase).get();
         ZoneEvent zoneEvent = zoneEventRepository.findById(idZoneEvent).get();
 
@@ -68,6 +63,12 @@ public class TicketServiceImpl implements TicketService {
         Ticket newTicket = ticketRepository.save(ticket);
 
         //Ticket newTicket = ticketRepository.save(new Ticket(ticket.getPurchase(), ticket.getZoneEvent()));
+
+        /*
+        Category category = categoryRepository.findById(idCategory).get();
+        group.setCategory(category);
+        Group newGroup = groupRepository.save(group);
+        * */
         return newTicket;
     }
 

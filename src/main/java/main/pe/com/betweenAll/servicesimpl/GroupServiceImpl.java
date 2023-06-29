@@ -2,7 +2,6 @@ package main.pe.com.betweenAll.servicesimpl;
 
 import main.pe.com.betweenAll.dtos.DTOGroupParticipantsSummary;
 import main.pe.com.betweenAll.dtos.DTOGroupSummary;
-
 import main.pe.com.betweenAll.dtos.DTOGroupsJoinnedSummary;
 
 import main.pe.com.betweenAll.entities.Category;
