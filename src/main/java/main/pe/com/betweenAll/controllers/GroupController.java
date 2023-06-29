@@ -72,7 +72,7 @@ public class GroupController {
         List<DTOGroupsJoinnedSummary> dtoGroupsJoinnedSummaryList = groupService.listGroupByUserSummary(id);
         return new ResponseEntity<List<DTOGroupsJoinnedSummary>>(dtoGroupsJoinnedSummaryList, HttpStatus.OK);
     }
-    @GetMapping("/groups/groupParticipantsSummary")
+    @GetMapping("/groups/groupsSummary")
     public ResponseEntity<List<DTOGroupParticipantsSummary>> getListGroupParticipantsSummary() {
         List<DTOGroupParticipantsSummary> dtoGroupParticipantsSummaryList = groupService.listGroupParticipantsSummary();
         return new ResponseEntity<List<DTOGroupParticipantsSummary>>(dtoGroupParticipantsSummaryList, HttpStatus.OK);

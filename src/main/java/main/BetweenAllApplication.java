@@ -47,21 +47,21 @@ public class BetweenAllApplication {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
             User user1=userRepository.save(new User("Carlos","Alipio","DNI",12345678,
-                    "999252444","carl@gmail.com","123456","","lima",
+                    "999252444","carl@gmail.com","123456","https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80","lima",
                     List.of(
                             authorityRepository.findByName(AuthorityName.ROLE_ADMIN)
                     )
             ));
 
             User user2=userRepository.save(new User("Camila","Alessandra","DNI",74775218,
-                    "942764237","cam@gmail.com","123456","","lima",
+                    "942764237","cam@gmail.com","123456","https://cdn.create.vista.com/api/media/small/292915970/stock-photo-closeup-photo-of-excited-nice","lima",
                     List.of(
                             authorityRepository.findByName(AuthorityName.ROLE_ADMIN)
                     )
             ));
 
             User user3=userRepository.save(new User("Neil","Angel","DNI",74125896,
-                    "942764237","neil@gmail.com","123456","","abancay",
+                    "942764237","neil@gmail.com","123456","https://img.freepik.com/foto-gratis/foto-chico-guapo-serio-posando-contra-pared-blanca_273609-20462.jpg?w=2000","abancay",
                     List.of(
                             authorityRepository.findByName(AuthorityName.ROLE_ADMIN)
                     )
@@ -78,10 +78,14 @@ public class BetweenAllApplication {
             Category category= categoryRepository.save(new Category("POP","Activo"));
             UserCategory userCategory=userCategoryRepository.save(new UserCategory(user1,category));
 
-            Group group= groupRepository.save(new Group("Los inmortales","Solo gente seria","",category,user1));
+            Group group= groupRepository.save(new Group("Los inmortales","Solo gente seria","https://www.bbva.com/wp-content/uploads/2020/05/festival2.jpg",category,user1));
+            Group group2= groupRepository.save(new Group("Los reales","Solo gente real","https://www.bbva.com/wp-content/uploads/2020/05/festival2.jpg",category,user1));
+            Group group3= groupRepository.save(new Group("Los bandidos","Solo gente bandida","https://blog.oncosalud.pe/hubfs/Por-qu%C3%A9-nos%20causa-felicidad-ir%20a-un-concierto.jpg",category,user2));
 
 
             GroupUser groupUser=groupUserRepository.save(new GroupUser(user1,group));
+            GroupUser groupUser2=groupUserRepository.save(new GroupUser(user2,group));
+            GroupUser groupUser3=groupUserRepository.save(new GroupUser(user2,group3));
 
             SocialEvent socialEvent1=socialEventRepository.save(new SocialEvent("Morat","https://akamai.sscdn.co/uploadfile/letras/fotos/a/1/1/7/a11750e4abcbf07109b386364cc190f7.jpg","Lima","no lleven nada",user1,category));
             SocialEvent socialEvent2=socialEventRepository.save(new SocialEvent("Grupo 5","https://akamai.sscdn.co/uploadfile/letras/fotos/a/1/1/7/a11750e4abcbf07109b386364cc190f7.jpg","Lima","no lleven nada",user1,category));
