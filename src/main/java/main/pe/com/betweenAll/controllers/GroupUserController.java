@@ -35,7 +35,7 @@ public class GroupUserController {
         if(groupUser.getUser()!=null){
             foundGroupUser.setUser(groupUser.getUser());
         }
-        GroupUser updateGroupUser = groupUserService.save(groupUser, idGroup, idUser);
+        GroupUser updateGroupUser = groupUserService.save(foundGroupUser, idGroup, idUser);
         return new ResponseEntity<GroupUser>(updateGroupUser, HttpStatus.OK);
     }
 

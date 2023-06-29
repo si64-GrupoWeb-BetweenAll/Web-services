@@ -66,6 +66,7 @@ public class GroupUserServiceImpl implements GroupUserService {
             s.getUser().setUserCategoryList(null);
             s.getUser().setAuthorityList(null);
             s.getUser().setCardList(null);
+            s.getUser().setGroupList(null);
             s.getGroup().setCategory(null);
             s.getGroup().setGroupUserList(null);
         }
