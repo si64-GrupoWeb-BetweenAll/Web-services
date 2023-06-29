@@ -33,9 +33,9 @@ public class UserCategoryController {
         List<UserCategory> userCategoryList = userCategoryService.listAll();
         return new ResponseEntity<List<UserCategory>>(userCategoryList,HttpStatus.OK);
     }
-    @GetMapping("/userCategories/summary")
-    public ResponseEntity<List<DTOUserCategorySummary>> getAuthorsSummary() {
-        List<DTOUserCategorySummary> dtoUserCategorySummaryList = userCategoryService.listUserCategorySummary();
+    @GetMapping("/userCategories/summary/{id}")
+    public ResponseEntity<List<DTOUserCategorySummary>> getAuthorsSummary(@PathVariable("id") Long id) {
+        List<DTOUserCategorySummary> dtoUserCategorySummaryList = userCategoryService.listUserCategorySummary(id);
         return new ResponseEntity<List<DTOUserCategorySummary>>(dtoUserCategorySummaryList, HttpStatus.OK);
     }
 
