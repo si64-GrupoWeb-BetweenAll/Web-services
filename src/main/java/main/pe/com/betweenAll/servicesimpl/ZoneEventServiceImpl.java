@@ -67,5 +67,13 @@ public class ZoneEventServiceImpl implements ZoneEventService {
         }
         zoneEventRepository.delete(zoneEvent);
     }
-
+    public List<ZoneEvent> listByDateEvent(Long id){
+        List<ZoneEvent> zoneEventList = zoneEventRepository.findZoneEventByDateEvent(id);
+        for(ZoneEvent s: zoneEventList){
+            s.getDateSocialEvent().setSocialEvent(null);
+            s.getDateSocialEvent().setZoneEventList(null);
+            s.setTicketList(null);
+        }
+        return zoneEventList;
+    }
 }

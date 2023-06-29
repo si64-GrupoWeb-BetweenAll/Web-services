@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
         for(User u : users) {
             u.setGroupUserList(null);
             u.setUserCategoryList(null);
+            u.setGroupList(null);
             u.setSocialEventList(null);
             u.setCardList(null);
             u.setPurchaseList(null);
