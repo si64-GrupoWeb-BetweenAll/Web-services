@@ -43,6 +43,8 @@ public class GroupServiceImpl implements GroupService {
             g.getUser().setAuthorityList(null);
             g.getUser().setCardList(null);
             g.getUser().setAuthorityList(null);
+            g.getUser().setGroupUserList(null);
+            g.getUser().setGroupList(null);
             g.getUser().setGroupList(null);
             g.getUser().setGroupUserList(null);
             g.getUser().setUserCategoryList(null);
@@ -154,7 +156,6 @@ public class GroupServiceImpl implements GroupService {
                 DTOGroupsJoinnedSummary dtoGroupsJoinnedSummary=new DTOGroupsJoinnedSummary(idGroup,g.getImage(),nameGroup,amountParticipants,g.getDescription(),nameCategory);
                 dtoGroupsJoinnedSummaryList.add(dtoGroupsJoinnedSummary);
             }
-
         }
         return dtoGroupsJoinnedSummaryList;
     }
