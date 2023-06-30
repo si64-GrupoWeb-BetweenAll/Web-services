@@ -85,10 +85,14 @@ public class BetweenAllApplication {
             UserCategory userCategory3=userCategoryRepository.save(new UserCategory(user1,category3));
 
 
-            Group group= groupRepository.save(new Group("Los inmortales","Solo gente seria","",category,user1));
+            Group group= groupRepository.save(new Group("Los inmortales","Solo gente seria","https://www.bbva.com/wp-content/uploads/2020/05/festival2.jpg",category,user1));
+            Group group2= groupRepository.save(new Group("Los reales","Solo gente real","https://www.bbva.com/wp-content/uploads/2020/05/festival2.jpg",category,user1));
+            Group group3= groupRepository.save(new Group("Los bandidos","Solo gente bandida","https://blog.oncosalud.pe/hubfs/Por-qu%C3%A9-nos%20causa-felicidad-ir%20a-un-concierto.jpg",category,user2));
 
 
             GroupUser groupUser=groupUserRepository.save(new GroupUser(user1,group));
+            GroupUser groupUser2=groupUserRepository.save(new GroupUser(user2,group));
+            GroupUser groupUser3=groupUserRepository.save(new GroupUser(user2,group3));
 
             SocialEvent socialEvent1=socialEventRepository.save(new SocialEvent("Morat","https://akamai.sscdn.co/uploadfile/letras/fotos/a/1/1/7/a11750e4abcbf07109b386364cc190f7.jpg","Lima","no lleven nada",user1,category));
             SocialEvent socialEvent2=socialEventRepository.save(new SocialEvent("Grupo 5","https://akamai.sscdn.co/uploadfile/letras/fotos/a/1/1/7/a11750e4abcbf07109b386364cc190f7.jpg","Lima","no lleven nada",user1,category));

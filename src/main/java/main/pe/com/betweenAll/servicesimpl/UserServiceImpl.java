@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
         for(User u : users) {
             u.setGroupUserList(null);
             u.setUserCategoryList(null);
+            u.setGroupList(null);
             u.setSocialEventList(null);
             u.setCardList(null);
             u.setPurchaseList(null);
@@ -49,6 +50,7 @@ public class UserServiceImpl implements UserService {
                 
             }
             u.setGroupUserList(null);
+            u.setGroupList(null);
         }
         return users;
     }
@@ -74,6 +76,7 @@ public class UserServiceImpl implements UserService {
         user.setSocialEventList(null);
         user.setCardList(null);
         user.setPurchaseList(null);
+        user.setGroupList(null);
         return user;
     }
     @Transactional

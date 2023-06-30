@@ -41,6 +41,7 @@ public class SocialEventServiceImpl implements SocialEventService {
             s.getUser().setPurchaseList(null);
             s.getUser().setUserCategoryList(null);
             s.getUser().setCardList(null);
+            s.getUser().setGroupList(null);
             s.getCategory().setGroupList(null);
             s.getCategory().setSocialEventList(null);
             s.getCategory().setUserCategoryList(null);
@@ -54,7 +55,17 @@ public class SocialEventServiceImpl implements SocialEventService {
     public SocialEvent listById(Long id) {
         SocialEvent socialEvent;
         socialEvent=socialEventRepository.findById(id).orElseThrow(()->new ResolutionException("Not found an Social Event with id="+id));
-        ;
+        socialEvent.getUser().setSocialEventList(null);
+        socialEvent.getUser().setGroupList(null);
+        socialEvent.getUser().setGroupUserList(null);
+        socialEvent.getUser().setPurchaseList(null);
+        socialEvent.getUser().setUserCategoryList(null);
+        socialEvent.getUser().setAuthorityList(null);
+        socialEvent.getUser().setCardList(null);
+        socialEvent.getCategory().setGroupList(null);
+        socialEvent.getCategory().setSocialEventList(null);
+        socialEvent.getCategory().setUserCategoryList(null);
+        socialEvent.setDateSocialEventList(null);
         return socialEvent;
     }
 

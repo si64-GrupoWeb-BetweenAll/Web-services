@@ -39,4 +39,10 @@ public class DateSocialEventController {
         return new ResponseEntity<List<DTOZoneAvailableSummary>>(dtoZoneAvailableSummaryList, HttpStatus.OK);
     }
 
+    @GetMapping("/dateSocialEvents/Event/{idEvent}")
+    public ResponseEntity<List<DateSocialEvent>> listBySocialEvent(@PathVariable("idEvent") Long idEvent) {
+        List<DateSocialEvent> dateSocialEventList = dateSocialEventService.listBySocialEvent(idEvent);
+        return new ResponseEntity<List<DateSocialEvent>>(dateSocialEventList, HttpStatus.OK);
+    }
+
 }

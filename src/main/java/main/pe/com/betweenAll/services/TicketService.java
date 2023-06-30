@@ -9,7 +9,7 @@ public interface TicketService {
 
     public List<Ticket> listAll();
     public Ticket listById(Long id);
-    public Ticket save(Ticket ticket, Long idCategory, Long idZoneEvent);
+    public Ticket save(Ticket ticket, Long idPurchase, Long idZoneEvent);
     public void delete(Long id, boolean forced);
     public  List<DTOTicketSummary> listTicketByUserSummary(Long id);
 

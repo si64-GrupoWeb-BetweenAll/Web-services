@@ -1,6 +1,7 @@
 package main.pe.com.betweenAll.controllers;
 
 import main.pe.com.betweenAll.entities.Card;
+import main.pe.com.betweenAll.entities.DateSocialEvent;
 import main.pe.com.betweenAll.entities.ZoneEvent;
 import main.pe.com.betweenAll.services.ZoneEventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,11 @@ public class ZoneEventController {
     public ResponseEntity<HttpStatus> deleteZoneEvent (@PathVariable("id") Long id) {
         zoneEventService.delete(id, true);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/zoneEvents/Date/{idDate}")
+    public ResponseEntity<List<ZoneEvent>> listByDateEvent(@PathVariable("idDate") Long idDate) {
+        List<ZoneEvent> zoneEventList = zoneEventService.listByDateEvent(idDate);
+        return new ResponseEntity<List<ZoneEvent>>(zoneEventList, HttpStatus.OK);
     }
 }

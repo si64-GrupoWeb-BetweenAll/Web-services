@@ -29,9 +29,9 @@ public class CardController {
 
     }
 
-    @PostMapping("/creditCards")
-    public ResponseEntity<Card> createCard (@RequestBody Card card) {
-        Card newCard = cardService.save(card);
+    @PostMapping("/creditCards/{idUser}")
+    public ResponseEntity<Card> createCard (@RequestBody Card card, @PathVariable("idUser") Long idUser) {
+        Card newCard = cardService.save(card,idUser);
         return new ResponseEntity<Card>(newCard, HttpStatus.CREATED);
     }
 
