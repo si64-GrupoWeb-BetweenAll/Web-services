@@ -66,8 +66,14 @@ public class GroupUserServiceImpl implements GroupUserService {
     }
 
     @Transactional
-    public void delete(Long id, boolean forced){
-        GroupUser groupUser = groupUserRepository.findById(id).get();
+    public void delete(Long idUser, boolean forced){
+        List<GroupUser> groupUserList = groupUserRepository.findAll();
+        GroupUser groupUser = new GroupUser();
+        for(GroupUser gU: groupUserList) {
+            if(gU.getUser().getId().equals(idUser)){
+                groupUser=gU;
+            }
+        }
         groupUserRepository.delete(groupUser);
     }
     public void deleteByUserAndGroup(Long idUser,Long idGroup, boolean forced){

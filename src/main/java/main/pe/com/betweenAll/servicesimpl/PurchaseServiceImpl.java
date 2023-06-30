@@ -105,6 +105,15 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchase.getUser().setCardList(null);
         purchase.getCard().setPurchaseList(null);
         purchase.getUser().setGroupList(null);
+        purchase.getCard().getUser().setPurchaseList(null);
+        purchase.getCard().getUser().setUserCategoryList(null);
+        purchase.getCard().getUser().setCardList(null);
+        purchase.getCard().getUser().setGroupList(null);
+        purchase.getCard().getUser().setSocialEventList(null);
+        purchase.getCard().getUser().setAuthorityList(null);
+        purchase.getCard().getUser().setGroupUserList(null);
+
+
         return purchase;
     }
 
