@@ -16,4 +16,5 @@ public interface SocialEventService {
     public List<DTOSocialEventSummary> listSocialEventSummary();
     public List<DTOSocialEventsAvailableSummary> listSocialEventsAvailableSummary();
 
+    public SocialEvent socialEventEnd();
 }

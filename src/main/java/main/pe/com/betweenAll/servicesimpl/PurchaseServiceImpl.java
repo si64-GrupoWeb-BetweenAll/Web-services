@@ -76,6 +76,20 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchase.setUser(user);
         purchase.setCard(card);
         Purchase newPurchase = purchaseRepository.save(purchase);
+
+        newPurchase.setCard(null);
+        newPurchase.setTicketList(null);
+        newPurchase.getUser().setSocialEventList(null);
+        newPurchase.getUser().setGroupUserList(null);
+        newPurchase.getUser().setPurchaseList(null);
+        newPurchase.getUser().setUserCategoryList(null);
+        newPurchase.getUser().setAuthorityList(null);
+        newPurchase.getUser().setCardList(null);
+        newPurchase.setTotal(null);
+        newPurchase.getUser().setGroupUserList(null);
+        newPurchase.getUser().setGroupList(null);
+        newPurchase.setUser(null);
+
         return newPurchase;
     }
 

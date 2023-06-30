@@ -37,6 +37,9 @@ public class ZoneEventServiceImpl implements ZoneEventService {
     public ZoneEvent listById(Long id) {
         ZoneEvent zoneEvent;
         zoneEvent=zoneEventRepository.findById(id).get();
+        zoneEvent.getDateSocialEvent().setSocialEvent(null);
+        zoneEvent.getDateSocialEvent().setZoneEventList(null);
+        zoneEvent.setTicketList(null);
         return zoneEvent;
     }
 
@@ -53,6 +56,10 @@ public class ZoneEventServiceImpl implements ZoneEventService {
         DateSocialEvent dateSocialEvent=dateSocialEventRepository.findById(idDateSocialEvent).get();
         zoneEvent.setDateSocialEvent(dateSocialEvent);
         ZoneEvent newSocialEvent = zoneEventRepository.save(zoneEvent);
+
+        newSocialEvent.getDateSocialEvent().setSocialEvent(null);
+        newSocialEvent.getDateSocialEvent().setZoneEventList(null);
+        newSocialEvent.setTicketList(null);
         return newSocialEvent;
     }
 

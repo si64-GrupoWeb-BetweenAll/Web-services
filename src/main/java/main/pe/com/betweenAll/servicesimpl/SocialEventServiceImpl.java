@@ -51,9 +51,7 @@ public class SocialEventServiceImpl implements SocialEventService {
             s.getCategory().setUserCategoryList(null);
             s.setDateSocialEventList(null);
         }
-
          return socialEvents;
-
     }
 
     public SocialEvent listById(Long id) {
@@ -81,11 +79,25 @@ public class SocialEventServiceImpl implements SocialEventService {
         if (socialEvent.getName() == null || socialEvent.getName().isEmpty()) {throw new IncompleteDataException("Social Event Name cannot be null or empty");}
         if (socialEvent.getLocation() == null || socialEvent.getLocation().isEmpty()) {throw new IncompleteDataException("Social Event Location cannot be null or empty");}
 
+
+
         Category category=categoryRepository.findById(idCategory).get();
         User user=userRepository.findById(idUser).get();
         socialEvent.setCategory(category);
         socialEvent.setUser(user);
         SocialEvent newSocialEvent = socialEventRepository.save(socialEvent);
+
+        newSocialEvent.getUser().setSocialEventList(null);
+        newSocialEvent.getUser().setGroupUserList(null);
+        newSocialEvent.getUser().setPurchaseList(null);
+        newSocialEvent.getUser().setUserCategoryList(null);
+        newSocialEvent.getUser().setCardList(null);
+        newSocialEvent.getUser().setGroupList(null);
+        newSocialEvent.getCategory().setGroupList(null);
+        newSocialEvent.getCategory().setSocialEventList(null);
+        newSocialEvent.getCategory().setUserCategoryList(null);
+        newSocialEvent.setDateSocialEventList(null);
+
         return newSocialEvent;
     }
 
@@ -151,6 +163,24 @@ public class SocialEventServiceImpl implements SocialEventService {
             s.setDateSocialEventList(null);
         }
         return socialEventList;
+    }
 
+    public SocialEvent socialEventEnd() {
+        SocialEvent socialEvent;
+        socialEvent=socialEventRepository.socialEventEnd();
+
+        socialEvent.getUser().setSocialEventList(null);
+        socialEvent.getUser().setGroupList(null);
+        socialEvent.getUser().setGroupUserList(null);
+        socialEvent.getUser().setPurchaseList(null);
+        socialEvent.getUser().setUserCategoryList(null);
+        socialEvent.getUser().setAuthorityList(null);
+        socialEvent.getUser().setCardList(null);
+        socialEvent.getCategory().setGroupList(null);
+        socialEvent.getCategory().setSocialEventList(null);
+        socialEvent.getCategory().setUserCategoryList(null);
+        socialEvent.setDateSocialEventList(null);
+
+        return socialEvent;
     }
 }

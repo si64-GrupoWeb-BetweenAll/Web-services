@@ -34,14 +34,13 @@ PurchaseRepository purchaseRepository;
 
     @Transactional
     public List<Ticket> listAll() {
-        List<Ticket> tickets;
-        tickets= ticketRepository.findAll();
+        List<Ticket> tickets = ticketRepository.findAll();
         for(Ticket s: tickets){
+            s.getZoneEvent().setTicketList(null);
+            s.getZoneEvent().setDateSocialEvent(null);
             s.getPurchase().setUser(null);
             s.getPurchase().setTicketList(null);
             s.getPurchase().setCard(null);
-            s.getZoneEvent().setTicketList(null);
-            s.getZoneEvent().setDateSocialEvent(null);
         }
         return tickets;
     }
@@ -49,7 +48,11 @@ PurchaseRepository purchaseRepository;
     public Ticket listById(Long id) {
         Ticket ticket;
         ticket=ticketRepository.findById(id).orElseThrow(()->new ResolutionException("Not found an Ticket with id="+id));
-
+        ticket.getZoneEvent().setTicketList(null);
+        ticket.getZoneEvent().setDateSocialEvent(null);
+        ticket.getPurchase().setUser(null);
+        ticket.getPurchase().setTicketList(null);
+        ticket.getPurchase().setCard(null);
         return ticket;
     }
 
@@ -62,13 +65,12 @@ PurchaseRepository purchaseRepository;
         ticket.setZoneEvent(zoneEvent);
         Ticket newTicket = ticketRepository.save(ticket);
 
-        //Ticket newTicket = ticketRepository.save(new Ticket(ticket.getPurchase(), ticket.getZoneEvent()));
+        newTicket.getZoneEvent().setTicketList(null);
+        newTicket.getZoneEvent().setDateSocialEvent(null);
+        newTicket.getPurchase().setUser(null);
+        newTicket.getPurchase().setTicketList(null);
+        newTicket.getPurchase().setCard(null);
 
-        /*
-        Category category = categoryRepository.findById(idCategory).get();
-        group.setCategory(category);
-        Group newGroup = groupRepository.save(group);
-        * */
         return newTicket;
     }
 

@@ -25,6 +25,10 @@ public class DateSocialEventServiceImpl implements DateSocialEventService {
     public DateSocialEvent save(DateSocialEvent dateSocialEvent,Long idSocialEvent){
         SocialEvent socialEvent = socialEventRepository.findById(idSocialEvent).get();
         dateSocialEvent.setSocialEvent(socialEvent);
+        dateSocialEvent.getSocialEvent().setUser(null);
+        dateSocialEvent.getSocialEvent().setCategory(null);
+        dateSocialEvent.getSocialEvent().setDateSocialEventList(null);
+        dateSocialEvent.setZoneEventList(null);
         return dateSocialEventRepository.save(dateSocialEvent);
     }
     @Transactional
@@ -55,7 +59,23 @@ public class DateSocialEventServiceImpl implements DateSocialEventService {
         }
         return dateSocialEventList;
     }
-
+    @Transactional
+    public DateSocialEvent dateEventEnd() {
+        DateSocialEvent dateSocialEvent = dateSocialEventRepository.dateEventEnd();
+        dateSocialEvent.getSocialEvent().setDateSocialEventList(null);
+        dateSocialEvent.getSocialEvent().getCategory().setSocialEventList(null);
+        dateSocialEvent.getSocialEvent().getCategory().setUserCategoryList(null);
+        dateSocialEvent.getSocialEvent().getCategory().setGroupList(null);
+        dateSocialEvent.setZoneEventList(null);
+        dateSocialEvent.getSocialEvent().getUser().setSocialEventList(null);
+        dateSocialEvent.getSocialEvent().getUser().setGroupUserList(null);
+        dateSocialEvent.getSocialEvent().getUser().setAuthorityList(null);
+        dateSocialEvent.getSocialEvent().getUser().setPurchaseList(null);
+        dateSocialEvent.getSocialEvent().getUser().setCardList(null);
+        dateSocialEvent.getSocialEvent().getUser().setGroupList(null);
+        dateSocialEvent.getSocialEvent().getUser().setUserCategoryList(null);
+        return dateSocialEvent;
+    }
     @Transactional
     public List<DTOZoneAvailableSummary> listZoneAvailableSummary(){
 
