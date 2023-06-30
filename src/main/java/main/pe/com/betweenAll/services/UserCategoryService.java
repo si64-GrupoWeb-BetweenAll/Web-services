@@ -8,6 +8,7 @@ public interface UserCategoryService {
     public UserCategory save(UserCategory userCategory,Long idUser, Long idCategory);
     public void delete(Long id, boolean forced);
     public List<UserCategory> listAll();
-    public List<DTOUserCategorySummary> listUserCategorySummary();
+    public List<DTOUserCategorySummary> listUserCategorySummary(Long id);
+    public void deleteByUser(Long id, boolean forced);
 
 }

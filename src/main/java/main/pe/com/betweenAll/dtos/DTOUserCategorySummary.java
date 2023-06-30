@@ -12,4 +12,5 @@ public class DTOUserCategorySummary {
     private String nameCategory;
     private Long idUser;
     private Long idCategory;
+    private Long idUserCategory;
 }

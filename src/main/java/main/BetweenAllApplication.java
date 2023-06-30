@@ -47,21 +47,21 @@ public class BetweenAllApplication {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
             User user1=userRepository.save(new User("Carlos","Alipio","DNI",12345678,
-                    "999252444","carl@gmail.com","123456","","lima",
+                    "999252444","carl@gmail.com",new BCryptPasswordEncoder().encode("123456"),"","lima",
                     List.of(
                             authorityRepository.findByName(AuthorityName.ROLE_ADMIN)
                     )
             ));
 
             User user2=userRepository.save(new User("Camila","Alessandra","DNI",74775218,
-                    "942764237","cam@gmail.com","123456","","lima",
+                    "942764237","cam@gmail.com",new BCryptPasswordEncoder().encode("1234567"),"","lima",
                     List.of(
                             authorityRepository.findByName(AuthorityName.ROLE_ADMIN)
-                    )
-            ));
+
+            )));
 
             User user3=userRepository.save(new User("Neil","Angel","DNI",74125896,
-                    "942764237","neil@gmail.com","123456","","abancay",
+                    "942764237","neil@gmail.com",new BCryptPasswordEncoder().encode("12345"),"","abancay",
                     List.of(
                             authorityRepository.findByName(AuthorityName.ROLE_ADMIN)
                     )
@@ -77,6 +77,13 @@ public class BetweenAllApplication {
 
             Category category= categoryRepository.save(new Category("POP","Activo"));
             UserCategory userCategory=userCategoryRepository.save(new UserCategory(user1,category));
+            Category category1= categoryRepository.save(new Category("Hip-Hop","Activo"));
+            UserCategory userCategory1=userCategoryRepository.save(new UserCategory(user3,category1));
+            Category category2= categoryRepository.save(new Category("Cumbia","Activo"));
+            UserCategory userCategory2=userCategoryRepository.save(new UserCategory(user1,category2));
+            Category category3= categoryRepository.save(new Category("Salsa","Activo"));
+            UserCategory userCategory3=userCategoryRepository.save(new UserCategory(user1,category3));
+
 
             Group group= groupRepository.save(new Group("Los inmortales","Solo gente seria","",category,user1));
 

@@ -1,6 +1,5 @@
 package main.pe.com.betweenAll.servicesimpl;
 
-
 //import main.pe.com.betweenAll.dtos.DTOAssistedTicketsSummary;
 import main.pe.com.betweenAll.dtos.DTOGroupParticipantsSummary;
 import main.pe.com.betweenAll.dtos.DTOSocialEventSummary;
@@ -9,6 +8,7 @@ import main.pe.com.betweenAll.entities.*;
 
 import main.pe.com.betweenAll.repositories.CategoryRepository;
 import main.pe.com.betweenAll.repositories.PurchaseRepository;
+import main.pe.com.betweenAll.entities.Ticket;
 import main.pe.com.betweenAll.repositories.TicketRepository;
 import main.pe.com.betweenAll.repositories.ZoneEventRepository;
 import main.pe.com.betweenAll.services.TicketService;

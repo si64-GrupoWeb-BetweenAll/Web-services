@@ -25,8 +25,15 @@ public class UserCategoryController {
         UserCategory saveUserCategory=userCategoryService.save(userCategory,idUser,idCategory);
         return new ResponseEntity<UserCategory>(saveUserCategory, HttpStatus.CREATED);
     }
+    @DeleteMapping("/userCategories/user/{idUser}/")
+    public ResponseEntity<HttpStatus> deleteUserCategoryByUser(@PathVariable("idUser") Long id){
+        userCategoryService.deleteByUser(id,true);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @DeleteMapping("/userCategories/{id}")
     public ResponseEntity<HttpStatus> deleteUserCategory(@PathVariable("id") Long id){
+        System.out.println(id);
         userCategoryService.delete(id,true);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -35,9 +42,9 @@ public class UserCategoryController {
         List<UserCategory> userCategoryList = userCategoryService.listAll();
         return new ResponseEntity<List<UserCategory>>(userCategoryList,HttpStatus.OK);
     }
-    @GetMapping("/userCategories/summary")
-    public ResponseEntity<List<DTOUserCategorySummary>> getAuthorsSummary() {
-        List<DTOUserCategorySummary> dtoUserCategorySummaryList = userCategoryService.listUserCategorySummary();
+    @GetMapping("/userCategories/summary/{id}")
+    public ResponseEntity<List<DTOUserCategorySummary>> getAuthorsSummary(@PathVariable("id") Long id) {
+        List<DTOUserCategorySummary> dtoUserCategorySummaryList = userCategoryService.listUserCategorySummary(id);
         return new ResponseEntity<List<DTOUserCategorySummary>>(dtoUserCategorySummaryList, HttpStatus.OK);
     }
 

@@ -29,7 +29,17 @@ public class UserCategoryServiceImpl implements UserCategoryService {
     public UserCategory save(UserCategory userCategory,Long idUser, Long idCategory){
 
         User user = userRepository.findById(idUser).get();
+        user.setUserCategoryList(null);
+        user.setCardList(null);
+        user.setPurchaseList(null);
+        user.setSocialEventList(null);
+        user.setGroupUserList(null);
+
         Category category= categoryRepository.findById(idCategory).get();
+        category.setUserCategoryList(null);
+        category.setSocialEventList(null);
+        category.setGroupList(null);
+
         userCategory.setUser(user);
         userCategory.setCategory(category);
         UserCategory newUserCategory=userCategoryRepository.save(userCategory);
@@ -40,6 +50,17 @@ public class UserCategoryServiceImpl implements UserCategoryService {
         UserCategory userCategory=userCategoryRepository.findById(id).get();
         userCategoryRepository.delete(userCategory);
     }
+    @Transactional
+    public void deleteByUser(Long id, boolean forced){
+        User user= userRepository.findById(id).get();
+        List<UserCategory> userCategoryList=userCategoryRepository.findAll();
+        for(UserCategory uC: userCategoryList) {
+            if(uC.getUser().equals(user.getId())){
+                userCategoryRepository.delete(uC);
+            }
+        }
+    }
+
     @Transactional
     public List<UserCategory> listAll() {
         List<UserCategory> userCategoryList = userCategoryRepository.findAll();
@@ -57,13 +78,13 @@ public class UserCategoryServiceImpl implements UserCategoryService {
         return userCategoryList;
     }
     @Transactional
-    public List<DTOUserCategorySummary> listUserCategorySummary(){
-        List<UserCategory>userCategoryList=userCategoryRepository.findAll();
+    public List<DTOUserCategorySummary> listUserCategorySummary(Long id){
+        List<UserCategory>userCategoryList=userCategoryRepository.findByUser_Id(id);
         List<DTOUserCategorySummary> dtoUserCategorySummaryList = new ArrayList<>();
 
         for(UserCategory uC: userCategoryList) {
             DTOUserCategorySummary dtoUserCategorySummary= new DTOUserCategorySummary(uC.getUser().getName(),
-                    uC.getCategory().getName(), uC.getUser().getId(), uC.getCategory().getId());
+                    uC.getCategory().getName(), uC.getUser().getId(), uC.getCategory().getId(),uC.getId());
             dtoUserCategorySummaryList.add(dtoUserCategorySummary);
         }
         return dtoUserCategorySummaryList;
