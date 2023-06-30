@@ -126,6 +126,7 @@ public class SocialEventServiceImpl implements SocialEventService {
             s.getCategory().setSocialEventList(null);
             s.getCategory().setUserCategoryList(null);
             s.setDateSocialEventList(null);
+            s.getUser().setGroupList(null);
         }
         return socialEventList;
 
