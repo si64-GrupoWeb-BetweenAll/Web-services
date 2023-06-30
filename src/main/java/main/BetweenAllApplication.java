@@ -82,6 +82,11 @@ public class BetweenAllApplication {
             Group group2= groupRepository.save(new Group("Los reales","Solo gente real","https://www.bbva.com/wp-content/uploads/2020/05/festival2.jpg",category,user1));
             Group group3= groupRepository.save(new Group("Los bandidos","Solo gente bandida","https://blog.oncosalud.pe/hubfs/Por-qu%C3%A9-nos%20causa-felicidad-ir%20a-un-concierto.jpg",category,user2));
 
+            //Group group= groupRepository.save(new Group("Los inmortales","Solo gente seria","https://www.bbva.com/wp-content/uploads/2020/05/festival2.jpg"));
+            //Group group2= groupRepository.save(new Group("Los reales","Solo gente real","https://www.bbva.com/wp-content/uploads/2020/05/festival2.jpg"));
+            //Group group3= groupRepository.save(new Group("Los bandidos","Solo gente bandida","https://blog.oncosalud.pe/hubfs/Por-qu%C3%A9-nos%20causa-felicidad-ir%20a-un-concierto.jpg"));
+
+
 
             GroupUser groupUser=groupUserRepository.save(new GroupUser(user1,group));
             GroupUser groupUser2=groupUserRepository.save(new GroupUser(user2,group));

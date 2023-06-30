@@ -28,14 +28,21 @@ public class GroupController {
         List<Group> groups = groupService.listAll();
         return new ResponseEntity<List<Group>>(groups,HttpStatus.OK);
     }
+
+    @GetMapping("/groups/{id}")
+    public ResponseEntity<Group> getGroupById(@PathVariable("id") Long id){
+        Group group = groupService.listById(id);
+        return new ResponseEntity<Group>(group, HttpStatus.OK);
+    }
+
     @GetMapping("/groups/name/{name}")
     public ResponseEntity<List<Group>> getGroupsByName(@PathVariable("name") String name){
         List<Group> groups = groupService.listByName(name);
         return new ResponseEntity<List<Group>>(groups,HttpStatus.OK);
     }
-    @PostMapping("/groups/{idCategory}")
-    public ResponseEntity<Group> createGroup(@RequestBody Group group,@PathVariable("idCategory") Long idCategory){
-        Group newgroup = groupService.save(group,idCategory);
+    @PostMapping("/groups/{idUser}/{idCategory}")
+    public ResponseEntity<Group> createGroup(@RequestBody Group group,  @PathVariable("idUser") Long idUser, @PathVariable("idCategory") Long idCategory){
+        Group newgroup = groupService.save(group, idUser, idCategory);
         return new ResponseEntity<Group>(newgroup,HttpStatus.OK);
     }
     @DeleteMapping("/groups/{id}")
@@ -43,8 +50,8 @@ public class GroupController {
         groupService.delete(id,true);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @PutMapping("/groups/{idCategory}/{id}")
-    public ResponseEntity<Group> updateGroup(@RequestBody Group group,@PathVariable("idCategory") Long idCategory, @PathVariable("id") Long id){
+    @PutMapping("/groups/{idUser}/{idCategory}/{id}")
+    public ResponseEntity<Group> updateGroup(@RequestBody Group group, @PathVariable("idUser") Long idUser, @PathVariable("idCategory") Long idCategory, @PathVariable("id") Long id){
         Group foundGroup= groupService.listById(id);
         if(group.getName()!=null){
             foundGroup.setName(group.getName());
@@ -56,7 +63,7 @@ public class GroupController {
             foundGroup.setImage(group.getImage());
         };
 
-        Group updateGroup=groupService.save(foundGroup,idCategory);
+        Group updateGroup=groupService.save(foundGroup, idUser, idCategory);
         return new ResponseEntity<Group>(updateGroup,HttpStatus.OK);
     }
 

@@ -12,6 +12,7 @@ import main.pe.com.betweenAll.entities.User;
 import main.pe.com.betweenAll.exceptions.IncompleteDataException;
 import main.pe.com.betweenAll.repositories.CategoryRepository;
 import main.pe.com.betweenAll.repositories.GroupRepository;
+import main.pe.com.betweenAll.repositories.UserRepository;
 import main.pe.com.betweenAll.services.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,8 @@ public class GroupServiceImpl implements GroupService {
     GroupRepository groupRepository;
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    UserRepository userRepository;
     @Transactional
     public List<Group> listAll() {
         List<Group> groups;
@@ -61,12 +64,25 @@ public class GroupServiceImpl implements GroupService {
     public Group listById(Long id) {
         Group group;
         group = groupRepository.findById(id).orElseThrow(()->new ResolutionException("Not found an Group with id="+id));
+        //group.getCategory().setGroupList(null);
+        group.setGroupUserList(null);
         group.getCategory().setGroupList(null);
-        return null;
+        group.getCategory().setSocialEventList(null);
+        group.getCategory().setUserCategoryList(null);
+        group.getUser().setAuthorityList(null);
+        group.getUser().setCardList(null);
+        group.getUser().setAuthorityList(null);
+        group.getUser().setGroupList(null);
+        group.getUser().setGroupUserList(null);
+        group.getUser().setUserCategoryList(null);
+        group.getUser().setSocialEventList(null);
+        group.getUser().setPurchaseList(null);
+
+        return group;
     }
 
     @Transactional
-    public Group save(Group group, Long idCategory){
+    public Group save(Group group, Long idUser, Long idCategory){
         //EXCEPTIONS
         if(group.getName()==null || group.getName().isEmpty()){
             throw new IncompleteDataException("Group Name can not be null or empty");
@@ -79,9 +95,29 @@ public class GroupServiceImpl implements GroupService {
         }
 
         //Group newGroup = groupRepository.save(new Group(group.getName(),group.getDescription(),group.getImage(),group.getCategory(),group.getUser()));
+        //Category category = categoryRepository.save(new Category(group.getCategory().getName(), group.getCategory().getState()));
 
+        //categoryRepository.save(group.getCategory());
         Category category = categoryRepository.findById(idCategory).get();
+        category.setGroupList(null);
+        category.setSocialEventList(null);
+        category.setUserCategoryList(null);
+
         group.setCategory(category);
+
+        User user = userRepository.findById(idUser).get();
+        user.setGroupUserList(null);
+        user.setGroupList(null);
+        user.setUserCategoryList(null);
+        user.setSocialEventList(null);
+        user.setCardList(null);
+        user.setPurchaseList(null);
+
+        group.setUser(user);
+
+
+        //User user = group.getUser();
+
         Group newGroup = groupRepository.save(group);
 
         return newGroup;
