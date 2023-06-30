@@ -19,7 +19,7 @@ public class Card {
     private String name;
     private Long number;
     private Integer cvv;
-    private Date dueDate;
+    private String dueDate;
     private String state;
 
     @ManyToOne
@@ -29,7 +29,7 @@ public class Card {
     @OneToMany(mappedBy = "card", cascade = {CascadeType.REMOVE})
     List<Purchase> purchaseList;
 
-    public Card(String name, Long number, Integer cvv, Date dueDate, String state, User user) {
+    public Card(String name, Long number, Integer cvv, String dueDate, String state, User user) {
         this.name = name;
         this.number = number;
         this.cvv = cvv;
