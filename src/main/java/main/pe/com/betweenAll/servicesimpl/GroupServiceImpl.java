@@ -148,12 +148,12 @@ public class GroupServiceImpl implements GroupService {
         for (Group g: groupList){
             if(g.getUser().getId()==id){
                 Long idGroup=g.getId();
+                Integer amountParticipants = (int) g.getGroupUserList().stream().count();
                 String nameGroup=g.getName();
                 String nameCategory=g.getCategory().getName();
-                DTOGroupsJoinnedSummary dtoGroupsJoinnedSummary=new DTOGroupsJoinnedSummary(idGroup,nameGroup,nameCategory);
+                DTOGroupsJoinnedSummary dtoGroupsJoinnedSummary=new DTOGroupsJoinnedSummary(idGroup,g.getImage(),nameGroup,amountParticipants,g.getDescription(),nameCategory);
                 dtoGroupsJoinnedSummaryList.add(dtoGroupsJoinnedSummary);
             }
-
 
         }
         return dtoGroupsJoinnedSummaryList;

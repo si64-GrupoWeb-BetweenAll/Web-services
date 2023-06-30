@@ -12,9 +12,10 @@ import java.util.List;
 @AllArgsConstructor
 public class DTOGroupsJoinnedSummary {
     private Long idGroup;
+    private String imageGroup;
     private String nameGroup;
-    private String nameCategory;
-    //private String nameSocialEvent;
-    //private String dateSocialEvent;
+    private Integer amountParticipants;
+    private String descriptionGroup;
+    private String categoryGroup;
 
 }

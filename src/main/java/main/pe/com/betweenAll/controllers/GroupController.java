@@ -74,7 +74,7 @@ public class GroupController {
     }
 
 
-    @GetMapping("/groups/summary/{id}")
+    @GetMapping("/groups/groupsCreatedSummary/{id}")
     public ResponseEntity<List<DTOGroupsJoinnedSummary>> getGroupByUserSummary(@PathVariable("id") Long id) {
         List<DTOGroupsJoinnedSummary> dtoGroupsJoinnedSummaryList = groupService.listGroupByUserSummary(id);
         return new ResponseEntity<List<DTOGroupsJoinnedSummary>>(dtoGroupsJoinnedSummaryList, HttpStatus.OK);

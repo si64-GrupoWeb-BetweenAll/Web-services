@@ -19,7 +19,7 @@ public class GroupUserController {
     @Autowired
     GroupUserService groupUserService;
 
-    @PostMapping("/groupUsers/{idGroup}/{idUser}")
+    @PostMapping("/groupUsers/{idUser}/{idGroup}")
     public ResponseEntity<GroupUser> createGroupUser(@RequestBody GroupUser groupUser, @PathVariable("idGroup") Long idGroup, @PathVariable("idUser") Long idUser){
         GroupUser saveGroupUser = groupUserService.save(groupUser, idGroup, idUser);
         return new ResponseEntity<GroupUser>(saveGroupUser, HttpStatus.CREATED);

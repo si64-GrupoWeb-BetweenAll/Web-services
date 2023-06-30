@@ -44,6 +44,20 @@ public class GroupUserServiceImpl implements GroupUserService {
         Group group = groupRepository.findById(idGroup).get();
         User user = userRepository.findById(idUser).get();
 
+        group.setGroupUserList(null);
+        group.getCategory().setGroupList(null);
+        group.getCategory().setSocialEventList(null);
+        group.getCategory().setUserCategoryList(null);
+        user.setAuthorityList(null);
+        user.setCardList(null);
+        user.setAuthorityList(null);
+        user.setGroupList(null);
+        user.setGroupUserList(null);
+        user.setUserCategoryList(null);
+        user.setSocialEventList(null);
+        user.setPurchaseList(null);
+
+
         groupUser.setGroup(group);
         groupUser.setUser(user);
         GroupUser newGroupUser = groupUserRepository.save(groupUser);
