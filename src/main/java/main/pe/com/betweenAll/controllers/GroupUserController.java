@@ -2,6 +2,7 @@ package main.pe.com.betweenAll.controllers;
 
 import main.pe.com.betweenAll.dtos.DTOGroupParticipantsSummary;
 import main.pe.com.betweenAll.dtos.DTOGroupUserSummary;
+import main.pe.com.betweenAll.dtos.DTOMyGroupsSummary;
 import main.pe.com.betweenAll.entities.GroupUser;
 import main.pe.com.betweenAll.services.GroupUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,9 @@ public class GroupUserController {
     //    List<DTOGroupUserSummary> dtoGroupUserSummaryList = groupUserService.listGroupUserSummary();
     //    return new ResponseEntity<List<DTOGroupUserSummary>>(dtoGroupUserSummaryList, HttpStatus.OK);
     //}
-
+    @GetMapping("/groupUsers/summary/{idUser}/{idGroup}")
+    public ResponseEntity<List<DTOMyGroupsSummary>> getMyGroupUser(@PathVariable("idUser") Long idUser,@PathVariable("idGroup") Long idGroup){
+        List<DTOMyGroupsSummary> dtoMyGroupsSummaryList = groupUserService.listMyGroupUserSummary (idUser,idGroup);
+        return new ResponseEntity<List<DTOMyGroupsSummary>>(dtoMyGroupsSummaryList,HttpStatus.OK);
+    }
 }

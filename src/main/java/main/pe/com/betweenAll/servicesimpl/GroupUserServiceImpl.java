@@ -2,6 +2,7 @@ package main.pe.com.betweenAll.servicesimpl;
 
 import main.pe.com.betweenAll.dtos.DTOGroupParticipantsSummary;
 import main.pe.com.betweenAll.dtos.DTOGroupUserSummary;
+import main.pe.com.betweenAll.dtos.DTOMyGroupsSummary;
 import main.pe.com.betweenAll.entities.Group;
 import main.pe.com.betweenAll.entities.GroupUser;
 import main.pe.com.betweenAll.entities.SocialEvent;
@@ -85,5 +86,22 @@ public class GroupUserServiceImpl implements GroupUserService {
         }
         return dtoGroupUserSummaryList;
     }
-
+    @Transactional
+    public List<DTOMyGroupsSummary> listMyGroupUserSummary(Long idUser, Long idGroup){
+        List<GroupUser>groupUserList=groupUserRepository.findAll();
+        List<DTOMyGroupsSummary> dtoMyGroupsSummaryList = new ArrayList<>();
+        for (GroupUser gU:groupUserList){
+            
+            if (gU.getUser().getId()==idUser && gU.getGroup().getId()==idGroup){//&&
+                String imageGroup=gU.getGroup().getImage();
+                String nameGroup=gU.getGroup().getName();
+                Integer amountParticipants=(int)gU.getGroup().getGroupUserList().stream().count();
+                String descriptionGroup=gU.getGroup().getDescription();
+                String nameCategory=gU.getGroup().getCategory().getName();
+                DTOMyGroupsSummary dtoMyGroupsSummary=new DTOMyGroupsSummary(imageGroup,nameGroup,amountParticipants,descriptionGroup,nameCategory);
+                dtoMyGroupsSummaryList.add(dtoMyGroupsSummary);
+            }
+        }
+        return dtoMyGroupsSummaryList;
+    }
 }
