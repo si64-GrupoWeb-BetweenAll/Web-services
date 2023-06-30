@@ -1,8 +1,12 @@
 package main.pe.com.betweenAll.controllers;
 
 import main.pe.com.betweenAll.dtos.DTOSocialEventsAvailableSummary;
+import main.pe.com.betweenAll.dtos.DTOUserCategorySummary;
+import main.pe.com.betweenAll.entities.DateSocialEvent;
 import main.pe.com.betweenAll.entities.SocialEvent;
+import main.pe.com.betweenAll.repositories.DateSocialEventRepository;
 import main.pe.com.betweenAll.repositories.SocialEventRepository;
+import main.pe.com.betweenAll.services.DateSocialEventService;
 import main.pe.com.betweenAll.services.SocialEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +24,10 @@ public class SocialEventController {
     SocialEventService socialEventService;
     @Autowired
     SocialEventRepository socialEventRepository;
+    @Autowired
+    DateSocialEventService dateSocialEventService;
+    @Autowired
+    DateSocialEventRepository dateSocialEventRepository;
 
     @GetMapping("/socialEvents")
     public ResponseEntity<List<SocialEvent>> getAllSocialEvent() {
@@ -39,7 +47,11 @@ public class SocialEventController {
         SocialEvent social_event = socialEventService.listById(id);
         return new ResponseEntity<SocialEvent>(social_event, HttpStatus.OK);
     }
-
+    @GetMapping("/socialEvents/End")
+    public ResponseEntity<SocialEvent> socialEventEnd() {
+        SocialEvent social_event = socialEventService.socialEventEnd();
+        return new ResponseEntity<SocialEvent>(social_event, HttpStatus.OK);
+    }
     @PostMapping("/socialEvents/{idCategory}/{idUser}")
     public ResponseEntity<SocialEvent> createSocialEvent(@RequestBody SocialEvent social_event,
                                                          @PathVariable("idCategory") Long idCategory,
@@ -47,6 +59,7 @@ public class SocialEventController {
         SocialEvent newSocialEvent = socialEventService.save(social_event,idCategory,idUser);
         return new ResponseEntity<SocialEvent>(newSocialEvent, HttpStatus.CREATED);
     }
+
 
     @DeleteMapping("/socialEvents/{id}")
     public ResponseEntity<HttpStatus> deleteSocialEvent(@PathVariable("id") Long id) {

@@ -1,6 +1,7 @@
 package main.pe.com.betweenAll.repositories;
 
 import main.pe.com.betweenAll.entities.Card;
+import main.pe.com.betweenAll.entities.DateSocialEvent;
 import main.pe.com.betweenAll.entities.Purchase;
 import main.pe.com.betweenAll.entities.SocialEvent;
 import org.springframework.context.annotation.Bean;
@@ -18,4 +19,7 @@ public interface PurchaseRepository extends JpaRepository <Purchase, Long> {
 
     /*@Query(value="SELECT * FROM employees WHERE email=?1 AND age<?2", nativeQuery = true)
     List<Employee> findByCityAndLowerAge (String city, Integer age);*/
+
+    @Query(value = "SELECT*FROM purchases WHERE id = (SELECT MAX(id) FROM purchases)", nativeQuery = true)
+    public Purchase purchaseEnd();
 }

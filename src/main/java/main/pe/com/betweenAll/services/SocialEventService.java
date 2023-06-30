@@ -14,4 +14,5 @@ public interface SocialEventService {
     public void delete(Long id, boolean forced);
     public List<DTOSocialEventsAvailableSummary> listSocialEventsAvailableSummary();
 
+    public SocialEvent socialEventEnd();
 }

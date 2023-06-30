@@ -11,5 +11,5 @@ public interface PurchaseService {
     public void delete(Long id, boolean forced);
 
     public List<DTOEventsAssistedSummary> listAssistedTicketsSummary(Long id);
-
+    public Purchase purchaseEnd();
 }
