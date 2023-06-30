@@ -62,6 +62,9 @@ public class GroupController {
         if(group.getImage()!=null){
             foundGroup.setImage(group.getImage());
         };
+        if(group.getDescription()!=null){
+            foundGroup.setDescription(group.getDescription());
+        };
 
         Group updateGroup=groupService.save(foundGroup, idUser, idCategory);
         return new ResponseEntity<Group>(updateGroup,HttpStatus.OK);
