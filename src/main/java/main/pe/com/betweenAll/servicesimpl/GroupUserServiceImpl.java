@@ -70,6 +70,17 @@ public class GroupUserServiceImpl implements GroupUserService {
         GroupUser groupUser = groupUserRepository.findById(id).get();
         groupUserRepository.delete(groupUser);
     }
+    public void deleteByUserAndGroup(Long idUser,Long idGroup, boolean forced){
+        List<GroupUser> groupUserList = groupUserRepository.findAll();
+        for(GroupUser s: groupUserList) {
+            if (s.getGroup().getId()==idGroup && s.getUser().getId()==idUser){
+                Long idGroupUser= s.getId();
+                GroupUser groupUser=groupUserRepository.findById(idGroupUser).get();
+                groupUserRepository.delete(groupUser);
+            }
+        }
+
+    }
 
     @Transactional
     public List<GroupUser> listAll() {
