@@ -15,5 +15,8 @@ public interface DateSocialEventRepository extends JpaRepository<DateSocialEvent
     List<DateSocialEvent> findBySocialEvent_Id(Long id);
     @Query(value = "SELECT * FROM date_social_events d WHERE d.social_event_id = :idEvent", nativeQuery = true)
     List<DateSocialEvent> findDateSocialEventBySocialEvent(@Param("idEvent") Long idEvent);
+
+    @Query(value = "SELECT*FROM date_social_events WHERE id = (SELECT MAX(id) FROM date_social_events)", nativeQuery = true)
+    public DateSocialEvent dateEventEnd();
 }
 

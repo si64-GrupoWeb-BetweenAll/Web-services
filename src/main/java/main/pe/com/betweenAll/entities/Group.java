@@ -27,7 +27,7 @@ public class Group {
     @JoinColumn(name = "user_id")
     private User user;
     @OneToMany(mappedBy = "group", cascade = {CascadeType.REMOVE})
-    private List<GroupUser> groupUserList;
+    List<GroupUser> groupUserList;
 
 
     public Group(String name, String description, String image, Category category, User user) {

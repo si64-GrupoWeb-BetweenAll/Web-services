@@ -2,6 +2,7 @@ package main.pe.com.betweenAll.controllers;
 
 import main.pe.com.betweenAll.dtos.DTOEventsAssistedSummary;
 import main.pe.com.betweenAll.entities.Purchase;
+import main.pe.com.betweenAll.entities.SocialEvent;
 import main.pe.com.betweenAll.services.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,11 @@ public class PurchaseController {
         return new ResponseEntity<Purchase>(purchase, HttpStatus.OK);
 
     }
-
+    @GetMapping("/purchases/End")
+    public ResponseEntity<Purchase> purchaseEnd() {
+        Purchase purchase = purchaseService.purchaseEnd();
+        return new ResponseEntity<Purchase>(purchase, HttpStatus.OK);
+    }
     @PostMapping("/purchases/{idUser}/{idCard}")
     public ResponseEntity<Purchase> createPurchase (@RequestBody Purchase purchase,@PathVariable("idUser") Long idUser,@PathVariable("idCard") Long idCard) {
         Purchase newPurchase = purchaseService.save(purchase, idUser, idCard);

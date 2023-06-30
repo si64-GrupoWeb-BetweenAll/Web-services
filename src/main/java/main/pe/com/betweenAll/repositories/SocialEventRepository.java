@@ -30,4 +30,9 @@ public interface SocialEventRepository extends JpaRepository <SocialEvent, Long>
     @Query(value = "SELECT * FROM socials_events u WHERE u.user_id = :id", nativeQuery = true)
     List<SocialEvent> findSocialEventByUser(@Param("id") Long id);
 
+    @Query(value = "SELECT *\n" +
+            "FROM socials_events\n" +
+            "WHERE id = (SELECT MAX(id) FROM socials_events);", nativeQuery = true)
+    public SocialEvent socialEventEnd();
+
 }
