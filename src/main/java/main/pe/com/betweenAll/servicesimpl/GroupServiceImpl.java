@@ -42,6 +42,8 @@ public class GroupServiceImpl implements GroupService {
             g.getUser().setAuthorityList(null);
             g.getUser().setGroupUserList(null);
             g.getUser().setGroupList(null);
+            g.getUser().setGroupList(null);
+            g.getUser().setGroupUserList(null);
             g.getUser().setUserCategoryList(null);
             g.getUser().setSocialEventList(null);
             g.getUser().setPurchaseList(null);
@@ -130,6 +132,7 @@ public class GroupServiceImpl implements GroupService {
             String category = g.getCategory().getName();
             //Podria pasar esta lista de usuarios en vez de la lista de GroupUser
             List<User> userList = new ArrayList<>();
+            userList = null;
 
             for(GroupUser groupUser: g.getGroupUserList()){
                 groupUser.getUser().setSocialEventList(null);
@@ -138,10 +141,9 @@ public class GroupServiceImpl implements GroupService {
                 groupUser.getUser().setUserCategoryList(null);
                 groupUser.getUser().setAuthorityList(null);
                 groupUser.getUser().setCardList(null);
-                userList.add(groupUser.getUser());
             }
 
-            DTOGroupParticipantsSummary dtoGroupParticipantsSummary = new DTOGroupParticipantsSummary(g.getName(),
+            DTOGroupParticipantsSummary dtoGroupParticipantsSummary = new DTOGroupParticipantsSummary(g.getId(),g.getImage(),g.getName(),
                     amountParticipants, g.getDescription(), category, userList);
             dtoGroupParticipantsSummaryList.add(dtoGroupParticipantsSummary);
 
@@ -167,10 +169,11 @@ public class GroupServiceImpl implements GroupService {
             groupUser.getUser().setUserCategoryList(null);
             groupUser.getUser().setAuthorityList(null);
             groupUser.getUser().setCardList(null);
+            groupUser.getUser().setGroupList(null);
             userList.add(groupUser.getUser());
         }
 
-        DTOGroupParticipantsSummary dtoGroupParticipantsSummary = new DTOGroupParticipantsSummary(group.getName(),
+        DTOGroupParticipantsSummary dtoGroupParticipantsSummary = new DTOGroupParticipantsSummary(group.getId(),group.getImage(),group.getName(),
                 amountParticipants, group.getDescription(), category, userList);
 
         return dtoGroupParticipantsSummary;
