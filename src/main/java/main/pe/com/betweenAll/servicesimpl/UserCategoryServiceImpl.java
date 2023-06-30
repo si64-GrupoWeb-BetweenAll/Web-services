@@ -2,6 +2,7 @@ package main.pe.com.betweenAll.servicesimpl;
 
 import main.pe.com.betweenAll.dtos.DTOUserCategorySummary;
 import main.pe.com.betweenAll.entities.Ticket;
+import main.pe.com.betweenAll.entities.User;
 import main.pe.com.betweenAll.entities.UserCategory;
 import main.pe.com.betweenAll.repositories.CategoryRepository;
 import main.pe.com.betweenAll.repositories.UserCategoryRepository;
@@ -50,14 +51,28 @@ public class UserCategoryServiceImpl implements UserCategoryService {
         return userCategoryList;
     }
     @Transactional
-    public List<DTOUserCategorySummary> listUserCategorySummary(){
-        List<UserCategory>userCategoryList=userCategoryRepository.findAll();
+    public List<DTOUserCategorySummary> listUserCategorySummary(Long id){
+
+        List<User> userList = userRepository.findUser(id);
+        if (userList.isEmpty()) {
+            // Manejo de error si el usuario no existe
+            return new ArrayList<>();
+        }
+
+        User user = userList.get(0);
+
+        List<User>userList1=userRepository.findAll();
         List<DTOUserCategorySummary> dtoUserCategorySummaryList = new ArrayList<>();
 
-        for(UserCategory uC: userCategoryList) {
-            DTOUserCategorySummary dtoUserCategorySummary= new DTOUserCategorySummary(uC.getUser().getName(),
-                    uC.getCategory().getName(), uC.getUser().getId(), uC.getCategory().getId());
-            dtoUserCategorySummaryList.add(dtoUserCategorySummary);
+        for(User u: userList) {
+            List<UserCategory> userCategoryList = u.getUserCategoryList();
+
+            for(UserCategory uC: userCategoryList){
+                DTOUserCategorySummary dtoUserCategorySummary= new DTOUserCategorySummary(uC.getUser().getName(),
+                        uC.getCategory().getName(), uC.getUser().getId(), uC.getCategory().getId());
+                dtoUserCategorySummaryList.add(dtoUserCategorySummary);
+            }
+
         }
         return dtoUserCategorySummaryList;
     }
