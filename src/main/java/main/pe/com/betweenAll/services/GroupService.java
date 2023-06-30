@@ -11,7 +11,7 @@ public interface GroupService {
     public List<Group> listByName(String name);
     public Group listById(Long id);
     public List<Group> listAll();
-    public Group save(Group group, Long idCategory);
+    public Group save(Group group, Long idUser, Long idCategory);
     public void delete(Long id,boolean forced);
     public List<DTOGroupSummary> listGroupSummary();
 
