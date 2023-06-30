@@ -45,7 +45,7 @@ public class GroupUserController {
         groupUserService.delete(id,true);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @DeleteMapping("/groupUsersGroup/{idUser}/{idGroup}")
+    @DeleteMapping("/groupUsers/Group/{idUser}/{idGroup}")
     public ResponseEntity<HttpStatus> deleteGroupUserByGroup(@PathVariable("idUser") Long idUser,@PathVariable("idGroup") Long idGroup){
         groupUserService.deleteByUserAndGroup(idUser,idGroup,true);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
