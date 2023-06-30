@@ -16,4 +16,6 @@ public interface GroupUserService {
     public List<DTOGroupUserSummary> listGroupUserSummary();
 
     public List<DTOMyGroupsSummary> listMyGroupUserSummary(Long idUser);
+
+    public void deleteByUserAndGroup(Long idUser,Long idGroup, boolean forced);
 }

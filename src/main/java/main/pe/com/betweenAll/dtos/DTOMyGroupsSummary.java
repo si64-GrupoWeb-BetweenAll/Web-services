@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class DTOMyGroupsSummary {
+    private Long idGroup;
     private String imageGroup;
     private String nameGroup;
     private Number amountParticipants;

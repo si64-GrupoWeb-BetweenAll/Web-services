@@ -70,6 +70,17 @@ public class GroupUserServiceImpl implements GroupUserService {
         GroupUser groupUser = groupUserRepository.findById(id).get();
         groupUserRepository.delete(groupUser);
     }
+    public void deleteByUserAndGroup(Long idUser,Long idGroup, boolean forced){
+        List<GroupUser> groupUserList = groupUserRepository.findAll();
+        for(GroupUser s: groupUserList) {
+            if (s.getGroup().getId()==idGroup && s.getUser().getId()==idUser){
+                Long idGroupUser= s.getId();
+                GroupUser groupUser=groupUserRepository.findById(idGroupUser).get();
+                groupUserRepository.delete(groupUser);
+            }
+        }
+
+    }
 
     @Transactional
     public List<GroupUser> listAll() {
@@ -112,7 +123,7 @@ public class GroupUserServiceImpl implements GroupUserService {
                 Integer amountParticipants=(int)gU.getGroup().getGroupUserList().stream().count();
                 String descriptionGroup=gU.getGroup().getDescription();
                 String nameCategory=gU.getGroup().getCategory().getName();
-                DTOMyGroupsSummary dtoMyGroupsSummary=new DTOMyGroupsSummary(imageGroup,nameGroup,amountParticipants,descriptionGroup,nameCategory);
+                DTOMyGroupsSummary dtoMyGroupsSummary=new DTOMyGroupsSummary(gU.getId(),imageGroup,nameGroup,amountParticipants,descriptionGroup,nameCategory);
                 dtoMyGroupsSummaryList.add(dtoMyGroupsSummary);
             }
         }
