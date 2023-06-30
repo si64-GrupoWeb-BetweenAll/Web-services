@@ -47,7 +47,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             p.setTotal(null);
             p.getUser().setGroupUserList(null);
             p.getUser().setGroupList(null);
-            p.setUser(null);
+
         }
         return purchases;
     }
@@ -77,20 +77,35 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchase.setCard(card);
         Purchase newPurchase = purchaseRepository.save(purchase);
 
-        newPurchase.setCard(null);
-        newPurchase.setTicketList(null);
+
         newPurchase.getUser().setSocialEventList(null);
         newPurchase.getUser().setGroupUserList(null);
         newPurchase.getUser().setPurchaseList(null);
         newPurchase.getUser().setUserCategoryList(null);
         newPurchase.getUser().setAuthorityList(null);
         newPurchase.getUser().setCardList(null);
-        newPurchase.setTotal(null);
         newPurchase.getUser().setGroupUserList(null);
         newPurchase.getUser().setGroupList(null);
-        newPurchase.setUser(null);
+        newPurchase.getCard().setPurchaseList(null);
+        newPurchase.setTicketList(null);
 
         return newPurchase;
+    }
+
+    @Transactional
+    public Purchase purchaseEnd(){
+        Purchase purchase = purchaseRepository.purchaseEnd();
+
+        purchase.setTicketList(null);
+        purchase.getUser().setSocialEventList(null);
+        purchase.getUser().setGroupUserList(null);
+        purchase.getUser().setPurchaseList(null);
+        purchase.getUser().setUserCategoryList(null);
+        purchase.getUser().setAuthorityList(null);
+        purchase.getUser().setCardList(null);
+        purchase.getCard().setPurchaseList(null);
+        purchase.getUser().setGroupList(null);
+        return purchase;
     }
 
     @Transactional

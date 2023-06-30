@@ -25,8 +25,15 @@ public class DateSocialEventServiceImpl implements DateSocialEventService {
     public DateSocialEvent save(DateSocialEvent dateSocialEvent,Long idSocialEvent){
         SocialEvent socialEvent = socialEventRepository.findById(idSocialEvent).get();
         dateSocialEvent.setSocialEvent(socialEvent);
-        dateSocialEvent.getSocialEvent().setUser(null);
-        dateSocialEvent.getSocialEvent().setCategory(null);
+        dateSocialEvent.getSocialEvent().getUser().setSocialEventList(null);
+        dateSocialEvent.getSocialEvent().getUser().setGroupUserList(null);
+        dateSocialEvent.getSocialEvent().getUser().setUserCategoryList(null);
+        dateSocialEvent.getSocialEvent().getUser().setGroupList(null);
+        dateSocialEvent.getSocialEvent().getUser().setCardList(null);
+        dateSocialEvent.getSocialEvent().getUser().setPurchaseList(null);
+        dateSocialEvent.getSocialEvent().getCategory().setGroupList(null);
+        dateSocialEvent.getSocialEvent().getCategory().setSocialEventList(null);
+        dateSocialEvent.getSocialEvent().getCategory().setUserCategoryList(null);
         dateSocialEvent.getSocialEvent().setDateSocialEventList(null);
         dateSocialEvent.setZoneEventList(null);
         return dateSocialEventRepository.save(dateSocialEvent);
@@ -52,7 +59,13 @@ public class DateSocialEventServiceImpl implements DateSocialEventService {
     public List<DateSocialEvent> listAll() {
         List<DateSocialEvent> dateSocialEventList = dateSocialEventRepository.findAll();
         for(DateSocialEvent s: dateSocialEventList){
-            s.getSocialEvent().setUser(null);
+            s.getSocialEvent().getUser().setSocialEventList(null);
+            s.getSocialEvent().getUser().setCardList(null);
+            s.getSocialEvent().getUser().setPurchaseList(null);
+            s.getSocialEvent().getUser().setGroupUserList(null);
+            s.getSocialEvent().getUser().setUserCategoryList(null);
+            s.getSocialEvent().getUser().setAuthorityList(null);
+            s.getSocialEvent().getUser().setGroupList(null);
             s.getSocialEvent().setCategory(null);
             s.getSocialEvent().setDateSocialEventList(null);
             s.setZoneEventList(null);

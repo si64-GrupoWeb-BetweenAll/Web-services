@@ -57,7 +57,19 @@ public class ZoneEventServiceImpl implements ZoneEventService {
         zoneEvent.setDateSocialEvent(dateSocialEvent);
         ZoneEvent newSocialEvent = zoneEventRepository.save(zoneEvent);
 
-        newSocialEvent.getDateSocialEvent().setSocialEvent(null);
+        newSocialEvent.getDateSocialEvent().getSocialEvent().setDateSocialEventList(null);
+        newSocialEvent.getDateSocialEvent().getSocialEvent().getUser().setSocialEventList(null);
+        newSocialEvent.getDateSocialEvent().getSocialEvent().getUser().setGroupList(null);
+        newSocialEvent.getDateSocialEvent().getSocialEvent().getUser().setGroupUserList(null);
+        newSocialEvent.getDateSocialEvent().getSocialEvent().getUser().setUserCategoryList(null);
+        newSocialEvent.getDateSocialEvent().getSocialEvent().getUser().setPurchaseList(null);
+        newSocialEvent.getDateSocialEvent().getSocialEvent().getUser().setAuthorityList(null);
+        newSocialEvent.getDateSocialEvent().getSocialEvent().getUser().setCardList(null);
+        newSocialEvent.getDateSocialEvent().getSocialEvent().setDateSocialEventList(null);
+        newSocialEvent.getDateSocialEvent().getSocialEvent().getCategory().setGroupList(null);
+        newSocialEvent.getDateSocialEvent().getSocialEvent().getCategory().setSocialEventList(null);
+        newSocialEvent.getDateSocialEvent().getSocialEvent().getCategory().setUserCategoryList(null);
+
         newSocialEvent.getDateSocialEvent().setZoneEventList(null);
         newSocialEvent.setTicketList(null);
         return newSocialEvent;

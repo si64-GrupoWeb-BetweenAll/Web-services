@@ -66,10 +66,29 @@ PurchaseRepository purchaseRepository;
         Ticket newTicket = ticketRepository.save(ticket);
 
         newTicket.getZoneEvent().setTicketList(null);
-        newTicket.getZoneEvent().setDateSocialEvent(null);
-        newTicket.getPurchase().setUser(null);
+        newTicket.getZoneEvent().getDateSocialEvent().setZoneEventList(null);
+        newTicket.getZoneEvent().getDateSocialEvent().setZoneEventList(null);
+        newTicket.getPurchase().getUser().setSocialEventList(null);
+        newTicket.getPurchase().getUser().setPurchaseList(null);
+        newTicket.getPurchase().getUser().setAuthorityList(null);
+        newTicket.getPurchase().getUser().setUserCategoryList(null);
+        newTicket.getPurchase().getUser().setGroupList(null);
+        newTicket.getPurchase().getUser().setCardList(null);
+        newTicket.getPurchase().getUser().setGroupUserList(null);
         newTicket.getPurchase().setTicketList(null);
-        newTicket.getPurchase().setCard(null);
+        newTicket.getZoneEvent().getDateSocialEvent().getSocialEvent().getCategory().setSocialEventList(null);
+        newTicket.getZoneEvent().getDateSocialEvent().getSocialEvent().getCategory().setUserCategoryList(null);
+        newTicket.getZoneEvent().getDateSocialEvent().getSocialEvent().getCategory().setGroupList(null);
+        newTicket.getZoneEvent().getDateSocialEvent().getSocialEvent().getCategory().setGroupList(null);
+        newTicket.getZoneEvent().getDateSocialEvent().getSocialEvent().getUser().setSocialEventList(null);
+        newTicket.getZoneEvent().getDateSocialEvent().getSocialEvent().getUser().setPurchaseList(null);
+        newTicket.getZoneEvent().getDateSocialEvent().getSocialEvent().getUser().setAuthorityList(null);
+        newTicket.getZoneEvent().getDateSocialEvent().getSocialEvent().getUser().setUserCategoryList(null);
+        newTicket.getZoneEvent().getDateSocialEvent().getSocialEvent().getUser().setGroupList(null);
+        newTicket.getZoneEvent().getDateSocialEvent().getSocialEvent().getUser().setCardList(null);
+        newTicket.getZoneEvent().getDateSocialEvent().getSocialEvent().getUser().setGroupUserList(null);
+        newTicket.getPurchase().getCard().setPurchaseList(null);
+        newTicket.getZoneEvent().getDateSocialEvent().getSocialEvent().setDateSocialEventList(null);
 
         return newTicket;
     }
