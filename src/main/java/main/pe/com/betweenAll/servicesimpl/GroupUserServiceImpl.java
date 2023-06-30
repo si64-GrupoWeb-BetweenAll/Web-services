@@ -112,7 +112,7 @@ public class GroupUserServiceImpl implements GroupUserService {
                 Integer amountParticipants=(int)gU.getGroup().getGroupUserList().stream().count();
                 String descriptionGroup=gU.getGroup().getDescription();
                 String nameCategory=gU.getGroup().getCategory().getName();
-                DTOMyGroupsSummary dtoMyGroupsSummary=new DTOMyGroupsSummary(imageGroup,nameGroup,amountParticipants,descriptionGroup,nameCategory);
+                DTOMyGroupsSummary dtoMyGroupsSummary=new DTOMyGroupsSummary(gU.getGroup().getId(),imageGroup,nameGroup,amountParticipants,descriptionGroup,nameCategory);
                 dtoMyGroupsSummaryList.add(dtoMyGroupsSummary);
             }
         }
