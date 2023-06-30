@@ -2,7 +2,6 @@ package main.pe.com.betweenAll.servicesimpl;
 
 //import main.pe.com.betweenAll.dtos.DTOAssistedTicketsSummary;
 import main.pe.com.betweenAll.dtos.DTOGroupParticipantsSummary;
-import main.pe.com.betweenAll.dtos.DTOSocialEventSummary;
 import main.pe.com.betweenAll.dtos.DTOTicketSummary;
 import main.pe.com.betweenAll.entities.*;
 

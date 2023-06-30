@@ -199,7 +199,8 @@ public class UserServiceImpl implements UserService {
     }
     @Transactional
     public User listByPasword(String password, String email) {
-
+        System.out.println(password);
+        System.out.println(email);
         List<User> userList;
         userList = userRepository.findAll();
         User user=null;
@@ -213,12 +214,14 @@ public class UserServiceImpl implements UserService {
                 }
             }
         }
-
+        System.out.println(user.getName());
         user.setGroupUserList(null);
         user.setUserCategoryList(null);
         user.setSocialEventList(null);
         user.setCardList(null);
         user.setPurchaseList(null);
+        user.setGroupList(null);
+
         return user;
     }
     public User lastUser(){
