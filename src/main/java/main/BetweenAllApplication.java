@@ -47,14 +47,14 @@ public class BetweenAllApplication {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
             User user1=userRepository.save(new User("Carlos","Alipio","DNI",12345678,
-                    "999252444","carl@gmail.com",new BCryptPasswordEncoder().encode("123456"),"","lima",
+                    "999252444","carl@gmail.com",new BCryptPasswordEncoder().encode("123456"),"https://www.debate.com.mx/__export/1637600677199/sites/debate/img/2021/11/22/arcangel_crop1637600571455.jpg_1902800913.jpg","lima",
                     List.of(
                             authorityRepository.findByName(AuthorityName.ROLE_ADMIN)
                     )
             ));
 
             User user2=userRepository.save(new User("Camila","Alessandra","DNI",74775218,
-                    "942764237","cam@gmail.com",new BCryptPasswordEncoder().encode("1234567"),"","lima",
+                    "942764237","cam@gmail.com",new BCryptPasswordEncoder().encode("1234567"),"https://elcomercio.pe/resizer/-xgss_aaDX5td4CusY4lHs9o77k=/1200x1200/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/6V6ZSTT7TRFGROOAAQXLNNX5GY.jpg","lima",
                     List.of(
                             authorityRepository.findByName(AuthorityName.ROLE_ADMIN)
 
@@ -68,23 +68,21 @@ public class BetweenAllApplication {
             ));
 
 
-            Card card=cardRepository.save(new Card("Alipio",Long.valueOf("123456781234"),123,dateFormat.parse("2020-03-23"),
+            Card card=cardRepository.save(new Card("Alipio",Long.valueOf("123456781234"),123,"03/23",
                     "Activo",user1));
-            Card card2=cardRepository.save(new Card("Alipio",Long.valueOf("123456781234"),123,dateFormat.parse("2020-03-23"),
-                    "Activo",user2));
-            Card card3=cardRepository.save(new Card("Alipio",Long.valueOf("123456781234"),123,dateFormat.parse("2020-03-23"),
+            /*Card card2=cardRepository.save(new Card("Alipio",Long.valueOf("123456781234"),123,"03/23",
+                    "Activo",user2));*/
+            Card card3=cardRepository.save(new Card("Alipio",Long.valueOf("123456781234"),123,"03/23",
                     "Activo",user3));
 
-            Category category= categoryRepository.save(new Category("POP","Activo"));
-            Category category1= categoryRepository.save(new Category("Hip-Hop","Activo"));
-            Category category2= categoryRepository.save(new Category("Cumbia","Activo"));
-            Category category3= categoryRepository.save(new Category("Salsa","Activo"));
-            Category category4= categoryRepository.save(new Category("Hip-Hop","Activo"));
-            Category category5= categoryRepository.save(new Category("Cumbia","Activo"));
-            Category category6= categoryRepository.save(new Category("Salsa","Activo"));
-            Category category7= categoryRepository.save(new Category("Hip-Hop","Activo"));
-            Category category8= categoryRepository.save(new Category("Cumbia","Activo"));
-            Category category9= categoryRepository.save(new Category("Salsa","Activo"));
+            Category category= categoryRepository.save(new Category("Social","Activo"));
+            Category category1= categoryRepository.save(new Category("Cultural","Activo"));
+            Category category2= categoryRepository.save(new Category("Deportivo","Activo"));
+            Category category3= categoryRepository.save(new Category("Empresarial","Activo"));
+            Category category4= categoryRepository.save(new Category("Academico","Activo"));
+            Category category5= categoryRepository.save(new Category("Recaudacion","Activo"));
+            Category category6= categoryRepository.save(new Category("Religioso","Activo"));
+            Category category7= categoryRepository.save(new Category("Politico","Activo"));
 
             UserCategory userCategory3=userCategoryRepository.save(new UserCategory(user1,category3));
             UserCategory userCategory=userCategoryRepository.save(new UserCategory(user1,category));

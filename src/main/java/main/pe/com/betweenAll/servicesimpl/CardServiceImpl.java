@@ -35,19 +35,27 @@ public class CardServiceImpl implements CardService {
         return cards;
     }
     @Transactional
-    public Card listById(Long id) {
-        Card card;
-        card=cardRepository.findById(id).get();
+    public Card listByIdUser(Long id) {
+        List<Card> cardList=cardRepository.findAll();
+        Card card = new Card();
+        for(Card ca: cardList){
+            if(ca.getUser().getId().equals(id)){
+                card=ca;
+            }
+        }
+        card.getUser().setPurchaseList(null);
+        card.getUser().setGroupUserList(null);
+        card.getUser().setGroupList(null);
+        card.getUser().setCardList(null);
+        card.getUser().setSocialEventList(null);
+        card.getUser().setUserCategoryList(null);
+        card.setPurchaseList(null);
         return card;
     }
 
     @Transactional
     public Card save(Card card, Long idUser) {
-        /*Card newCard =
-                cardRepository.save(
-                        new Card(card.getName(), card.getNumber(), card.getCvv(),
-                                card.getDueDate(),card.getState(),card.getUser()));
-        */
+
         if(card.getName()==null||card.getName().isEmpty()){
             throw new IncompleteDataException("Card Name can not be null or empty");
         }
@@ -62,12 +70,14 @@ public class CardServiceImpl implements CardService {
         }
         User user= userRepository.findById(idUser).get();
         card.setUser(user);
+        card.getUser().setPurchaseList(null);
+        card.getUser().setGroupUserList(null);
+        card.getUser().setGroupList(null);
+        card.getUser().setCardList(null);
+        card.getUser().setSocialEventList(null);
+        card.getUser().setUserCategoryList(null);
+
         Card newCard=cardRepository.save(card);
-        /*
-        * if(group.getName()==null || group.getName().isEmpty()){
-            throw new IncompleteDataException("Group Name can not be null or empty");
-        }
-        * */
         return newCard;
     }
 

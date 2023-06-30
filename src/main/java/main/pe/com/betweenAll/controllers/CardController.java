@@ -22,11 +22,16 @@ public class CardController {
         return new ResponseEntity<List<Card>>(cards, HttpStatus.OK);
     }
 
-    @GetMapping("/creditCards/{id}")
-    public ResponseEntity<Card> getAllCardById(@PathVariable("id") Long id) {
+    /*@PutMapping("/creditCards/{id}")
+    public ResponseEntity<Card> updateCardById(@PathVariable("id") Long id) {
         Card card = cardService.listById(id);
         return new ResponseEntity<Card>(card, HttpStatus.OK);
+    }*/
 
+    @GetMapping("/creditCards/{id}")
+    public ResponseEntity<Card> getCardById(@PathVariable("id") Long id) {
+        Card card = cardService.listByIdUser(id);
+        return new ResponseEntity<Card>(card, HttpStatus.OK);
     }
 
     @PostMapping("/creditCards/{idUser}")
