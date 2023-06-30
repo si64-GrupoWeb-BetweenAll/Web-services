@@ -56,9 +56,9 @@ public class GroupUserController {
     //    List<DTOGroupUserSummary> dtoGroupUserSummaryList = groupUserService.listGroupUserSummary();
     //    return new ResponseEntity<List<DTOGroupUserSummary>>(dtoGroupUserSummaryList, HttpStatus.OK);
     //}
-    @GetMapping("/groupUsers/summary/{idUser}/{idGroup}")
-    public ResponseEntity<List<DTOMyGroupsSummary>> getMyGroupUser(@PathVariable("idUser") Long idUser,@PathVariable("idGroup") Long idGroup){
-        List<DTOMyGroupsSummary> dtoMyGroupsSummaryList = groupUserService.listMyGroupUserSummary (idUser,idGroup);
+    @GetMapping("/groupUsers/summary/{idUser}")
+    public ResponseEntity<List<DTOMyGroupsSummary>> getMyGroupUser(@PathVariable("idUser") Long idUser){
+        List<DTOMyGroupsSummary> dtoMyGroupsSummaryList = groupUserService.listMyGroupUserSummary (idUser);
         return new ResponseEntity<List<DTOMyGroupsSummary>>(dtoMyGroupsSummaryList,HttpStatus.OK);
     }
 }

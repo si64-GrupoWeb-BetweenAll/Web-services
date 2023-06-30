@@ -87,12 +87,12 @@ public class GroupUserServiceImpl implements GroupUserService {
         return dtoGroupUserSummaryList;
     }
     @Transactional
-    public List<DTOMyGroupsSummary> listMyGroupUserSummary(Long idUser, Long idGroup){
+    public List<DTOMyGroupsSummary> listMyGroupUserSummary(Long idUser){
         List<GroupUser>groupUserList=groupUserRepository.findAll();
         List<DTOMyGroupsSummary> dtoMyGroupsSummaryList = new ArrayList<>();
         for (GroupUser gU:groupUserList){
-            
-            if (gU.getUser().getId()==idUser && gU.getGroup().getId()==idGroup){//&&
+
+            if (gU.getUser().getId()==idUser){//&&
                 String imageGroup=gU.getGroup().getImage();
                 String nameGroup=gU.getGroup().getName();
                 Integer amountParticipants=(int)gU.getGroup().getGroupUserList().stream().count();
